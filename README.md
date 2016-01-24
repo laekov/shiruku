@@ -1,0 +1,2 @@
+# shiruku
+Blog platform
