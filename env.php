@@ -31,4 +31,4 @@ $srkEnv->javascripts = Array();
 $srkEnv->sqlURI = 'localhost';
 $srkEnv->sqlUser = '2333';
 $srkEnv->sqlPasswd = 'orzmhy';
-
+$srkEnv->sqlDatabase = 'shiruku_db';
