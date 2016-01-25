@@ -1,5 +1,4 @@
 <?php
-
 // decipher uri by / into an array
 function decipherURI($uri) {
 	$path = array();
@@ -15,14 +14,35 @@ function decipherURI($uri) {
 	return $path;
 }
 
+$_SERVER['REDIRECT_STATUS'] = 0;
+header('HTTP/1.1 200 OK');
+
 require_once('./env.php');
 
-$_SERVER['REDIRECT_STATUS'] = 0;
 $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
+$srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
+$srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
+
+if ($srkEnv->reqMethod == 'POST') {
+	header("Content-Type: text/json");
+}
 
 // decide which route to use
-if (count($srkEnv->reqURL) == 1 || 
-	(count($srkEnv->reqURL) == 2 && $srkEnv->reqURL[1] == 'home')) {
+if ($srkEnv->reqURLLength == 0 || 
+	($srkEnv->reqURLLength == 1 && $srkEnv->reqURL[1] == 'home')) { // render homepage
 	require_once($srkEnv->appPath.'/routes/home.php');
 }
- 
+else {
+	$routeList = Array('view', 'pen');
+	foreach ($routeList as $route) {
+		if ($srkEnv->reqURL[1] == $route) {
+			require_once($srkEnv->appPath.'/routes/'.$route.'.php');
+			break;
+		}
+	}
+}
+if (!isset($srkEnv->correctURL)) {
+	require_once($srkEnv->appPath.'/modules/render.php');
+	srkRender('error', Array('error'=>Array('status'=>'404', 'stack'=>'Unused url')));
+}
+
