@@ -7,7 +7,7 @@ if (!isset($srkEnv)) {
 
 <div class='maindiv' id='maindiv'>
 	<div id='contentdiv'>
-		<h3 id='pentitle'></h3>
+		<h2 id='pentitle'></h2>
 		<div id='pencontent'></div>
 		<div id='commentdiv'>
 			<div id='samplecomment' style='display: none'>

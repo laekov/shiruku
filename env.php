@@ -12,6 +12,9 @@ $srkEnv->appPath = '.';
 $srkEnv->penPath = $srkEnv->appPath.'/../myfolder/pen';
 $srkEnv->commentPath = $srkEnv->appPath.'/../myfolder/comment';
 
+// limitations
+$srkEnv->maxFileSize = 1 << 24; // max file size allowed to be stored
+
 // env vars for views and pages
 $srkEnv->uiType = (isMobile() ? '/mobile' : '/desktop');
 $srkEnv->viewsPath = $srkEnv->appPath.'/views'.$srkEnv->uiType;

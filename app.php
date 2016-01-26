@@ -1,14 +1,16 @@
 <?php
 // decipher uri by / into an array
 function decipherURI($uri) {
-	$path = array();
+	$path = array('');
 	while (strlen($uri)) {
 		$pos = strpos($uri, '/');
 		if ($pos === false) {
 			$pos = strlen($uri);
 		}
 		$curlev = substr($uri, 0, $pos);
-		array_push($path, $curlev);
+		if (strlen($curlev)) {
+			array_push($path, $curlev);
+		}
 		$uri = substr($uri, $pos + 1);
 	}
 	return $path;
@@ -23,6 +25,7 @@ $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
 $srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
 
+// if request method is post, the respond should be a json object
 if ($srkEnv->reqMethod == 'POST') {
 	header("Content-Type: text/json");
 }

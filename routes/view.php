@@ -4,7 +4,7 @@ if (!isset($srkEnv)) {
 	return;
 }
 
-if ($srkEnv->reqURLLength == 3) {
+if ($srkEnv->reqURLLength == 2) {
 	require_once($srkEnv->appPath.'/modules/render.php');
 	srkRender('view', Array('penid'=>$srkEnv->reqURL[2]));
 	$srkEnv->correctURL = true;
