@@ -45,7 +45,12 @@ else {
 	}
 }
 if (!isset($srkEnv->correctURL)) {
-	require_once($srkEnv->appPath.'/modules/render.php');
-	srkRender('error', Array('error'=>Array('status'=>'404', 'stack'=>'Unused url')));
+	if ($srkEnv->reqMethod == 'GET') {
+		require_once($srkEnv->appPath.'/modules/render.php');
+		srkRender('error', Array('error'=>Array('status'=>'404', 'stack'=>'Unused url')));
+	}
+	else {
+		echo(json_encode(Array('error'=>'Unused url')));
+	}
 }
 

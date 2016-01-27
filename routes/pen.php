@@ -4,40 +4,22 @@ if (!isset($srkEnv)) {
 	return;
 }
 
-// create a list of a directory
-// used to response pen list request
-function getDirCatlog($dirPath) {
-	$ret = Array();
-	$dir = opendir($dirPath);
-	while (($content = readdir($dir)) != false) {
-		if ($content != '.' && $content != '..') {
-			array_push($ret, $content);
-		}
-	}
-	closedir($dir);
-	return $ret;
-}
-
-// read the whole file into a string
-function getFileContent($fileName) {
-	global $srkEnv;
-	if (is_file($fileName)) {
-		$file = fopen($fileName, 'r');
-		$ret = fread($file, $srkEnv->maxFileSize);
-		fclose($file);
-		return $ret;
-	}
-	else {
-		return -1;
-	}
-}
+require_once($srkEnv->appPath.'/modules/file.php');
+require_once($srkEnv->appPath.'/modules/pen.php');
 
 if ($srkEnv->reqURLLength >= 2) {
 	if ($srkEnv->reqURL[2] == 'query' && $srkEnv->reqMethod == 'POST') {
 		if ($srkEnv->reqURLLength == 3) {
-			if ($srkEnv->reqURL[3] == 'catlog') {
-				$catlog = getDirCatlog($srkEnv->penPath);
-				echo(json_encode(Array('catlog'=>$catlog)));
+			if ($srkEnv->reqURL[3] == 'catalog') {
+				$fileList = getDirCatlog($srkEnv->penPath);
+				$catalog = Array();
+				foreach ($fileList as $penId) {
+					$content = penConfigLoad($penId);
+					if (matchFilter(json_decode($_POST['filter']), $content)) {
+						array_push($catalog, $content);
+					}
+				}
+				echo(json_encode(Array('catalog'=>$catalog)));
 				$srkEnv->correctURL = true;
 			}
 		}
