@@ -10,7 +10,13 @@ require_once($srkEnv->appPath.'/modules/file.php');
 function penConfigLoad($penId) {
 	global $srkEnv;
 	$fileName = $srkEnv->penPath.'/'.$penId.'/config.json';
-	$ret = json_decode(getFileContent($fileName));
+	$cfgContent = getFileContent($fileName);
+	if ($cfgContent === -1) {
+		$ret = (Object)Array('error'=>'No config file');
+	}
+	else {
+		$ret = json_decode($cfgContent);
+	}
 	if (!isset($ret->error)) {
 		if (!isset($ret->penId)) {
 			$ret->penId = $penId;
@@ -24,6 +30,8 @@ function penConfigLoad($penId) {
 		if (!isset($ret->priority)) {
 			$ret->priority = $ret->modifyTime;
 		}
+		require_once($srkEnv->appPath.'/modules/db.php');
+		$ret->visitCount = srkVisitCountGet($ret->penId);
 	}
 	return $ret;
 }

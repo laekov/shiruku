@@ -9,6 +9,13 @@ if (!isset($srkEnv)) {
 	<div id='contentdiv'>
 		<h2 id='pentitle'></h2>
 		<div id='pencontent'></div>
+		<div id='pencontentloading'>
+			<p>Loading content</p>
+		</div>
+		<div id='peninfo' style='display: none;'>
+			<div>Posted at: <span id='posttime'></span></div>
+			<div>Visit: <span id='visitcount'></span></div>
+		</div>
 		<div id='commentdiv'>
 			<div id='samplecomment' style='display: none'>
 				<div id='author'></div>

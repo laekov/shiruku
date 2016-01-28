@@ -38,13 +38,8 @@ if ($srkEnv->reqURLLength >= 2) {
 				$srkEnv->correctURL = true;
 			}
 			elseif ($srkEnv->reqURL[3] == 'config') {
-				$content = getFileContent($srkEnv->penPath.'/'.$penId.'/config.json');
-				if ($content === -1) {
-					echo(json_encode(Array('error'=>'No pen config file')));
-				}
-				else {
-					echo($content);
-				}
+				$config = penConfigLoad($penId);
+				echo(json_encode($config));
 				$srkEnv->correctURL = true;
 			}
 		}

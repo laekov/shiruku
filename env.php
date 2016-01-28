@@ -1,9 +1,7 @@
 <?php
 require_once('./modules/toolkit.php');
 
-class EmptyClass {};
-
-$srkEnv = new EmptyClass();
+$srkEnv = (Object)Array();
 
 // basic envrionment variables for Shiruku
 $srkEnv->appPath = '.';
