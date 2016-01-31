@@ -14,6 +14,7 @@ function srkRender($targetFile, $cusRenderArgs) {
 	// common javascripts and stylesheets
 	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
 	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/div.css');
+	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/text.css');
 	array_push($srkEnv->javascripts, '/javascripts/cdn/jquery_min.js');
 
 	if (is_file($srkEnv->viewsPath.'/'.$targetFile.'_config.php')) {

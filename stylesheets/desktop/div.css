@@ -7,45 +7,14 @@ div.wholediv {
 }
 
 div.maindiv {
-	margin: 8px;
+	width: 92%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-div.mid {
-	width: 90%;
-	margin-left: 5%;
-}
-
-div.left10 {
-	float: left;
-	width: 10%;
-	margin: 0;
-	padding: 0;
-}
-
-div.right90 {
-	position: absolute;
-	right: 0;
-	width: 90%;
-	margin: 0;
-	padding: 0;
-}
-
-div.left90 {
-	float: left;
-	width: 90%;
-	margin: 0;
-	padding: 0;
-}
-
-div.left100 {
-	float: left;
+div.fulldiv {
 	width: 100%;
 	margin: 0;
 	padding: 0;
 }
 
-div.rbdiv {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-}

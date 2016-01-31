@@ -7,7 +7,7 @@ if (!isset($srkEnv)) {
 
 <div class='maindiv' id='maindiv'>
 	<div id='contentdiv'>
-		<h2 id='pentitle'></h2>
+		<h2 id='pentitle' class='pentitle'></h2>
 		<div id='pencontent'></div>
 		<div id='pencontentloading'>
 			<p>Loading content</p>
