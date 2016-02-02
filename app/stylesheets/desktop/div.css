@@ -8,13 +8,19 @@ div.wholediv {
 
 div.maindiv {
 	width: 92%;
-	margin-left: auto;
+	margin-left: 4%;
 	margin-right: auto;
+	margin-top: 20px;
 }
 
 div.fulldiv {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+}
+
+div.infodiv {
+	color: #666;
+	font: Arial 14px;
 }
 

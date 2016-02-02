@@ -60,7 +60,7 @@ function matchFilter($filter, $content) {
 	}
 	if (isset($filter->inArray)) {
 		foreach ($filter->inArray as $key=>$val) {
-			if (!isset($content->$key) || in_array($val, $content->$key)) {
+			if (!isset($content->$key) || !in_array($val, $content->$key)) {
 				return false;
 			}
 		}

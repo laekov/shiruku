@@ -4,6 +4,10 @@ if (!isset($srkEnv)) {
 	return;
 }
 
+array_push($srkEnv->javascripts, '/javascripts/listfunc.js');
 array_push($srkEnv->javascripts, '/javascripts/list.js');
 array_push($srkEnv->stylesheets, '/stylesheets/list.css');
-require_once($srkEnv->viewsPath.'/indicator_config.php');
+
+array_push($srkEnv->dependViews, 'indicator');
+array_push($srkEnv->dependViews, 'infodiv');
+array_push($srkEnv->dependViews, 'listitem');

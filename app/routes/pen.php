@@ -9,6 +9,7 @@ require_once($srkEnv->appPath.'/modules/pen.php');
 
 if ($srkEnv->reqURLLength >= 2) {
 	if ($srkEnv->reqURL[2] == 'query' && $srkEnv->reqMethod == 'POST') {
+		require_once($srkEnv->appPath.'/modules/render.php');
 		if ($srkEnv->reqURLLength == 3) {
 			if ($srkEnv->reqURL[3] == 'catalog') {
 				$fileList = getDirCatlog($srkEnv->penPath);
@@ -17,19 +18,16 @@ if ($srkEnv->reqURLLength >= 2) {
 					$content = penConfigLoad($penId);
 					if (matchFilter(json_decode($_POST['filter']), $content)) {
 						array_push($catalog, $content);
-						//echo $penId."\n";
 					}
 				}
-				ob_clean();
-				echo(json_encode(Array('catalog'=>$catalog)));
+				srkSend(Array('catalog'=>$catalog));
 				$srkEnv->correctURL = true;
 			}
 		}
 		elseif ($srkEnv->reqURLLength == 4) {
 			$penId = $srkEnv->reqURL[4];
 			if (!is_dir($srkEnv->penPath.'/'.$penId)) {
-				ob_clean();
-				echo(json_encode(Array('error'=>'No such pen')));
+				srkSend(Array('error'=>'No such pen'));
 				$srkEnv->correctURL = true;
 			}
 			elseif ($srkEnv->reqURL[3] == 'content') {
@@ -37,14 +35,29 @@ if ($srkEnv->reqURLLength >= 2) {
 				if ($content === -1) {
 					$content = 'No pen content';
 				}
-				ob_clean();
-				echo(json_encode(Array('content'=>$content)));
+				srkSend(Array('content'=>$content));
 				$srkEnv->correctURL = true;
 			}
 			elseif ($srkEnv->reqURL[3] == 'config') {
 				$config = penConfigLoad($penId);
-				ob_clean();
-				echo(json_encode($config));
+				srkSend($config);
+				$srkEnv->correctURL = true;
+			}
+			elseif ($srkEnv->reqURL[3] == 'neighbor') {
+				$config = penConfigLoad($penId);
+				$prev = (Object)Array('priority'=>-0x7fffffff);
+				$succ = (Object)Array('priority'=>0x7ffffffe);
+				$fileList = getDirCatlog($srkEnv->penPath);
+				foreach ($fileList as $penId) {
+					$content = penConfigLoad($penId);
+					if ($content->priority < $config->priority && $content->priority > $prev->priority) {
+						$prev = $content;
+					}
+					if ($content->priority > $config->priority && $content->priority < $succ->priority) {
+						$succ = $content;
+					}
+				}
+				srkSend((Object)Array('prev'=>$prev->penId, 'succ'=>$succ->penId));
 				$srkEnv->correctURL = true;
 			}
 		}

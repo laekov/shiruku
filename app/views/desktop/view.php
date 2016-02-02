@@ -12,9 +12,10 @@ if (!isset($srkEnv)) {
 		<div id='pencontentloading'>
 			<p>Loading content</p>
 		</div>
-		<div id='peninfo' style='display: none;'>
-			<div>Posted at: <span id='posttime'></span></div>
-			<div>Visit: <span id='visitcount'></span></div>
+		<div id='peninfo' class='hidden'> </div>
+		<div id='quickjump' class='hidden'> 
+			<p>Previous pen:&nbsp;<a id='prev'></a></p>
+			<p>Succeeding pen:&nbsp;<a id='succ'></a></p>
 		</div>
 		<div id='commentdiv'>
 			<div id='samplecomment' style='display: none'>

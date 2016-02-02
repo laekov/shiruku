@@ -17,9 +17,36 @@ function getCurrentPenId() {
 	}
 }
 
+function getPenConfig(penId, callback) {
+	$.post("/pen/query/config/" + penId, {}, function(res) {
+		callback(res);
+	});
+}
+
+function setQuickJump(targetId, penId) {
+	if (typeof(penId) != 'string') {
+		$("#quickjump").find(targetId).html("没有了");
+		$("#quickjump").find(targetId).removeAttr("href");
+		$("#quickjump").show();
+	}
+	else {
+		getPenConfig(penId, function(res) {
+			if (res.error) {
+				$("#quickjump").find(targetId).html("出错了");
+				$("#quickjump").find(targetId).removeAttr("href");
+			}
+			else {
+				$("#quickjump").find(targetId).html(res.title);
+				$("#quickjump").find(targetId).attr("href", "/view/" + penId);
+			}
+			$("#quickjump").show();
+		});
+	}
+}
+
 function updateContent() {
 	var penId = getCurrentPenId();
-	$.post("/pen/query/config/" + penId, {}, function(res) {
+	getPenConfig(penId, function(res) {
 		if (res.error) {
 			$("#pentitle").html("Viewer error");
 			$("#pencontentloading").html(res.error);
@@ -29,9 +56,30 @@ function updateContent() {
 			var date = new Date();
 			date.setTime(cfg.modifyTime * 1000);
 			$("#pentitle").html(cfg.title);
-			$("#peninfo").find("#posttime").html(date.toGMTString());
-			$("#peninfo").find("#visitcount").html(cfg.visitCount);
-			$("#peninfo").show();
+			createInfoDiv(cfg, function(ele) {
+				$("#peninfo").html(ele.html());
+				$("#peninfo").show();
+			});
+			if ($.cookie("penIdList")) {
+				var penIdList = JSON.parse($.cookie("penIdList"));
+				var pos = penIdList.indexOf(cfg.penId);
+				if (pos == -1) {
+					$.post("/pen/query/neighbor/" + penId, {}, function(res) {
+						setQuickJump("#prev", res.prev);
+						setQuickJump("#succ", res.succ);
+					});
+				}
+				else {
+					setQuickJump("#prev", penIdList[pos - 1]);
+					setQuickJump("#succ", penIdList[pos + 1]);
+				}
+			}
+			else {
+				$.post("/pen/query/neighbor/" + penId, {}, function(res) {
+					setQuickJump("#prev", res.prev);
+					setQuickJump("#succ", res.succ);
+				});
+			}
 			$.post("/pen/query/content/" + penId, {}, function(res) {
 				$("#pencontentloading").hide();
 				var content = res.content;
