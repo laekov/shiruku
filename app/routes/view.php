@@ -12,6 +12,5 @@ if ($srkEnv->reqURLLength == 2) {
 		require_once($srkEnv->appPath.'/modules/db.php');
 		srkVisitCountUpdate($penId);
 	}
-	$srkEnv->correctURL = true;
 }
 

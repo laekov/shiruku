@@ -10,14 +10,21 @@ $renderArgs = Array();
 // return a json file to the query
 // usually used to respond to a POST query
 function srkSend($data) {
-	ob_clean();
-	echo(json_encode($data));
+	global $srkEnv;
+	if (!isset($srkEnv->sent)) {
+		ob_clean();
+		echo(json_encode($data));
+		$srkEnv->sent = true;
+	}
 }
 
 // render main
 // target file is based on directory '/views/'
 function srkRender($targetFile, $cusRenderArgs) {
 	global $srkEnv, $renderArgs;
+	if (isset($srkEnv->sent)) {
+		return;
+	}
 	$renderArgs = $cusRenderArgs;
 	// common javascripts and stylesheets
 	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
@@ -51,5 +58,6 @@ function srkRender($targetFile, $cusRenderArgs) {
 		require_once($srkEnv->viewsPath.'/error.php');
 	}
 	require_once($srkEnv->viewsPath.'/pagefoot.php');
+	$srkEnv->sent = true;
 }
 

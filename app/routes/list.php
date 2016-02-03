@@ -7,6 +7,5 @@ if (!isset($srkEnv)) {
 if ($srkEnv->reqMethod == 'GET') {
 	require_once($srkEnv->appPath.'/modules/render.php');
 	srkRender('list', Array());
-	$srkEnv->correctURL = true;
 }
 

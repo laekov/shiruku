@@ -70,6 +70,9 @@ function updateList(listId) {
 			ele.find("#title").html(cata[i].title);
 			ele.find("#title").attr("href", "/view/" + cata[i].penId);
 			ele.find("#modifyTime").html(date.toGMTString());
+			$.post("/pen/query/preview/" + cata[i].penId, {}, function(res) {
+				$("#pen_" + res.penId).find("#preview").html(res.content);
+			});
 			createInfoDiv(cata[i], function(gele) {
 				ele.find("#infodiv").html(gele.html());
 				ele.show();

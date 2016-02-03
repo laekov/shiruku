@@ -21,14 +21,12 @@ if ($srkEnv->reqURLLength >= 2) {
 					}
 				}
 				srkSend(Array('catalog'=>$catalog));
-				$srkEnv->correctURL = true;
 			}
 		}
 		elseif ($srkEnv->reqURLLength == 4) {
 			$penId = $srkEnv->reqURL[4];
 			if (!is_dir($srkEnv->penPath.'/'.$penId)) {
 				srkSend(Array('error'=>'No such pen'));
-				$srkEnv->correctURL = true;
 			}
 			elseif ($srkEnv->reqURL[3] == 'content') {
 				$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.html');
@@ -36,12 +34,33 @@ if ($srkEnv->reqURLLength >= 2) {
 					$content = 'No pen content';
 				}
 				srkSend(Array('content'=>$content));
-				$srkEnv->correctURL = true;
+			}
+			elseif ($srkEnv->reqURL[3] == 'preview') {
+				$config = penConfigLoad($penId);
+				if ($config->catalog == 'code') {
+					$content = 'Code';
+				}
+				else {
+					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.html');
+				}
+				if ($content === -1) {
+					$content = 'No pen preview';
+				}
+				else {
+					$pos = strpos($content, "\n\n");
+					if (!$pos) {
+						$pos = strpos($content, "\n\r\n");
+					}
+					if ($pos != false) {
+						$content = substr($content, 0, $pos);
+						$content .= "<br/>...";
+					}
+				}
+				srkSend(Array('content'=>$content, 'penId'=>$penId));
 			}
 			elseif ($srkEnv->reqURL[3] == 'config') {
 				$config = penConfigLoad($penId);
 				srkSend($config);
-				$srkEnv->correctURL = true;
 			}
 			elseif ($srkEnv->reqURL[3] == 'neighbor') {
 				$config = penConfigLoad($penId);
@@ -58,7 +77,6 @@ if ($srkEnv->reqURLLength >= 2) {
 					}
 				}
 				srkSend((Object)Array('prev'=>$prev->penId, 'succ'=>$succ->penId));
-				$srkEnv->correctURL = true;
 			}
 		}
 	}
