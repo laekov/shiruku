@@ -7,7 +7,7 @@ if (!isset($srkEnv)) {
 require_once($srkEnv->appPath.'/modules/file.php');
 
 // comment config file loader
-function commentLoad($penId, $commentId) {
+function commentLoadConfig($penId, $commentId) {
 	global $srkEnv;
 	$pathName = $srkEnv->penPath.'/'.$penId.'/comment/'.$commentId;
 	$cfgContent = getFileContent($pathName.'/config.json');
@@ -17,6 +17,8 @@ function commentLoad($penId, $commentId) {
 	}
 	else {
 		$res = json_decode($cfgContent);
+		$res->penId = $penId;
+		$res->commentId = $commentId;
 		if (!isset($res->modifyTime)) {
 			$res->modifyTime = filectime($pathName.'/config.json');
 		}
@@ -24,7 +26,6 @@ function commentLoad($penId, $commentId) {
 			$res->priority = $res->modifyTime;
 		}
 		unset($res->sendIP);
-		$res->content = getFileContent($pathName.'/content.html');
 		return $res;
 	}
 }
@@ -40,12 +41,38 @@ function commentLoadAll($penId) {
 		$list = Array();
 		$cata = getDirCatlog($pathName);
 		foreach ($cata as $commentId) {
-			$item = commentLoad($penId, $commentId);
+			$item = commentLoadConfig($penId, $commentId);
 			if ($item !== false) {
 				array_push($list, $item);
 			}
 		}
 		return $list;
 	}
+}
+
+// compare two objects by time
+function cmpByTime($a, $b) {
+	return $a->modifyTime < $b->modifyTime ? 1 : -1;
+}
+
+// load recent comments of a pen 
+function commentLoadRecent($limit) {
+	global $srkEnv;
+	$res = Array();
+	$fileList = getDirCatlog($srkEnv->penPath);
+	foreach ($fileList as $penId) {
+		$penCom = commentLoadAll($penId);
+		foreach ($penCom as $com) {
+			array_push($res, $com);
+			if (count($res) > $limit) {
+				usort($res, "cmpByTime");
+				while (count($res) > $limit) {
+					array_pop($res);
+				}
+			}
+		}
+	}
+	usort($res, "cmpByTime");
+	return $res;
 }
 
