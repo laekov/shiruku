@@ -25,10 +25,6 @@ $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
 $srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
 
-// if request method is post, the respond should be a json object
-if ($srkEnv->reqMethod == 'POST') {
-	header("Content-Type: text/json");
-}
 
 // decide which route to use
 if ($srkEnv->reqURLLength == 0 || 
@@ -36,7 +32,7 @@ if ($srkEnv->reqURLLength == 0 ||
 	require_once($srkEnv->appPath.'/routes/home.php');
 }
 else {
-	$routeList = Array('list', 'view', 'pen', 'comment');
+	$routeList = Array('list', 'view', 'pen', 'comment', 'resources');
 	foreach ($routeList as $route) {
 		if ($srkEnv->reqURL[1] == $route) {
 			require_once($srkEnv->appPath.'/routes/'.$route.'.php');

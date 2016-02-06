@@ -6,6 +6,18 @@ if (!isset($srkEnv)) {
 
 $renderArgs = Array();
 
+// stream main
+// send a file
+function srkStream($fileName) {
+	global $srkEnv;
+	ob_clean();
+	if (!isset($srkEnv->sent)) {
+		ob_clean();
+		readfile($fileName);
+		$srkEnv->sent = true;
+	}
+}
+
 // send main
 // return a json file to the query
 // usually used to respond to a POST query
@@ -13,6 +25,7 @@ function srkSend($data) {
 	global $srkEnv;
 	if (!isset($srkEnv->sent)) {
 		ob_clean();
+		header("Content-Type: text/json");
 		echo(json_encode($data));
 		$srkEnv->sent = true;
 	}

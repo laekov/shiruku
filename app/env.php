@@ -19,9 +19,14 @@ $srkEnv->pageTitle = 'Shiruku';
 $srkEnv->pageTitleAppend = ' - laekov';
 $srkEnv->stylesheets = Array();	
 $srkEnv->javascripts = Array();
+$srkEnv->dependViews = Array();
+
+// env vars for resources 
+$srkEnv->resPath = $srkEnv->appPath.'/../myfolder/resources';
 
 // env vars for mysql database
 $srkEnv->sqlURI = 'localhost';
-$srkEnv->sqlUser = '2333';
-$srkEnv->sqlPasswd = 'orzmhy';
+$srkEnv->sqlUser = 'orzmhy';
+$srkEnv->sqlPasswd = '2333';
 $srkEnv->sqlDatabase = 'shiruku_db';
+
