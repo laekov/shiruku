@@ -30,6 +30,15 @@ function commentLoadConfig($penId, $commentId) {
 	}
 }
 
+// load both config and content
+function commentLoadContent($penId, $commentId) {
+	global $srkEnv;
+	$res = commentLoadConfig($penId, $commentId);
+	$contentFileName = $srkEnv->penPath.'/'.$penId.'/comment/'.$commentId.'/content.html';
+	$res->content = getFileContent($contentFileName);
+	return $res;
+}
+
 // Load all comments of a pen
 function commentLoadAll($penId) {
 	global $srkEnv;

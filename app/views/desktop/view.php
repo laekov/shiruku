@@ -18,11 +18,7 @@ if (!isset($srkEnv)) {
 			<p>Succeeding pen:&nbsp;<a id='succ'></a></p>
 		</div>
 		<div id='commentdiv'>
-			<div id='samplecomment' style='display: none'>
-				<div id='author'></div>
-				<div id='content'></div>
-				<div id='postdate'></div>
-			</div>
+		</div>
 	</div>
 </div>
 

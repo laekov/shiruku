@@ -18,6 +18,12 @@ if ($srkEnv->reqURLLength >= 2) {
 			$retList = commentLoadAll($penId);
 			srkSend((Object)Array('list'=>$retList));
 		}
+		elseif ($srkEnv->reqURLLength == 5 && $srkEnv->reqURL[3] == 'content') {
+			$penId = $srkEnv->reqURL[4];
+			$commentId = $srkEnv->reqURL[5];
+			$contentFileName = $srkEnv->penPath.'/'.$penId.'/comment/'.$commentId.'/content.html';
+			srkSend((Object)Array('content'=>commentLoadContent($penId, $commentId)));
+		}
 	}
 }
 
