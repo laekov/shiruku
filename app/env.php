@@ -24,6 +24,9 @@ $srkEnv->dependViews = Array();
 // env vars for resources 
 $srkEnv->resPath = $srkEnv->appPath.'/../myfolder/resources';
 
+// env vars for users
+$srkEnv->userPath = $srkEnv->appPath.'/../myfolder/users';
+
 // env vars for mysql database
 $srkEnv->sqlURI = 'localhost';
 $srkEnv->sqlUser = 'orzmhy';

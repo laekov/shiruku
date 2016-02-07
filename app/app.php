@@ -25,6 +25,9 @@ $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
 $srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
 
+// start session
+session_start();
+
 
 // decide which route to use
 if ($srkEnv->reqURLLength == 0 || 
