@@ -7,16 +7,17 @@ if (!isset($srkEnv)) {
 require_once($srkEnv->appPath.'/modules/db.php');
 require_once($srkEnv->appPath.'/modules/file.php');
 
-class userMod { 
+class userData { 
 	public $id = false;
 	private $data = false;
 	public $status = 'empty';
 	public function readUser($userId) {
 		global $srkEnv;
 		$this->id = $userId;
-		$info = getFileContent($srkEnv->userPath.'/'.$userId.'/info.json');
-		if ($info !== false) {
-			$this->data = json_encode($info);
+		$confFileName = $srkEnv->userPath.'/'.$userId.'/info.json';
+		if (is_file($confFileName)) {
+			$info = getFileContent($confFileName);
+			$this->data = json_decode($info);
 			$this->status = 'normal';
 		}
 		else {
@@ -41,7 +42,7 @@ class userMod {
 			return 'Config file error';
 		}
 		else {
-			fwrite($configFile, json_encode($this->data);
+			fwrite($configFile, json_encode($this->data));
 			fclose($configFile);
 			return false;
 		}
@@ -66,10 +67,13 @@ class userMod {
 	}
 	public function authenticate($pwd) {
 		if ($this->status != 'normal') {
-			return false;
+			return 'user does not exists';
+		}
+		else if ($pwd != $this->data->passwd) {
+			return 'username and password does not match';
 		}
 		else {
-			return $pwd == $this->data->passwd;
+			return false;
 		}
 	}
 };
