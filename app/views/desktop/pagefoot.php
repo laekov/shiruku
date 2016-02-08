@@ -4,5 +4,6 @@ if (!isset($srkEnv)) {
 	return;
 }
 ?>
+    <div id='bottomspace'></div>
 	</body>
 </html>
