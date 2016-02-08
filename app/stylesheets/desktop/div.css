@@ -24,3 +24,11 @@ div.infodiv {
 	font: Arial 14px;
 }
 
+div.fixdiv {
+	position: fixed;
+}
+
+body {
+	background-color: #ccf;
+}
+

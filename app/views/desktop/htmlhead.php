@@ -15,6 +15,8 @@ if (!isset($srkEnv)) {
 	foreach ($srkEnv->javascripts as $jsfile) { ?>
 		<script src='<?php echo($jsfile); ?>'></script>
 	<?php } ?>
+		<script src='/javascripts/navbar.js'></script>
+		<link rel='stylesheet' type='text/css' href='/stylesheets/navbar.css'/>
 	</head>
 
 
