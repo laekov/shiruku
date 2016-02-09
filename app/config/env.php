@@ -7,7 +7,7 @@ $srkEnv = (Object)Array();
 $srkEnv->appPath = '.';
 
 // env vars for storage path of site data in normal file format
-$srkEnv->penPath = $srkEnv->appPath.'/../myfolder_local/pen';
+$srkEnv->penPath = $srkEnv->appPath.'/../myfolder/pen';
 
 // limitations
 $srkEnv->maxFileSize = 1 << 24; // max file size allowed to be stored
@@ -15,7 +15,6 @@ $srkEnv->maxFileSize = 1 << 24; // max file size allowed to be stored
 // env vars for views and pages
 $srkEnv->uiType = (isMobile() ? '/mobile' : '/desktop');
 $srkEnv->viewsPath = $srkEnv->appPath.'/views'.$srkEnv->uiType;
-$srkEnv->staticResPath = '/entrances/template/default';
 $srkEnv->pageTitle = 'Shiruku';
 $srkEnv->pageTitleAppend = ' - laekov';
 $srkEnv->stylesheets = Array();	
@@ -30,7 +29,7 @@ $srkEnv->userPath = $srkEnv->appPath.'/../myfolder/users';
 
 // env vars for mysql database
 $srkEnv->sqlURI = 'localhost';
-$srkEnv->sqlUser = 'qdm125056326';
-$srkEnv->sqlPasswd = 'hjanaive';
-$srkEnv->sqlDatabase = 'qdm125056326_db';
+$srkEnv->sqlUser = 'orzmhy';
+$srkEnv->sqlPasswd = '2333';
+$srkEnv->sqlDatabase = 'shiruku_db';
 
