@@ -19,7 +19,7 @@ function decipherURI($uri) {
 $_SERVER['REDIRECT_STATUS'] = 0;
 header('HTTP/1.1 200 OK');
 
-require_once('./env.php');
+require_once('./config/env.php');
 
 $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
