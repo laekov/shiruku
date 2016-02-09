@@ -4,15 +4,34 @@ div.navbar {
 }
 
 div.navontop {
-	color: white;
-	background-color: rgba(f,c,c,0.4);
+	background-color: rgba(249,204,226,0.4);
 }
-
 div.navnotop {
-	color: white;
-	background-color: #f99;
+	background-color: rgba(249,204,226,0.9);
 }
 
 img.navpic {
 	width: 100%;
+}
+
+ul.navul {
+    list-style: none;
+    height: 100%;
+    padding: 0;
+    margin-top: 0;
+    margin-left: 5%;
+}
+li.navitem {
+    float: left;
+    margin: 0;
+    padding: 16px;
+    color: rgba(0,0,233,1);
+    transition: 0.4s;
+}
+li.navitem:hover {
+    color: rgba(0,0,233,1);
+    background-color: rgba(241,158,194,1);
+}
+
+li.navtitle {
 }

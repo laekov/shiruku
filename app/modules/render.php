@@ -34,18 +34,11 @@ function srkSend($data) {
 // render main
 // target file is based on directory '/views/'
 function srkRender($targetFile, $cusRenderArgs) {
-	global $srkEnv, $renderArgs;
+	global $srkEnv, $srkContent, $renderArgs;
 	if (isset($srkEnv->sent)) {
 		return;
 	}
 	$renderArgs = $cusRenderArgs;
-	// common javascripts and stylesheets
-	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
-	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/div.css');
-	array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/text.css');
-	array_push($srkEnv->javascripts, '/javascripts/cdn/jquery_min.js');
-	array_push($srkEnv->javascripts, '/javascripts/cdn/jquery.cookie.js');
-
 	if (is_file($srkEnv->viewsPath.'/'.$targetFile.'_config.php')) {
 		require_once($srkEnv->viewsPath.'/'.$targetFile.'_config.php');
 	}

@@ -19,15 +19,17 @@ function decipherURI($uri) {
 $_SERVER['REDIRECT_STATUS'] = 0;
 header('HTTP/1.1 200 OK');
 
+// load environment vars
 require_once('./config/env.php');
-
 $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
 $srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
 
+// load content profiles
+require_once('./config/content.php');
+
 // start session
 session_start();
-
 
 // decide which route to use
 if ($srkEnv->reqURLLength == 0 || 

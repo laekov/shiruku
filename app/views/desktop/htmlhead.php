@@ -3,9 +3,15 @@ if (!isset($srkEnv)) {
 	header("Location: /");
 	return;
 }
+// common javascripts and stylesheets
+array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
+array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/div.css');
+array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/text.css');
+array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery.cookie.js');
+array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery_min.js');
 
-array_push($srkEnv->javascripts, '/javascripts/navbar.js');
 array_push($srkEnv->stylesheets, '/stylesheets/navbar.css');
+array_push($srkEnv->javascripts, '/javascripts/navbar.js');
 ?>
 <html>
 	<head>
