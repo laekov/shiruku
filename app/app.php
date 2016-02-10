@@ -1,4 +1,6 @@
 <?php
+define('srkVersion', '0.0.1');
+
 // decipher uri by / into an array
 function decipherURI($uri) {
 	$path = array('');

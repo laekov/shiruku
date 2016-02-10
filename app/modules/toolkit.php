@@ -1,4 +1,7 @@
 <?php
+if (!defined('srkVersion')) {
+	exit(403);
+}
 
 // device type judger
 // copied from web

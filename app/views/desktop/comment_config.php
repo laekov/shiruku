@@ -1,7 +1,6 @@
 <?php
-if (!isset($srkEnv)) {
-	header("Location: /");
-	return;
+if (!defined('srkVersion')) {
+	exit(403);
 }
 
 array_push($srkEnv->stylesheets, '/stylesheets/comment.css');
