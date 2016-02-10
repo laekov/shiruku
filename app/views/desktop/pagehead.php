@@ -24,4 +24,4 @@ if (!defined('srkVersion')) {
 			<img src='<?php echo($srkEnv->staticResPath.'/images/nav-background.jpg'); ?>' class='navpic'/>
 		</div>
 	</div>
-
+	<div class='maindiv' id='pagecontentdiv'>

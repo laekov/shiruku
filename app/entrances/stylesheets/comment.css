@@ -1,0 +1,12 @@
+div.commentitem {
+	margin-bottom: 16px;
+}
+
+div.commentinfodiv {
+	background-color: rgba(249,204,226,1);
+}
+
+div.commentcontentdiv {
+	background-color: rgba(226,238,255,1);
+}
+

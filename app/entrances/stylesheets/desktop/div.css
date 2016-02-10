@@ -11,6 +11,7 @@ div.maindiv {
 	margin-left: 4%;
 	margin-right: auto;
 	margin-top: 20px;
+	padding-top: 16px;
 }
 
 div.fulldiv {
@@ -26,5 +27,35 @@ div.infodiv {
 
 div.fixdiv {
 	position: fixed;
+}
+
+div.div50 {
+	width: 50%;
+}
+div.divautowidth {
+	width: auto;
+}
+div.divleft {
+	float: left;
+}
+div.divright {
+	float: right;
+}
+
+div.divclear {
+	height: 0;
+	width: 0;
+	padding: 0;
+	margin: 0;
+	clear: both;
+}
+
+div.recorddiv {
+	text-align: center;
+}
+
+div.divsimple {
+	padding: 0;
+	margin: 0;
 }
 

@@ -1,7 +1,7 @@
 function updatePage() {
 	updateList("#list");
 	createIndicator(function(ele) {
-		$("#pageindicator").html(ele.html());
+		$("#pageindicator").html(ele);
 	});
 }
 

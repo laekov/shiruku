@@ -56,29 +56,31 @@ function updateContent() {
 			var date = new Date();
 			date.setTime(cfg.modifyTime * 1000);
 			$("#pentitle").html(cfg.title);
-			createInfoDiv(cfg, function(ele) {
-				$("#peninfo").html(ele.html());
-				$("#peninfo").show();
-			});
-			if ($.cookie("penIdList")) {
-				var penIdList = JSON.parse($.cookie("penIdList"));
-				var pos = penIdList.indexOf(cfg.penId);
-				if (pos == -1) {
+			if (!cfg.noInfo) {
+				createInfoDiv(cfg, function(ele) {
+					$("#peninfo").html(ele.html());
+					$("#peninfo").show();
+				});
+				if ($.cookie("penIdList")) {
+					var penIdList = JSON.parse($.cookie("penIdList"));
+					var pos = penIdList.indexOf(cfg.penId);
+					if (pos == -1) {
+						$.post("/pen/query/neighbor/" + penId, {}, function(res) {
+							setQuickJump("#prev", res.prev);
+							setQuickJump("#succ", res.succ);
+						});
+					}
+					else {
+						setQuickJump("#prev", penIdList[pos - 1]);
+						setQuickJump("#succ", penIdList[pos + 1]);
+					}
+				}
+				else {
 					$.post("/pen/query/neighbor/" + penId, {}, function(res) {
 						setQuickJump("#prev", res.prev);
 						setQuickJump("#succ", res.succ);
 					});
 				}
-				else {
-					setQuickJump("#prev", penIdList[pos - 1]);
-					setQuickJump("#succ", penIdList[pos + 1]);
-				}
-			}
-			else {
-				$.post("/pen/query/neighbor/" + penId, {}, function(res) {
-					setQuickJump("#prev", res.prev);
-					setQuickJump("#succ", res.succ);
-				});
 			}
 			$.post("/pen/query/content/" + penId, {}, function(res) {
 				$("#pencontentloading").hide();

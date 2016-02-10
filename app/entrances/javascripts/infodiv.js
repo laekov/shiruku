@@ -3,8 +3,14 @@ function createInfoDiv(cfg, callback) {
 	var date = new Date();
 	date.setTime(cfg.modifyTime * 1000);
 	ele.attr("id", "infodiv_" + cfg.penId);
-	ele.find("#modifyTime").html(date.toGMTString());
+	ele.find("#modifyTime").html(date.toLocaleString());
 	ele.find("#visit").html(Number(cfg.visitCount));
+	if (cfg.owner) {
+		ele.find("#owner").html(cfg.onwer);
+	}
+	else {
+		ele.find("#owner").html("Unknown owner");
+	}
 	for (var i in cfg.tag) {
 		var tagref = $("#sampletag").clone();
 		tagref.attr("id", "infodiv_" + cfg.penId + "tag" + cfg.tag[i]);

@@ -1,4 +1,9 @@
 var navSlidingLock = false;
+
+function updateSpaceHeight() {
+    $("#bottomspace").height(Math.max(0, window.innerHeight - $("#navbardiv").height() - $("#pagecontentdiv").height()));
+}
+
 function onWindowChange() {
     if (navSlidingLock) {
         setTimeout(500, onWindowChange);
@@ -14,6 +19,7 @@ function onWindowChange() {
             ele.removeClass("navontop");
             ele.addClass("navnotop");
             navSlidingLock = false;
+			updateSpaceHeight();
         });
     }
     else {
@@ -21,10 +27,10 @@ function onWindowChange() {
         ele.addClass("navontop");
         $("#toppic").slideDown();
         $("#topspace").slideUp(function() {
+			updateSpaceHeight();
             navSlidingLock = false;
         });
     }
-    $("#bottomspace").height(Math.max(0, window.innerHeight - $("#navbar").height()));
 }
 
 $(document).ready(function() {

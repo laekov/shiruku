@@ -8,13 +8,13 @@ $srkContent = (Object)Array();
 // category list 
 $srkContent->category = Array(
 	'developing'=>(Object)Array(
-		'title'=>'码农开发手记'
+		'title'=>'码农的开发手记'
 	),
 	'brainhole'=>(Object)Array(
 		'title'=>'奇奇怪怪的脑洞'
 	),
 	'oi'=>(Object)Array(
-		'title'=>'原来的信竞题'
+		'title'=>'很久以前的信竞题'
 	),
 	'code'=>(Object)Array(
 		'title'=>'乱七八糟的代码'
@@ -46,5 +46,18 @@ $srkContent->navbar = Array(
 		'title'=>'关于',
 		'href'=>'/view/about'
 	)
+);
+
+// record info
+$srkContent->PRCRecordInfo = (Object)Array(
+	'text'=>'蜀ICP备23333333333号',
+	'href'=>'http://http://www.miitbeian.gov.cn/'
+);
+
+// owner info
+$srkContent->ownerInfo = (Object)Array(
+	'owner'=>'laekov',
+	'email'=>'laekov@mailserver',
+	'age'=>'2015-2016'
 );
 

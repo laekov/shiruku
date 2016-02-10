@@ -22,16 +22,32 @@ ul.navul {
     margin-left: 5%;
 }
 li.navitem {
+	font-weight: 900;
+	font-size: 18px;
+    color: rgba(255,255,255,1);
     float: left;
     margin: 0;
     padding: 16px;
-    color: rgba(0,0,233,1);
     transition: 0.4s;
 }
 li.navitem:hover {
-    color: rgba(0,0,233,1);
     background-color: rgba(241,158,194,1);
 }
 
 li.navtitle {
+}
+
+div.pagefootwrapper {
+	width: 100%;
+	height: auto;
+	padding: 0;
+	background-color: #000;
+	color: #fff;
+}
+
+a.prcrecordhref {
+	color: black;
+}
+a.prcrecordhref:hover {
+	color: black;
 }

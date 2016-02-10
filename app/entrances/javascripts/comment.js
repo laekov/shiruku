@@ -13,7 +13,13 @@ function showComment(penId, targetId) {
 				if (res.content) {
 					ele.attr("id", res.content.commentId);
                     date.setTime(res.content.modifyTime * 1000);
-					ele.find("#ownerinfo").html("Imported" + "At" + date.toGMTString());
+					if (res.owner) {
+						ele.find("#ownerinfo").html(res.owner);
+					}
+					else {
+						ele.find("#ownerinfo").html("Unknown owner");
+					}
+					ele.find("#modifytime").html(date.toLocaleString());
 					var content = res.content.content.replace(/\<br\/\>/g, '\n\n');
 					content = htmlSpecialChars(content);
 					content = content.replace(/\n\n/g, "<br/>");

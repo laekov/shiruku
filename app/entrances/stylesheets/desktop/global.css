@@ -1,7 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
-    background-color: rgba(226,238,255,1);
+    background-color: #ffe;
 	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,6 +9,9 @@ a {
 	cursor: pointer;
 	color: #00B7FF;
 	text-decoration: none;
+}
+a:hover {
+	color: #95f;
 }
 
 .hidden {
@@ -18,3 +21,18 @@ a {
 .error {
 	color: red;
 }
+
+.alignright {
+	text-align: right;
+}
+
+.green {
+	color: green;
+}
+.blue { 
+	color: blue;
+}
+.red {
+	color: red;
+}
+
