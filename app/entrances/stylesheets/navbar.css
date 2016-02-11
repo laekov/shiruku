@@ -3,6 +3,11 @@ div.navbar {
 	width: 100%;
 }
 
+div.navbarfloat {
+	margin-left: 4%;
+	margin-right: 4%;
+}
+
 div.navontop {
 	background-color: rgba(249,204,226,0.4);
 }
@@ -19,13 +24,17 @@ ul.navul {
     height: 100%;
     padding: 0;
     margin-top: 0;
-    margin-left: 5%;
+	margin-bottom: 0;
 }
+.navulr {
+	float: right;
+}
+
 li.navitem {
+	float: left;
 	font-weight: 900;
 	font-size: 18px;
     color: rgba(255,255,255,1);
-    float: left;
     margin: 0;
     padding: 16px;
     transition: 0.4s;
@@ -50,4 +59,16 @@ a.prcrecordhref {
 }
 a.prcrecordhref:hover {
 	color: black;
+}
+
+input.searchinput {
+	background-color: rgba(255,255,255,0.6);
+	border: 3px solid #fff;
+	width: 32em;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+input.searchinput:focus {
+	background-color: rgba(235,235,255,1);
+	border: 3px solid #99f;
 }

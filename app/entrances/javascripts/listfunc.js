@@ -21,7 +21,12 @@ function getFilterByURL() {
 				ret = { inArray: { tag: req[3] } };
 			}
 		}
-	}
+        else if (req[2] == 'search') {
+            if (req[3]) {
+                ret = { vague: [ req[3] ] };
+            }
+        }
+    }
 	return ret;
 }
 

@@ -1,5 +1,15 @@
 var navSlidingLock = false;
 
+function getSearchDefaultText() {
+    var reqURL = window.location.pathname.split('/');
+    if (reqURL[1] == 'list' && reqURL[2] == 'search') {
+        return reqURL[3];
+    }
+    else {
+        return "Search";
+    }
+}
+
 function updateSpaceHeight() {
     $("#bottomspace").height(Math.max(0, window.innerHeight - $("#navbardiv").height() - $("#pagecontentdiv").height()));
 }
@@ -37,5 +47,21 @@ $(document).ready(function() {
     $(window).scroll(onWindowChange);
     $(window).resize(onWindowChange);
     onWindowChange();
+    $("#searchinput").val(getSearchDefaultText());
+    $("#searchinput").focusin(function() {
+        if ($(this).val() == getSearchDefaultText()) {
+            $(this).val("");
+        }
+    });
+    $("#searchinput").focusout(function() {
+        if ($(this).val().length == 0) {
+            $(this).val(getSearchDefaultText());
+        }
+    });
+    $("#searchinput").keyup(function(key) {
+        if (key.which == 13) {
+            window.location.href = '/list/search/' + $(this).val();
+        }
+    });
 });
 

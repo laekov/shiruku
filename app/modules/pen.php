@@ -64,6 +64,21 @@ function matchFilter($filter, $content) {
 			}
 		}
 	}
+    if (isset($filter->vague)) {
+        foreach ($filter->vague as $val) {
+            if (in_array($val, $content->tag)) {
+                return true;
+            }
+            if (strpos($content->title, $val) !== false) {
+                return true;
+            }
+            $text = getFileContent($srkEnv->penPath.$content->penId.'/content.md');
+            if (strpos($text, $val) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
 	return true;
 }
 

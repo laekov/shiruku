@@ -6,18 +6,25 @@ if (!defined('srkVersion')) {
 <body>
 	<div id='navbardiv'>
 		<div id='navbar' class='navbar fixdiv navontop'>
-			<ul class='navul'>
-				<li id='icondiv' class='navitem navtitle'>
-					Shiruku - test
-				</li>
-				<?php foreach ($srkContent->navbar as $navId=>$navItem) { ?>
-				<a href='<?php echo($navItem->href); ?>'>
-				    <li id='navitem_<?php echo($navId); ?>' class='navitem'>
-						<?php echo($navItem->title); ?>
-				    </li>
-				</a>
-				<?php } ?>
-			</ul>
+			<div class='navbarfloat'>
+				<ul class='navul navull'>
+					<li id='icondiv' class='navitem navtitle'>
+						Shiruku - test
+					</li>
+					<li class='navitem'>
+						<input class='searchinput' id='searchinput' type='text' value=''/>
+					</li>
+				</ul>
+				<ul class='navul navulr'>
+					<?php foreach ($srkContent->navbar as $navId=>$navItem) { ?>
+					<a href='<?php echo($navItem->href); ?>'>
+						<li id='navitem_<?php echo($navId); ?>' class='navitem'>
+							<?php echo($navItem->title); ?>
+						</li>
+					</a>
+					<?php } ?>
+				</ul>
+			</div>
 		</div>
 		<div id='topspace' class='navbar navnotop hidden'> </div>
 		<div id='toppic' class='navbar hidden'>
