@@ -89,8 +89,8 @@ function updateContent() {
 					content = '<pre>' + htmlSpecialChars(content) + '</pre>';
 				}
 				else {
-					content = content.replace(/\r/g, '\n');
-					content = content.replace(/\n\n/g, '<br/>');
+					var converter = new Showdown.converter;
+					content = converter.makeHtml(content);
 				}
 				$("#pencontent").html(content);
 			});
@@ -100,5 +100,6 @@ function updateContent() {
 
 $(document).ready(function() {
 	updateContent();
+	showComment('/pen/' + getCurrentPenId(), "#commentdiv");
 });
 

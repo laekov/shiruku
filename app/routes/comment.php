@@ -10,7 +10,7 @@ if ($srkEnv->reqURLLength >= 2) {
 	if ($srkEnv->reqURL[2] == 'query' && $srkEnv->reqMethod == 'POST') {
 		require_once($srkEnv->appPath.'/modules/render.php');
 		if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] = 'recent') {
-			srkSend((Object)Array('list'=>commentLoadRecent(16)));
+			srkSend((Object)Array('list'=>commentLoadRecent(8)));
 		}
 		elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] = 'pen') {
 			$penId = $srkEnv->reqURL[4];

@@ -37,6 +37,10 @@ function srkRender($targetFile, $cusRenderArgs) {
 	if (isset($srkEnv->sent)) {
 		return;
 	}
+	elseif ($targetFile != 'error') {
+		require_once($srkEnv->appPath.'/modules/db.php');
+		srkVisitCountUpdate("shiruku_site_total");
+	}
 	$renderArgs = $cusRenderArgs;
 	if (is_file($srkEnv->viewsPath.'/'.$targetFile.'_config.php')) {
 		require_once($srkEnv->viewsPath.'/'.$targetFile.'_config.php');

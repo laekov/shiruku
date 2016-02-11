@@ -1,5 +1,5 @@
-function showComment(penId, targetId) {
-	$.post("/comment/query/pen/" + penId, {}, function(res) {
+function showComment(queryStr, targetId) {
+	$.post("/comment/query/" + queryStr, {}, function(res) {
 		var listDiv = $(targetId);
 		var confList = res.list;
 		confList.sort(function(a, b) {
@@ -7,7 +7,7 @@ function showComment(penId, targetId) {
 		});
 		listDiv.html("");
 		for (var i in confList) {
-			$.post("/comment/query/content/" + penId + "/" + confList[i].commentId, {}, function(res) {
+			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				var ele = $("#samplecomment").clone();
                 var date = new Date();
 				if (res.content) {
@@ -32,6 +32,3 @@ function showComment(penId, targetId) {
 	});
 }
 
-$(document).ready(function() {
-	showComment(getCurrentPenId(), "#commentdiv");
-});

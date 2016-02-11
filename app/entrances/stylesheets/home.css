@@ -1,0 +1,20 @@
+div.homewrapper {
+	padding-left: 320px;
+}
+
+div.divhomel {
+	width: 320px;
+	margin-left: -320px;
+}
+
+div.divhomer {
+	width: 94%;
+}
+
+div.homecata {
+	margin-bottom: 16px;
+}
+
+div.homecatacontent {
+	padding-left: 4em;
+}

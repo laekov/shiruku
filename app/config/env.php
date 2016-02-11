@@ -8,7 +8,7 @@ require_once('./modules/toolkit.php');
 $srkEnv = (Object)Array();
 
 // basic envrionment variables for Shiruku
-$srkEnv->appPath = '.';
+$srkEnv->appPath = dirname(dirname(__file__));
 
 // env vars for storage path of site data in normal file format
 $srkEnv->penPath = $srkEnv->appPath.'/../myfolder_local/pen';
@@ -34,7 +34,10 @@ $srkEnv->userPath = $srkEnv->appPath.'/../myfolder/users';
 
 // env vars for mysql database
 $srkEnv->sqlURI = 'localhost';
-$srkEnv->sqlUser = 'dbuser';
-$srkEnv->sqlPasswd = 'dbpasswd';
-$srkEnv->sqlDatabase = 'shiruku_db';
+$srkEnv->sqlUser = '2333';
+$srkEnv->sqlPasswd = 'mhy';
+$srkEnv->sqlDatabase = 'db';
+
+// env vars for log file
+$srkEnv->logFileName = $srkEnv->appPath.'/../myfolder_local/srk.log';
 

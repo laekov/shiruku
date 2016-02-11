@@ -44,3 +44,10 @@ function isMobile() {
 		return false;
 }
 
+function srkLog($info) {
+	global $srkEnv;
+	$logFile = fopen($srkEnv->logFileName, 'a');
+	fputs($logFile, $info);
+	fclose($logFile);
+}
+

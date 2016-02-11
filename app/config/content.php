@@ -50,14 +50,54 @@ $srkContent->navbar = Array(
 
 // record info
 $srkContent->PRCRecordInfo = (Object)Array(
-	'text'=>'蜀ICP备23333333333号',
+	'text'=>'ICP备2333333号',
 	'href'=>'http://http://www.miitbeian.gov.cn/'
 );
 
 // owner info
 $srkContent->ownerInfo = (Object)Array(
 	'owner'=>'laekov',
-	'email'=>'laekov@mailserver',
+	'email'=>'laekov.h@gmail.com',
 	'age'=>'2015-2016'
+);
+
+// friend link
+$srkContent->friendLink = Array(
+	(Object)Array(
+		'text'=>'zhonghaoxi',
+		'href'=>'http://www.cnblogs.com/zhonghaoxi/'
+	),
+	(Object)Array(
+		'text'=>'jason_yu',
+		'href'=>'http://blog.jason-yu.net/'
+	),
+	(Object)Array(
+		'text'=>'mhy12345',
+		'href'=>'http://mhy12345.laekov.com.cn/'
+	),
+	(Object)Array(
+		'text'=>'idy002',
+		'href'=>'http://idy002.laekov.com.cn/'
+	),
+	(Object)Array(
+		'text'=>'rausen',
+		'href'=>'http://www.cnblogs.com/rausen/'
+	),
+	(Object)Array(
+		'text'=>'jcpwfloi',
+		'href'=>'http://blog.codebursts.com/'
+	),
+	(Object)Array(
+		'text'=>'iwtwiioi',
+		'href'=>'http://www.cnblogs.com/iwtwiioi'
+	),
+	(Object)Array(
+		'text'=>'zyf-zyf',
+		'href'=>'http://zyfzyf.is-programmer.com/'
+	),
+	(Object)Array(
+		'text'=>'dx',
+		'href'=>'http://notdr.logdown.com/'
+	)
 );
 

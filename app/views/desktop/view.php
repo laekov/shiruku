@@ -9,11 +9,11 @@ if (!defined('srkVersion')) {
 		<div class='pentitlediv'>
 			<h2 id='pentitle' class='pentitle'></h2>
 		</div>
+		<div id='peninfo' class='hidden peninfodiv'> </div>
 		<div id='pencontent'></div>
 		<div id='pencontentloading'>
 			<p>Loading content</p>
 		</div>
-		<div id='peninfo' class='hidden peninfodiv'> </div>
 	</div>
 	<div id='commentdiv'>
 	</div>
