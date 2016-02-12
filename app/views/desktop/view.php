@@ -10,7 +10,7 @@ if (!defined('srkVersion')) {
 			<h2 id='pentitle' class='pentitle'></h2>
 		</div>
 		<div id='peninfo' class='hidden peninfodiv'> </div>
-		<div id='pencontent'></div>
+		<div id='pencontent' class='pencontentdiv'></div>
 		<div id='pencontentloading'>
 			<p>Loading content</p>
 		</div>

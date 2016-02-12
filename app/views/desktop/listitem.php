@@ -8,6 +8,6 @@ if (!defined('srkVersion')) {
 	<div class='pentitlediv'>
 		<a class='pentitle' id='title'></a>
 	</div>
-	<div class='penpreview' id='preview'></div>
+	<div class='penpreview pencontentdiv' id='preview'></div>
 	<div class='peninfodiv' id='infodiv'></div>
 </div>

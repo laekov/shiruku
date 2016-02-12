@@ -60,15 +60,24 @@ div.divsimple {
 }
 
 div.pentitlediv {
+	padding-left: 16px;
+	padding-right: 16px;
 	background-color: rgba(249,204,226,1);
 	font: Arial;
 	margin-bottom: 0;
 }
 
 div.peninfodiv {
+	padding-left: 16px;
+	padding-right: 16px;
 	background-color: rgba(234,249,246,1);
 	color: #666;
 	margin-bottom: 0;
+}
+
+div.pencontentdiv {
+	padding-left: 16px;
+	padding-right: 16px;
 }
 
 div.penwrapper {
