@@ -1,0 +1,48 @@
+div.divform {
+	width: 512px;
+}
+div.formitem {
+	margin-bottom: 16px;
+}
+
+input.textnormal {
+	width: 16em;
+}
+input.texterror {
+	background: #f99;
+}
+label.labelmonomed {
+	display: inline-block;
+	width: 12em;
+}
+
+button.buttonnormal {
+	padding: 8px;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	font-size: 16px;
+}
+button.buttonnormal:hover {
+	cursor: pointer;
+}
+button.buttongreen {
+	color: #fff;
+	background-color: #090;
+}
+button.buttongreen:hover {
+	background-color: #0c0;
+}
+button.buttonred {
+	color: #fff;
+	background-color: #900;
+}
+button.buttonred:hover {
+	background-color: #c00;
+}
+button.buttonblue {
+	color: #fff;
+	background-color: #009;
+}
+button.buttonblue:hover {
+	background-color: #00c;
+}

@@ -23,6 +23,12 @@ if (!defined('srkVersion')) {
 						</li>
 					</a>
 					<?php } ?>
+					<a href='/login' id='navitem_login'>
+						<li class='navitem'>Log in</li>
+					</a>
+					<li class='navitem hidden' id='navitem_userinfo'>
+						<div class='simplediv divuserid' id='face'> <span id='username'></span> </div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -31,4 +37,11 @@ if (!defined('srkVersion')) {
 			<img src='<?php echo($srkEnv->staticResPath.'/images/nav-background.jpg'); ?>' class='navpic'/>
 		</div>
 	</div>
+	<div class='simplediv hidden floatingdiv' id='loginactions'>
+		<ul class='actionul'>
+			<a href='/login/manage'><li>Profile</li></a>
+			<a id='logout'><li>Log out</li></a>
+		</ul>
+	</div>
 	<div class='maindiv' id='pagecontentdiv'>
+

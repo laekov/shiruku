@@ -7,6 +7,13 @@ require_once($srkEnv->appPath.'/modules/db.php');
 require_once($srkEnv->appPath.'/modules/file.php');
 
 class userData { 
+	static public$matchExp = Array(
+		'userId'=>'/^\w{4,15}$/',
+		'passwd'=>'/^\w{4,15}$/', 
+		'email'=>'/^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$/',
+		'nickname'=>'/^\w{4,15}$/',
+		'invitecode'=>'/^\w{32,32}$/'
+	);
 	public $id = false;
 	private $data = false;
 	public $status = 'empty';
@@ -48,10 +55,34 @@ class userData {
 	}
 
 	public function register($id, $data) {
+		global $srkEnv;
 		$this->id = $id;
-		$this->data = $data;
-		$this->data->userId = $id;
+		if ($data['passwd'] != $data['repeatPasswd']) {
+			return (Object)Array('res'=>'Passwords do not match', 'field'=>'passwd');
+		}
+		foreach (UserData::$matchExp as $key=>$exp) {
+			if (preg_match($exp, $data[$key]) == 0) {
+				$errText = 'Invalid '.$key.'(regular exp: '.$exp.')';
+				return (Object)Array('res'=>$errText, 'field'=>$key);
+			}
+			else {
+				$this->data->$key = $data[$key];
+			}
+		}
+		if (is_dir($srkEnv->userPath.'/'.$id)) {
+			return (Object)Array('res'=>'User exists', 'field'=>'userId');
+		}
+		$invitecodeFileName = $srkEnv->userPath.'/invite_'.$data['invitecode'].'.json';
+		if (!is_file($invitecodeFileName)) {
+			return (Object)Array('res'=>'Invalid invite code'.$invitecodeFileName, 'field'=>'invitecode');
+		}
+		$inviteCode = json_decode(getFileContent($invitecodeFileName));
+		if ($inviteCode->used !== false) {
+			return (Object)Array('res'=>'Illegal invite code', 'field'=>'invitecode');
+		}
+		$this->data->registerTime = time();
 		$this->status = 'registered';
+		return (Object)Array('res'=>false);
 	}
 	public function getField($field) {
 		if ($this->status != 'normal') {

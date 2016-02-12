@@ -7,7 +7,7 @@ require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/render.php');
 
 if ($srkEnv->reqURLLength == 1) {
-	srkRender('loginpage');
+	srkRender('loginpage', Array());
 }
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 	if ($srkEnv->reqURLLength == 2) {
@@ -22,6 +22,16 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		}
 		else {
 			srkSend((Object)Array('res'=>$authRes));
+		}
+	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'register') {
+		$user = new userData;
+		$regRes = $user->register($_POST['userId'], $_POST);
+		if ($regRes->error !== false) {
+			srkSend($regRes);
+		}
+		else {
+			srkSend($regRes);
 		}
 	}
 	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'logout') {

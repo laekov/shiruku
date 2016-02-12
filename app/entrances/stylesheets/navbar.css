@@ -72,3 +72,24 @@ input.searchinput:focus {
 	background-color: rgba(235,235,255,1);
 	border: 3px solid #99f;
 }
+
+div.floatingdiv {
+	position: fixed;
+}
+
+ul.actionul {
+	list-style: none;
+	padding: 0;
+}
+.actionul>li {
+}
+
+div.divuserid {
+	padding-left: 16px;
+}
+
+#loginactions {
+	background-color: #fcc;
+	padding-left: 8px;
+	padding-right: 8px;
+}

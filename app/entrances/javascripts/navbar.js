@@ -43,6 +43,31 @@ function onWindowChange() {
     }
 }
 
+function updateLogin() {
+	$.post("/login/query/whoami", {}, function(res) {
+		if (res.userId) {
+			if (!res.username) {
+				res.username = res.userId;
+			}
+			$("#navitem_login").hide();
+			$("#navitem_userinfo").find("#username").html(res.username);
+			$("#navitem_userinfo").show();
+		}
+		else {
+			$("#navitem_userinfo").hide();
+			$("#navitem_login").show();
+		}
+	});
+	$("#loginactions").fadeOut(300);
+}
+
+function recordPrevious() {
+	var reqURL = window.location.pathname.split('/');
+	if (reqURL[1] != 'login') {
+		$.cookie("prevPage", window.location.pathname);
+	}
+}
+
 $(document).ready(function() {
     $(window).scroll(onWindowChange);
     $(window).resize(onWindowChange);
@@ -63,5 +88,21 @@ $(document).ready(function() {
             window.location.href = '/list/search/' + $(this).val();
         }
     });
+	$("#navitem_userinfo").hover(function() {
+		var pos = $(this).position();
+		$("#loginactions").css("top", pos.top);
+		$("#loginactions").css("left", pos.left);
+		$("#loginactions").fadeIn(300);
+	}, function() { });
+	$("#loginactions").hover(function() { }, function() {
+		$(this).fadeOut(300);
+	});
+	$("#logout").click(function() {
+		$.post("/login/auth/logout", {}, function() {
+			updateLogin();
+		});
+	});
+	updateLogin();
+	recordPrevious();
 });
 
