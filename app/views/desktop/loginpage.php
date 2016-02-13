@@ -22,7 +22,7 @@ if (!defined('srkVersion')) {
 		<div class='formitem'>
 			<label class='labelmonomed' for='email'>Email<a onclick="$('#emailexplain').slideDown()">*</a></label>
 			<input class='textnormal' type='text' id='email'/>
-			<label class='hidden' id='emailexplain'>This&nbsp;is&nbsp;used&nbsp;to&nbsp;grab&nbsp;your&nbsp;avatar&nbsp;from&nbsp;<a href='https://gravatar.com'>Gravatar</a></label>
+			<label class='hidden' id='emailexplain'>This&nbsp;is&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;grab&nbsp;your&nbsp;avatar&nbsp;from&nbsp;<a href='https://gravatar.com'>Gravatar</a></label>
 		</div>
 		<div class='formitem'>
 			<label class='labelmonomed' for='nickname'>Nickname</label>

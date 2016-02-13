@@ -1,20 +1,10 @@
-function getFormData(list) {
-	var ret = {};
-	for (i in list) {
-		ret[list[i]] = $("#" + list[i]).val();
-	}
-	return ret;
-}
-
-function submitData(data) {
+function submitLogin(data) {
 	$("#psuccess").hide();
 	$("#perror").hide();
 	$("#ppending").fadeIn();
-	$.post("/entrances/redirectpost.php", data, function(res) {
-		console.log(res);
+	submitData(data, function(res) {
 		$("#ppending").hide();
 		if (res.res == 'successful') {
-			$("#psuccess").fadeIn();
 			var prevPage = $.cookie("prevPage");
 			if (prevPage) {
 				window.location.href = prevPage;
@@ -22,6 +12,7 @@ function submitData(data) {
 			else {
 				window.location.href = '/';
 			}
+			$("#psuccess").fadeIn();
 		}
 		else {
 			if (!res.res) {
@@ -40,7 +31,7 @@ function login() {
 	var dataList = [ 'userId', 'passwd' ];
 	var data = getFormData(dataList);
 	data.requestURI = '/login/auth';
-	submitData(data);
+	submitLogin(data);
 }
 
 function register() {
@@ -50,7 +41,7 @@ function register() {
 	}
 	var data = getFormData(dataList);
 	data.requestURI = '/login/auth/register';
-	submitData(data);
+	submitLogin(data);
 }
 
 function setReturnActions(cList, action) {

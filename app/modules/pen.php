@@ -82,3 +82,32 @@ function matchFilter($filter, $content) {
 	return true;
 }
 
+function penUpdate($penId, $penConfig, $penContent) {
+	global $srkEnv;
+	$penPath = $srkEnv->penPath.'/'.$penId;
+	$err = false;
+	$res = '';
+	if (!is_dir($penPath)) {
+		mkdir($penPath);
+	}
+	if ($penConfig) {
+		if (takeDownJSON($penPath.'/config.json', $penConfig)) {
+			$err = true;
+			$res .= 'Failed to write config file ';
+		}
+		else {
+			$res .= 'Config file updated ';
+		}
+	}
+	if ($penContent) {
+		if (takeDownString($penPath.'/content.md', $penContent)) {
+			$err = true;
+			$res .= 'Failed to write content file ';
+		}
+		else {
+			$res .= 'Content file updated ';
+		}
+	}
+	return (Object)Array('error'=>$err, 'res'=>$res);
+}
+

@@ -31,3 +31,28 @@ function getFileContent($fileName) {
 	}
 }
 
+// write an object to a json file
+function takeDownJSON($fileName, $content) {
+	$outFile = fopen($fileName, 'w');
+	if ($outFile) {
+		fputs($outFile, json_encode($content));
+		fclose($outFile);
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+// write a string to a file 
+function takeDownString($fileNme, $content) {
+	$outFile = fopen($fileName, 'w');
+	if ($outFile) {
+		fputs($outFile, $content);
+		fclose($outFile);
+		return false;
+	}
+	else {
+		return true;
+	}
+}

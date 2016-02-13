@@ -17,7 +17,7 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		$user->readUser($userId);
 		$authRes = $user->authenticate($passwd);
 		if ($authRes === false) {
-			$_SESSION['userId'] = $userId;
+			$_SESSION['userId'] = $user->id;
 			srkSend((Object)Array('res'=>'successful'));
 		}
 		else {
@@ -27,11 +27,18 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'register') {
 		$user = new userData;
 		$regRes = $user->register($_POST['userId'], $_POST);
-		if ($regRes->error !== false) {
+		if ($regRes->res !== false) {
 			srkSend($regRes);
 		}
 		else {
-			srkSend($regRes);
+			$writeRes = $user->writeUser();
+			if ($writeRes === false) {
+				$_SESSION['userId'] = $user->id;
+				srkSend((Object)Array('res'=>'successful'));
+			}
+			else {
+				srkSend((Object)Array('res'=>'Failed to write data'));
+			}
 		}
 	}
 	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'logout') {
