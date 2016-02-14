@@ -14,7 +14,18 @@ if ($user->status != 'normal') {
 	return;
 }
 elseif ($srkEnv->reqMethod == 'GET') {
-	srkRender('admin');
+	srkRender('admin', Array());
+}
+elseif ($srkEnv->reqURL[2] == 'query') {
+	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'access') {
+		$access = $user->getField('accessList');
+		if (isset($access)) {
+			srkSend((Object)Array('error'=>false, 'accessList'=>$access));
+		}
+		else {
+			srkSend((Object)Array('error'=>'Access denied'));
+		}
+	}
 }
 elseif ($srkEnv->reqURL[2] == 'pen') {
 	if (!in_array('pen', $user->data->access)) {
@@ -31,7 +42,7 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 			$config = false;
 		}
 		elseif ($config === null) {
-			srkSend((Object)Array('error'=>'Illegal config file');
+			srkSend((Object)Array('error'=>'Illegal config file'));
 		}
 		$updRes = penUpdate($penId, $config, $content);
 		srkSend($updRes);
@@ -39,6 +50,13 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 	elseif ($srkEnv->reqURL[3] == 'remove') {
 		$penId = $_POST['penId'];
 		$penPath = $srkEnv->penPath.'/pen/'.$penId;
+		if (is_dir($penPath)) {
+			rmdir($penPath);
+			srkSend((Object)Array('error'=>false));
+		}
+		else {
+			srkSend((Object)Array('error'=>'No such pen'));
+		}
 	}
 }
 

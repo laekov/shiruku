@@ -39,7 +39,7 @@ if ($srkEnv->reqURLLength == 0 ||
 	require_once($srkEnv->appPath.'/routes/home.php');
 }
 else {
-	$routeList = Array('list', 'view', 'pen', 'comment', 'resources', 'login');
+	$routeList = Array('list', 'view', 'pen', 'comment', 'resources', 'login', 'admin');
 	foreach ($routeList as $route) {
 		if ($srkEnv->reqURL[1] == $route) {
 			require_once($srkEnv->appPath.'/routes/'.$route.'.php');

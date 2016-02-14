@@ -98,8 +98,3 @@ function updateContent() {
 	});
 }
 
-$(document).ready(function() {
-	updateContent();
-	showComment('/pen/' + getCurrentPenId(), "#commentdiv");
-});
-
