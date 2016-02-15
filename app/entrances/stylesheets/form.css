@@ -46,3 +46,18 @@ button.buttonblue {
 button.buttonblue:hover {
 	background-color: #00c;
 }
+
+.monobig {
+	display: inline-block;
+	width: 32em;
+}
+.monosmall {
+	display: inline-block;
+	width: 8em;
+}
+
+div.formtitle {
+	font-size: 32px;
+	font-weight: 700;
+	border-bottom: 1px solid;
+}
