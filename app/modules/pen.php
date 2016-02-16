@@ -108,6 +108,11 @@ function penUpdate($penId, $penConfig, $penContent) {
 			$res .= 'Content file updated ';
 		}
 	}
-	return (Object)Array('error'=>$err, 'res'=>$res);
+	if ($err) {
+		return (Object)Array('error'=>$res, 'res'=>'error');
+	} 
+	else {
+		return (Object)Array('error'=>$err, 'res'=>$res);
+	}
 }
 

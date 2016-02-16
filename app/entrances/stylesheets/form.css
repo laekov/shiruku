@@ -61,3 +61,8 @@ div.formtitle {
 	font-weight: 700;
 	border-bottom: 1px solid;
 }
+
+textarea {
+	padding: 0;
+	margin: 0;
+}

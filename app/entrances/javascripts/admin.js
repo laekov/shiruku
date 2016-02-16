@@ -1,3 +1,17 @@
+function clearStatus() {
+	$("#perror").hide();
+	$("#ppending").hide();
+	$("#psuccess").hide();
+	$("#pres").hide();
+}
+function showStatus(id, word) {
+	clearStatus();
+	if (word != null) {
+		$("#p" + id).html(word);
+	}
+	$("#p" + id).show();
+}
+
 var PenList = function() {
 	var self = this;
 	this.init = function() {
@@ -25,6 +39,11 @@ var PenList = function() {
 			ele.show();
 			$("#ui_penlist").find("#list").append(ele);
 		}
+		$(".actviewpen").click(function() {
+			var penId = $(this).parent().find("#penId").html();
+			penEdit.load(penId);
+			$("#formnav_penedit").find("#content").click();
+		});
 		$(".actremovepen").click(function() {
 			var penId = $(this).parent().find("#penId").html();
 			var data = {
@@ -61,6 +80,28 @@ var PenEdit = function() {
 			self.genPreview();
 		});
 	}
+	this.upload = function(btnId) {
+		showStatus("pending", null);
+		var data = {
+			requestURI: '/admin/pen/update',
+			penId: $("#editpenid").val()
+		};
+		if (['actsubmitcontent', 'actsubmitboth'].indexOf(btnId) != -1) {
+			data.content = $("#editcontenttext").val();
+		}
+		if (['actsubmitconfig', 'actsubmitboth'].indexOf(btnId) != -1) {
+			data.config = $("#editconfigtext").val()
+		}
+		console.log(data);
+		submitData(data, function(res) {
+			if (res.error) {
+				showStatus("error", res.error);
+			}
+			else {
+				showStatus("res", res.res);
+			}
+		});
+	}
 	this.init = function() {
 		$("#actgenerateid").click(function() {
 			$.post('/admin/pen/genid', {}, function(res) {
@@ -72,6 +113,18 @@ var PenEdit = function() {
 		$("#actreloadpen").click(function() {
 			self.load($("#editpenid").val());
 		});
+		$("#actgeneratepreview").click(function() {
+			self.genPreview();
+		});
+		$("#actsubmitcontent").click(function() {
+			self.upload($(this).attr("id"));
+		});
+		$("#actsubmitconfig").click(function() {
+			self.upload($(this).attr("id"));
+		});
+		$("#actsubmitboth").click(function() {
+			self.upload($(this).attr("id"));
+		});
 	}
 };
 var penEdit;
@@ -82,6 +135,7 @@ function onWindowResize() {
 	var cWidth = $("#pagecontentdiv").width() - $("#formnavdiv").width();
 	var textWidth = (cWidth - 16) / 2;
 	$("#editcontenttext").width(textWidth);
+	$("#editconfigtext").width(textWidth);
 }
 
 $(window).resize(onWindowResize);

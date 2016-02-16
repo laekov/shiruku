@@ -14,7 +14,7 @@ if (!defined('srkVersion')) {
 <div class='hidden' id='samplelistitem'>
 	<p>
 		<a class='hidden' id='penId'></a>
-		<a class='monobig' id='title'></a>
+		<a class='monobig actviewpen' id='title'></a>
 		<a class='monosmall actremovepen' id='remove'>Remove</a>
 	</p>
 </div>

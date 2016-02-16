@@ -45,7 +45,7 @@ function takeDownJSON($fileName, $content) {
 }
 
 // write a string to a file 
-function takeDownString($fileNme, $content) {
+function takeDownString($fileName, $content) {
 	$outFile = fopen($fileName, 'w');
 	if ($outFile) {
 		fputs($outFile, $content);
