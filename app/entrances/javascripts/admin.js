@@ -48,13 +48,43 @@ var penList;
 
 var PenEdit = function() {
 	var self = this;
+	this.genPreview = function() {
+		var converter = new Showdown.converter;
+		content = converter.makeHtml($("#editcontenttext").val());
+		$("#previewdiv").html(content);
+	}
+	this.load = function(penId) {
+		$("#editpenid").val(penId);
+		$.post("/admin/pen/content/" + penId, {}, function(res) {
+			$("#editcontenttext").val(res.content);
+			$("#editconfigtext").val(res.config);
+			self.genPreview();
+		});
+	}
 	this.init = function() {
+		$("#actgenerateid").click(function() {
+			$.post('/admin/pen/genid', {}, function(res) {
+				var penId = res.id ? res.id : 'Untitled';
+				self.load(penId);
+			});
+		});
+		$("#actgenerateid").click();
+		$("#actreloadpen").click(function() {
+			self.load($("#editpenid").val());
+		});
 	}
 };
 var penEdit;
 
 var navList;
 
+function onWindowResize() {
+	var cWidth = $("#pagecontentdiv").width() - $("#formnavdiv").width();
+	var textWidth = (cWidth - 16) / 2;
+	$("#editcontenttext").width(textWidth);
+}
+
+$(window).resize(onWindowResize);
 $(document).ready(function() {
 	$.post("/admin/query/access", function(res) {
 		if (res.error) {
@@ -99,5 +129,6 @@ $(document).ready(function() {
 			});
 		}
 	});
+	onWindowResize();
 });
 

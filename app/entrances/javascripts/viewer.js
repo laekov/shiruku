@@ -12,6 +12,9 @@ function getCurrentPenId() {
 	if (path.length == 3 && path[1] == 'view') {
 		return path[2];
 	}
+	else if (path[1] == 'admin') {
+		return $("#editpenid").val();
+	}
 	else {
 		return "empty";
 	}

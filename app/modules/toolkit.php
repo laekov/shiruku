@@ -47,7 +47,12 @@ function isMobile() {
 function srkLog($info) {
 	global $srkEnv;
 	$logFile = fopen($srkEnv->logFileName, 'a');
-	fputs($logFile, $info);
+	fputs($logFile, gmdate("Y-m-d h:i:s ").$info."\n");
 	fclose($logFile);
+}
+
+// generate a random string of a certain length
+function randId($len) {
+	return substr(md5(time() * 1000 + rand()), 0, $len);
 }
 

@@ -90,3 +90,11 @@ div.penwrapper {
 div.divfill {
 	width: 100%;
 }
+
+div.divmarginright {
+	margin-right: 16px;
+}
+
+div.divborder {
+	border: 1px #ccc solid;
+}
