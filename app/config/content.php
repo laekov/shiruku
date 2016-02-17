@@ -50,7 +50,7 @@ $srkContent->navbar = Array(
 
 // record info
 $srkContent->PRCRecordInfo = (Object)Array(
-	'text'=>'ICP备2333333号',
+	'text'=>'ICP备23333333333333号',
 	'href'=>'http://http://www.miitbeian.gov.cn/'
 );
 
@@ -99,5 +99,12 @@ $srkContent->friendLink = Array(
 		'text'=>'dx',
 		'href'=>'http://notdr.logdown.com/'
 	)
+);
+
+// default pen config data
+$srkContent->defaultPenConfig = (Object)Array(
+	'title'=>'Untitled',
+	'tag'=>Array(),
+	'catalog'=>'Undefined'
 );
 
