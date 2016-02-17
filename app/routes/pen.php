@@ -28,7 +28,7 @@ if ($srkEnv->reqURLLength >= 2) {
 				srkSend(Array('error'=>'No such pen'));
 			}
 			elseif ($srkEnv->reqURL[3] == 'content') {
-				$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.html');
+				$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
 				if ($content === -1) {
 					$content = 'No pen content';
 				}
@@ -40,7 +40,7 @@ if ($srkEnv->reqURLLength >= 2) {
 					$content = 'Code';
 				}
 				else {
-					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.html');
+					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
 				}
 				if ($content === -1) {
 					$content = 'No pen preview';

@@ -66,15 +66,17 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'content') {
 		$penId = $srkEnv->reqURL[4];
 		$penPath = $srkEnv->penPath.'/'.$penId;
-		if (is_dir($penPath)) {
-			$res = (Object)Array();
-			$res->content = getFileContent($penPath.'/content.md');
-			$res->config = getFileContent($penPath.'/config.json');
-			srkSend($res);
+		$res = (Object)Array();
+		$res->content = getFileContent($penPath.'/content.md');
+		if ($res->content == -1) {
+			$res->content = '';
 		}
-		else {
-			srkSend((Object)Array($content=>'', $config=>''));
+		$res->config = getFileContent($penPath.'/config.json');
+		if ($res->config == -1) {
+			$res->config = json_encode($srkContent->defaultPenConfig);
+			srkLog($res->config);
 		}
+		srkSend($res);
 	}
 	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'genid') {
 		$penId = '';

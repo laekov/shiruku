@@ -12,6 +12,7 @@ if (!defined('srkVersion')) {
 						<a href='https://github.com/laekov/shiruku'>Shiruku <?php echo(srkVersion); ?></a>
 					</p>
 					<p><a href='/view/bugreport'>Report a bug</a></p>
+					<p><a href='/admin'>Site administration entrance</a></p>
 				</div>
 				<div class='divright alignright'>
 					<p> All&nbsp;rights&nbsp;reserved&nbsp;

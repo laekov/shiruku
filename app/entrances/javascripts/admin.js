@@ -73,11 +73,17 @@ var PenEdit = function() {
 		$("#previewdiv").html(content);
 	}
 	this.load = function(penId) {
+		if ($("#ui_penedit").css("display") != "none") {
+			showStatus("pending", null);
+		}
 		$("#editpenid").val(penId);
 		$.post("/admin/pen/content/" + penId, {}, function(res) {
 			$("#editcontenttext").val(res.content);
 			$("#editconfigtext").val(res.config);
 			self.genPreview();
+			if ($("#ui_penedit").css("display") != "none") {
+				showStatus("res", "loaded");
+			}
 		});
 	}
 	this.upload = function(btnId) {

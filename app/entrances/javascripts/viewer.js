@@ -55,7 +55,7 @@ function updateContent() {
 			$("#pencontentloading").html(res.error);
 		}
 		else {
-			var cfg = checkPenConfig(penId, res);
+			var cfg = res;
 			var date = new Date();
 			date.setTime(cfg.modifyTime * 1000);
 			$("#pentitle").html(cfg.title);

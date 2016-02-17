@@ -7,6 +7,9 @@ div.commentinfodiv {
 }
 
 div.commentcontentdiv {
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 8px;
 	background-color: rgba(226,238,255,1);
 }
 

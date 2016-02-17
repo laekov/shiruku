@@ -91,6 +91,13 @@ function penUpdate($penId, $penConfig, $penContent) {
 		mkdir($penPath);
 	}
 	if ($penConfig) {
+		$penConfig->penId = $penId;
+		if (!isset($penConfig->title)) {
+			$penConfig->title = $penId;
+		}
+		if (!isset($penConfig->modifyTime)) {
+			$penConfig->modifyTime = time();
+		}
 		if (takeDownJSON($penPath.'/config.json', $penConfig)) {
 			$err = true;
 			$res .= 'Failed to write config file ';
