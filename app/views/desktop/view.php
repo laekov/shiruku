@@ -15,6 +15,7 @@ if (!defined('srkVersion')) {
 			<p>Loading content</p>
 		</div>
 	</div>
+	<div id='commenteditdiv'></div>
 	<div id='commentdiv'>
 	</div>
 	<div id='quickjump' class='hidden'> 

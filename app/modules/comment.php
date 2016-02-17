@@ -32,10 +32,8 @@ function commentLoadConfig($penId, $commentId) {
 // load both config and content
 function commentLoadContent($penId, $commentId) {
 	global $srkEnv;
-	$res = commentLoadConfig($penId, $commentId);
 	$contentFileName = $srkEnv->penPath.'/'.$penId.'/comment/'.$commentId.'/content.html';
-	$res->content = getFileContent($contentFileName);
-	return $res;
+	return getFileContent($contentFileName);
 }
 
 // Load all comments of a pen
@@ -82,5 +80,28 @@ function commentLoadRecent($limit) {
 	}
 	usort($res, "cmpByTime");
 	return $res;
+}
+
+// post a comment
+function commentPost($user) {
+	global $srkEnv;
+	$penCommentPath = $srkEnv->penPath.'/'.$_POST['penId'].'/comment';
+	if (!is_dir($penCommentPath)) {
+		mkdir($penCommentPath);
+	}
+	$commentId = '';
+	do {
+		$commentId = randId(8);
+	} while (is_dir($penCommentPath.'/'.$commentId));
+	$commentPath = $penCommentPath.'/'.$commentId;
+	mkdir($commentPath);
+	takeDownString($commentPath.'/content.html', $_POST['content']);
+	$config = (Object)Array(
+		'commentId'=>$commentId,
+		'owner'=>$user->getField('userId'),
+		'modifyTime'=>time()
+	);
+	takeDownJSON($commentPath.'/config.json', $config);
+	return false;
 }
 

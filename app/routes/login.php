@@ -50,7 +50,7 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'whoami') {
 		$userId = $_SESSION['userId'];
 		if (!isset($userId)) {
-			srkSend((Object)Array('Error'=>'not logged in'));
+			srkSend((Object)Array('error'=>'not logged in'));
 		}
 		else {
 			srkSend((Object)Array('userId'=>$userId));

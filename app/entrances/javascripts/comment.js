@@ -3,32 +3,58 @@ function showComment(queryStr, targetId) {
 		var listDiv = $(targetId);
 		var confList = res.list;
 		confList.sort(function(a, b) {
-            return b.priority - a.priority;
+            return b.modifyTime - a.modifyTime;
 		});
 		listDiv.html("");
 		for (var i in confList) {
+			var ele = $("#samplecomment").clone();
+			ele.attr("id", "comment_" + confList[i].commentId);
+			if (confList[i].owner) {
+				ele.find("#ownerinfo").html(confList[i].owner);
+			}
+			else {
+				ele.find("#ownerinfo").html("Unknown owner");
+			}
+			var date = new Date();
+			date.setTime(confList[i].modifyTime * 1000);
+			ele.find("#modifytime").html(date.toLocaleString());
+			ele.show();
+			listDiv.append(ele);
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
-				var ele = $("#samplecomment").clone();
-                var date = new Date();
 				if (res.content) {
-					ele.attr("id", res.content.commentId);
-                    date.setTime(res.content.modifyTime * 1000);
-					if (res.owner) {
-						ele.find("#ownerinfo").html(res.owner);
-					}
-					else {
-						ele.find("#ownerinfo").html("Unknown owner");
-					}
-					ele.find("#modifytime").html(date.toLocaleString());
-					var content = res.content.content.replace(/\<br\/\>/g, '\n\n');
+					var content = res.content.replace(/\<br\/\>/g, '\n\n');
 					content = htmlSpecialChars(content);
 					content = content.replace(/\n\n/g, "<br/>");
-					ele.find("#content").html(content);
-					ele.show();
-					listDiv.append(ele);
+					listDiv.find("#comment_" + res.commentId).find("#content").html(content);
 				}
 			});
 		}
+	});
+}
+
+function commentDivInit(eleId) {
+	var divEle = $(eleId);
+	divEle.find("#content").width($("#pagecontentdiv").width());
+	divEle.find("#commentpost").click(function() {
+		divEle.find("#perror").hide();
+		divEle.find("#psuccess").hide();
+		divEle.find("#ppending").show();
+		var data = {
+			requestURI: "/comment/post",
+			penId: getCurrentPenId(),
+			content: $(this).parent().find("#content").val()
+		};
+		submitData(data, function(res) {
+			divEle.find("#ppending").hide();
+			if (res.error) {
+				divEle.find("#perror").html(res.error);
+				divEle.find("#perror").show();
+			}
+			else {
+				divEle.find("#psuccess").show();
+				showComment('/pen/' + getCurrentPenId(), "#commentdiv");
+			}
+		});
 	});
 }
 
