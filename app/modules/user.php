@@ -112,6 +112,7 @@ class userData {
 			return (Object)Array('res'=>'Illegal invite code', 'field'=>'invitecode');
 		}
 		$this->data->registerTime = time();
+		$this->data->source = 'local';
 		$this->status = 'registered';
 		return (Object)Array('res'=>false);
 	}

@@ -1,3 +1,9 @@
+function updateAvatar(commentId, owner) {
+	$.post("/login/query/avatarurl/" + owner, {}, function(res) {
+		$("#comment_" + commentId).find("#ownerinfo").find("#avatar").attr('src', res.url);
+	});
+}
+
 function showComment(queryStr, targetId) {
 	$.post("/comment/query/" + queryStr, {}, function(res) {
 		var listDiv = $(targetId);
@@ -10,7 +16,8 @@ function showComment(queryStr, targetId) {
 			var ele = $("#samplecomment").clone();
 			ele.attr("id", "comment_" + confList[i].commentId);
 			if (confList[i].owner) {
-				ele.find("#ownerinfo").html(confList[i].owner);
+				ele.find("#ownerinfo").find("#nickname").html(confList[i].owner);
+				updateAvatar(confList[i].commentId, confList[i].owner);
 			}
 			else {
 				ele.find("#ownerinfo").html("Unknown owner");

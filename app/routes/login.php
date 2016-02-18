@@ -64,7 +64,6 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 			srkSend((Object)Array('url'=>$resURL));
 		}
 		else {
-			srkSend((Object)Array('source'=>$user->getField('source'), 'userstatus'=>$user->status));
 		}
 	}
 }

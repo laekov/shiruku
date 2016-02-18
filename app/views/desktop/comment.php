@@ -6,7 +6,11 @@ if (!defined('srkVersion')) {
 
 <div class='hidden commentitem' id='samplecomment'>
 	<div id='info' class='commentinfodiv'>
-		<div id='ownerinfo' class='divleft divsimple'></div>
+		<div id='ownerinfo' class='divleft divsimple'>
+			<div class='divleft'><img id='avatar' class='avatarsmall'/></div>
+			<div class='divleft'><span id='nickname'></span></div>
+			<div class='divclear'></div>
+		</div>
 		<div class='divright divsimple'>
 			Posted&nbsp;at&nbsp;<span id='modifytime'></span>
 		</div>

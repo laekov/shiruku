@@ -13,3 +13,8 @@ div.commentcontentdiv {
 	background-color: rgba(226,238,255,1);
 }
 
+img.avatarsmall {
+	width: 32px;
+	height: 32px;
+	margin-right: 16px;
+}
