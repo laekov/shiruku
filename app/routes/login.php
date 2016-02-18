@@ -25,7 +25,7 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		}
 	}
 	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'register') {
-		$user = new userData;
+		$user = new UserData;
 		$regRes = $user->register($_POST['userId'], $_POST);
 		if ($regRes->res !== false) {
 			srkSend($regRes);
@@ -54,6 +54,17 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 		}
 		else {
 			srkSend((Object)Array('userId'=>$userId));
+		}
+	}
+	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'avatarurl') {
+		$user = new UserData;
+		$user->readUser($srkEnv->reqURL[4]);
+		if ($user->getField('source') == 'local') {
+			$resURL = 'http://gravatar.com/avatar/'.md5($user->getField('email')).'?s=100&d=mm&r=g';
+			srkSend((Object)Array('url'=>$resURL));
+		}
+		else {
+			srkSend((Object)Array('source'=>$user->getField('source'), 'userstatus'=>$user->status));
 		}
 	}
 }
