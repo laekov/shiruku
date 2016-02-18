@@ -74,3 +74,4 @@ $(document).ready(function() {
 	});
 	setReturnActions(["userId", "passwd"], login);
 });
+

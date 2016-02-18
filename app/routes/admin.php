@@ -3,6 +3,7 @@ if (!defined('srkVersion')) {
 	exit(403);
 }
 
+require_once($srkEnv->appPath.'/modules/file.php');
 require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/pen.php');
 require_once($srkEnv->appPath.'/modules/render.php');
@@ -24,6 +25,9 @@ elseif ($srkEnv->reqURL[2] == 'query') {
 			if (in_array('pen', $access)) {
 				array_push($res, 'penlist');
 				array_push($res, 'penedit');
+			}
+			if (in_array('invite', $access)) {
+				array_push($res, 'invite');
 			}
 			srkSend((Object)Array('error'=>false, 'accessList'=>$res));
 		}
@@ -84,6 +88,39 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 			$penId = randId(6);
 		} while (is_dir($srkEnv->penPath.'/'.$penId));
 		srkSend((Object)Array('id'=>$penId));
+	}
+}
+elseif ($srkEnv->reqURL[2] == 'invite') {
+	if (!in_array('invite', $user->getField("accessList"))) {
+		srkSend((Object)Array('error'=>'Access denied'));
+	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'query') {
+		$res = Array();
+		$fileList = getDirCatalog($srkEnv->userPath);
+		foreach ($fileList as $item) {
+			if (substr($item, 0, 7) == 'invite_') {
+				$inviteCode = substr($item, 7, -5);
+				$inviteObj = json_decode(getFileContent($srkEnv->userPath.'/'.$item));
+				$inviteObj->value = $inviteCode;
+				array_push($res, $inviteObj);
+			}
+		}
+		srkSend((Object)Array('list'=>$res));
+	}
+	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'generate') {
+		$count = (int)$srkEnv->reqURL[4];
+		$defInfo = (Object)Array('used'=>false);
+		if ($count > 0 && $count < 16) {
+			for ($i = 0; $i < $count; ++ $i) {
+				$code = '';
+				do {
+					$code = randId(16);
+				} while (is_file($srkEnv->userPath.'/invite_'.$code.'.json'));
+				$codeFileName = $srkEnv->userPath.'/invite_'.$code.'.json';
+				takeDownJSON($codeFileName, $defInfo);
+			}
+		}
+		srkSend((Object)Array('res'=>'Done'));
 	}
 }
 

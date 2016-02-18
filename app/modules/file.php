@@ -5,7 +5,7 @@ if (!defined('srkVersion')) {
 
 // create a list of a directory
 // used to response pen list request
-function getDirCatlog($dirPath) {
+function getDirCatalog($dirPath) {
 	$ret = Array();
 	$dir = opendir($dirPath);
 	while (($content = readdir($dir)) != false) {

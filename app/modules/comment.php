@@ -45,7 +45,7 @@ function commentLoadAll($penId) {
 	}
 	else {
 		$list = Array();
-		$cata = getDirCatlog($pathName);
+		$cata = getDirCatalog($pathName);
 		foreach ($cata as $commentId) {
 			$item = commentLoadConfig($penId, $commentId);
 			if ($item !== false) {
@@ -65,7 +65,7 @@ function cmpByTime($a, $b) {
 function commentLoadRecent($limit) {
 	global $srkEnv;
 	$res = Array();
-	$fileList = getDirCatlog($srkEnv->penPath);
+	$fileList = getDirCatalog($srkEnv->penPath);
 	foreach ($fileList as $penId) {
 		$penCom = commentLoadAll($penId);
 		foreach ($penCom as $com) {

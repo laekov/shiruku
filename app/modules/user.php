@@ -12,7 +12,7 @@ class userData {
 		'passwd'=>'/^\w{4,15}$/', 
 		'email'=>'/^[a-zA-Z0-9_\.]+@[a-zA-Z0-9-]+[\.a-zA-Z]+$/',
 		'nickname'=>'/^\w{1,16}$/',
-		'invitecode'=>'/^\w{32,32}$/'
+		'invitecode'=>'/^\w{8,32}$/'
 	);
 	public $id = false;
 	private $data = false;
@@ -71,7 +71,7 @@ class userData {
 			$emailFileName = $this->getMyEmailFileName();
 			takeDownJSON($emailFileName, (Object)Array('owner'=>$this->id));
 			$invitecodeFileName = $srkEnv->userPath.'/invite_'.$this->data->invitecode.'.json';
-			$invitecode = json_encode(getFileContent($invitecodeFileName));
+			$invitecode = json_decode(getFileContent($invitecodeFileName));
 			$invitecode->used = true;
 			$invitecode->owner = $this->id;
 			takeDownJSON($invitecodeFileName, $invitecode);

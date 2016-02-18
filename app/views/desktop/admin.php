@@ -60,6 +60,23 @@ if (!defined('srkVersion')) {
 		</div>
 	</div>
 
+	<div id='ui_invite' class='hidden'>
+		<div class='formtitle'>
+			<p id='title'>Invatation manage</p>
+		</div>
+		<div class='formitem'>
+			<label for='generatecount'>Count</label>
+			<input class='textnormal' type='text' id='invitecodegeneratecount'/>
+			<button class='buttonnormal buttongreen' id='actgenerateinvitecode'>Generate</button>
+		</div>
+		<div class='hidden' id='sampleinvitecode'>
+			<span class='monobig' id='value'></span>
+			<span class='monosmall' id='used'></span>
+		</div>
+		<div class='formitem' id='invitelist'>
+		</div>
+	</div>
+
 	<div id='statusdiv'>
 		<p class='red hidden' id='perror'></p>
 		<p class='blue hidden' id='ppending'>Pending</p>

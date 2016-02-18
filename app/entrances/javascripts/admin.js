@@ -98,7 +98,6 @@ var PenEdit = function() {
 		if (['actsubmitconfig', 'actsubmitboth'].indexOf(btnId) != -1) {
 			data.config = $("#editconfigtext").val()
 		}
-		console.log(data);
 		submitData(data, function(res) {
 			if (res.error) {
 				showStatus("error", res.error);
@@ -135,6 +134,39 @@ var PenEdit = function() {
 };
 var penEdit;
 
+var Invite = function() {
+	var self = this;
+	this.loadList = function() {
+		$("#invitelist").html("");
+		$.post("/admin/invite/query", {}, function(res) {
+			for (var i in res.list) {
+				var ele = $("#sampleinvitecode").clone();
+				ele.find("#value").html(res.list[i].value);
+				ele.find("#used").html(res.list[i].used ? "Used" : "Free");
+				ele.show();
+				$("#invitelist").append(ele);
+			}
+		});
+	}
+	this.init = function() {
+		self.loadList();
+		$("#actgenerateinvitecode").click(function() {
+			var num = Number($("#invitecodegeneratecount").val());
+			if (isFinite(num) && num > 0 && num < 100) {
+				$.post("/admin/invite/generate/" + num, {}, function() {
+					self.loadList();
+				});
+			}
+		});
+		$("#invitecodegeneratecount").keyup(function(key) {
+			if (key.which == 13) {
+				$("#actgenerateinvitecode").click();
+			}
+		});
+	}
+};
+var invite;
+
 var navList;
 
 function onWindowResize() {
@@ -170,6 +202,10 @@ $(document).ready(function() {
 			if (navList.indexOf("penedit") != -1) {
 				penEdit = new PenEdit();
 				penEdit.init();
+			}
+			if (navList.indexOf("invite") != -1) {
+				invite = new Invite;
+				invite.init();
 			}
 			$(".actformnavitem").click(function() {
 				var myId = $(this).find("#divid").html();
