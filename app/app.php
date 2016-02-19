@@ -20,6 +20,7 @@ function decipherURI($uri) {
 
 $_SERVER['REDIRECT_STATUS'] = 0;
 header('HTTP/1.1 200 OK');
+header('Status: 200 OK');
 
 // load environment vars
 require_once('./config/env.php');

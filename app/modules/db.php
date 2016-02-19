@@ -29,7 +29,8 @@ function srkDBGetData($tableName, $keyName, $keyValue) {
 	$db = srkDBConnect();
 	if ($db) {
 		$queryStr = 'SELECT * FROM '.$tableName.' WHERE '.$keyName.' = \''.$keyValue.'\'';
-		$arr = $db->query($queryStr)->fetch_array();
+		$data = $db->query($queryStr);
+		$arr = ->fetch_array();
 		srkDBClose();
 		return $arr;
 	}
