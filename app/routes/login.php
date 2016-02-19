@@ -7,6 +7,7 @@ require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/render.php');
 
 if ($srkEnv->reqURLLength == 1) {
+	$srkEnv->pageTitle .= '.login';
 	srkRender('loginpage', Array());
 }
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {

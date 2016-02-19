@@ -9,7 +9,7 @@ if (!defined('srkVersion')) {
 			<div class='navbarfloat'>
 				<ul class='navul navull'>
 					<li id='icondiv' class='navitem navtitle'>
-						Shiruku - test
+						<img src='<?php echo($srkEnv->staticResPath.'/images/nav-title.png'); ?>' class='navtitlepic'/>
 					</li>
 					<li class='navitem'>
 						<input class='searchinput' id='searchinput' type='text' value=''/>

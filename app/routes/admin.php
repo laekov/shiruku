@@ -8,6 +8,8 @@ require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/pen.php');
 require_once($srkEnv->appPath.'/modules/render.php');
 
+$srkEnv->pageTitle .= '.admin';
+
 $user = new UserData;
 $user->readUser($_SESSION['userId']);
 if ($user->status != 'normal') {

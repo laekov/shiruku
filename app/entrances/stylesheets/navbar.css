@@ -9,7 +9,7 @@ div.navbarfloat {
 }
 
 div.navontop {
-	background-color: rgba(249,204,226,0.4);
+	background-color: rgba(249,204,226,0);
 }
 div.navnotop {
 	background-color: rgba(249,204,226,0.9);
@@ -17,6 +17,10 @@ div.navnotop {
 
 img.navpic {
 	width: 100%;
+}
+
+img.navtitlepic {
+	height: 54px;
 }
 
 ul.navul {
@@ -44,6 +48,7 @@ li.navitem:hover {
 }
 
 li.navtitle {
+	padding: 0;
 }
 
 div.pagefootwrapper {

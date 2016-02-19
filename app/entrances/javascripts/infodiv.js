@@ -5,8 +5,8 @@ function createInfoDiv(cfg, callback) {
 	ele.attr("id", "infodiv_" + cfg.penId);
 	ele.find("#modifyTime").html(date.toLocaleString());
 	ele.find("#visit").html(Number(cfg.visitCount));
-	if (cfg.owner) {
-		ele.find("#owner").html(cfg.onwer);
+	if (cfg.author) {
+		ele.find("#owner").html(cfg.author);
 	}
 	else {
 		ele.find("#owner").html("Unknown owner");

@@ -46,9 +46,9 @@ if ($srkEnv->reqURLLength >= 2) {
 					$content = 'No pen preview';
 				}
 				else {
-					$pos = strpos($content, "\n\n");
+					$pos = strpos($content, "\n");
 					if (!$pos) {
-						$pos = strpos($content, "\n\r\n");
+						$pos = strpos($content, "\r\n");
 					}
 					if ($pos != false) {
 						$content = substr($content, 0, $pos);

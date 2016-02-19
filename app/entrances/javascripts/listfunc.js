@@ -72,7 +72,7 @@ function updateList(listId) {
 			date.setTime(cata[i].modifyTime * 1000);
 			var ele = $("#samplelistitem").clone();
 			ele.attr("id", "pen_" + cata[i].penId);
-			ele.find("#title").html(cata[i].title);
+			ele.find("#title").html(cata[i].title + "&nbsp;");
 			ele.find("#title").attr("href", "/view/" + cata[i].penId);
 			ele.find("#modifyTime").html(date.toGMTString());
 			$.post("/pen/query/preview/" + cata[i].penId, {}, function(res) {

@@ -19,6 +19,9 @@ function showComment(queryStr, targetId) {
 				ele.find("#ownerinfo").find("#nickname").html(confList[i].owner);
 				updateAvatar(confList[i].commentId, confList[i].owner);
 			}
+			else if (confList[i].ownerNick) {
+				ele.find("#ownerinfo").find("#nickname").html(confList[i].ownerNick);
+			}
 			else {
 				ele.find("#ownerinfo").html("Unknown owner");
 			}
