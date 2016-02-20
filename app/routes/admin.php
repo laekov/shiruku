@@ -48,12 +48,16 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 		$reqFileName = false;
 		$reqText = false;
 		$content = $_POST['content'];
-		$config = json_decode($_POST['config']);
+		$configStr = str_replace("\\\"", "\"", $_POST['config']);
+		$config = json_decode($configStr);
 		if (!isset($_POST['config'])) {
 			$config = false;
 		}
 		elseif ($config === null) {
-			srkSend((Object)Array('error'=>'Illegal config file'));
+			srkSend((Object)Array('error'=>'Illegal config file '.$configStr));
+		}
+		if ($config) {
+			$config->author = $_SESSION['userId'];
 		}
 		$updRes = penUpdate($penId, $config, $content);
 		srkSend($updRes);

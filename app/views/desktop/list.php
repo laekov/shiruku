@@ -5,6 +5,6 @@ if (!defined('srkVersion')) {
 ?>
 
 <div id='pageindicator' class='fulldiv'></div>
-<div id='list' class='fulldiv'></div>
+<div id='list' class='fulldiv'>Loading list</div>
 <div id='error' class='fulldiv hidden error'></div>
 

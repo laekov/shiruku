@@ -22,7 +22,9 @@ if (!defined('srkVersion')) {
 					<div class='divclear'>
 					</div>
 				</div>
-				<div class='homecatacontent' id='list_<?php echo($cate); ?>'></div>
+				<div class='homecatacontent' id='list_<?php echo($cate); ?>'>
+					<p id='loading'>Loading</p>
+				</div>
 			</div>
 		<?php } ?>
 	</div>
