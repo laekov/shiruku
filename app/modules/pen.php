@@ -67,7 +67,7 @@ function matchFilter($filter, $content) {
 	}
     if (isset($filter->vague)) {
         foreach ($filter->vague as $val) {
-            if (in_array($val, $content->tag)) {
+            if (is_array($content->tag) && in_array($val, $content->tag)) {
                 return true;
             }
             if (strpos($content->title, $val) !== false) {

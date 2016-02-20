@@ -56,3 +56,7 @@ function randId($len) {
 	return substr(md5(time() * 1000 + rand()), 0, $len);
 }
 
+// fix json string with \"
+function fixJSONString($str) {
+	return str_replace("\\\"", "\"", $str);
+}

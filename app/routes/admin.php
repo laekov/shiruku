@@ -48,7 +48,7 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 		$reqFileName = false;
 		$reqText = false;
 		$content = $_POST['content'];
-		$configStr = str_replace("\\\"", "\"", $_POST['config']);
+		$configStr = fixJSONString($_POST['content']);
 		$config = json_decode($configStr);
 		if (!isset($_POST['config'])) {
 			$config = false;

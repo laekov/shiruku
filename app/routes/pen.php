@@ -14,7 +14,7 @@ if ($srkEnv->reqURLLength >= 2) {
 				$penList = penListGet();
 				$catalog = Array();
 				foreach ($penList as $content) {
-					if (matchFilter(json_decode($_POST['filter']), $content)) {
+					if (matchFilter(json_decode(fixJSONString($_POST['filter'])), $content)) {
 						array_push($catalog, $content);
 					}
 				}
