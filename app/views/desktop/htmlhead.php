@@ -15,7 +15,7 @@ array_push($srkEnv->javascripts, '/javascripts/navbar.js');
 ?>
 <html>
 	<head>
-		<title><?php echo($srkEnv->pageTitle); ?></title>
+		<title><?php echo($srkEnv->pageTitle.$srkEnv->pageTitleAppend); ?></title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<?php
 	foreach ($srkEnv->stylesheets as $styfile) { ?>

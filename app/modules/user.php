@@ -33,7 +33,10 @@ class userData {
 
 	public function readUser($userId) {
 		global $srkEnv;
-		if (preg_match(self::$matchExp['userId'], $userId)) {
+		if (!is_string($userId)) {
+			return;
+		}
+		elseif (preg_match(self::$matchExp['userId'], $userId)) {
 			$this->id = $userId;
 		}
 		elseif (preg_match(self::$matchExp['email'], $userId)) {

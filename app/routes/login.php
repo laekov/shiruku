@@ -47,6 +47,10 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		srkSend((Object)Array('res'=>'successful'));
 	}
 }
+elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'github') {
+	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'res') {
+	}
+}
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'whoami') {
 		$userId = $_SESSION['userId'];
