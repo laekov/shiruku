@@ -4,7 +4,7 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<div class='divform'>
+<div class='divform divleft'>
 	<div class='formitem'>
 		<label class='labelmonomed' for='userId' id='loginid'>User&nbsp;id / Email</label>
 		<label class='labelmonomed' for='userId' id='regid'>User&nbsp;id</label>
@@ -44,3 +44,16 @@ if (!defined('srkVersion')) {
 	</div>
 </div>
 
+<div class='divleft'>
+	<div class='formtitle'>
+		Third-party Login
+	</div>
+<?php foreach ($srkEnv->thirdPartyLogin as $loginSite) { ?>
+	<div class='formitem'>
+		<img class='iconimg' src='<?php echo($loginSite->img); ?>'/>
+		<a href='<?php echo($loginSite->href); ?>'><?php echo($loginSite->title); ?></a>
+<?php } ?>
+	</div>
+</div>
+
+<div class='divclear'></div>

@@ -47,8 +47,14 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		srkSend((Object)Array('res'=>'successful'));
 	}
 }
-elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'github') {
-	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'res') {
+elseif ($srkEnv->reqURLLength == 2 && $srkEnv->reqURL[2] == 'github') {
+	require_once($srkEnv->appPath.'/modules/thirdpartylogin/github.php');
+	$loginRes = GithubLogin::fetchInfo();
+	if ($loginRes) {
+		srkRender('error', Array('error'=>Array('status'=>-1, 'stack'=>$loginRes)));
+	}
+	else {
+		header("Location: /");
 	}
 }
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
@@ -66,10 +72,11 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 		$user->readUser($srkEnv->reqURL[4]);
 		if ($user->getField('source') == 'local') {
 			$resURL = 'http://cn.gravatar.com/avatar/'.md5($user->getField('email')).'?s=100&d=mm&r=g';
-			srkSend((Object)Array('url'=>$resURL));
 		}
 		else {
+			$resURL = $user->getField('avatarURL');
 		}
+		srkSend((Object)Array('url'=>$resURL));
 	}
 }
 

@@ -6,7 +6,7 @@ if (!defined('srkVersion')) {
 require_once($srkEnv->appPath.'/modules/db.php');
 require_once($srkEnv->appPath.'/modules/file.php');
 
-class userData { 
+class UserData { 
 	static public $matchExp = Array(
 		'userId'=>'/^\w{4,15}$/',
 		'passwd'=>'/^\w{4,15}$/', 
@@ -23,7 +23,7 @@ class userData {
 		return $srkEnv->userPath.'/email_'.md5($email).'.json';
 	}
 	private function getMyEmailFileName() {
-		if (!isset($this->data->email)) {
+		if (!isset($this->data->email) || !(strlen($this->data->email) > 0)) {
 			return false;
 		}
 		else {
@@ -72,13 +72,17 @@ class userData {
 		$userPath = $srkEnv->userPath.'/'.$this->id;
 		if ($this->status == 'registered') {
 			$emailFileName = $this->getMyEmailFileName();
-			takeDownJSON($emailFileName, (Object)Array('owner'=>$this->id));
-			$invitecodeFileName = $srkEnv->userPath.'/invite_'.$this->data->invitecode.'.json';
-			$invitecode = json_decode(getFileContent($invitecodeFileName));
-			$invitecode->used = true;
-			$invitecode->owner = $this->id;
-			takeDownJSON($invitecodeFileName, $invitecode);
-			unset($this->data->invitecode);
+			if ($emailFileName !== false) {
+				takeDownJSON($emailFileName, (Object)Array('owner'=>$this->id));
+			}
+			if (isset($this->data->invitecode)) {
+				$invitecodeFileName = $srkEnv->userPath.'/invite_'.$this->data->invitecode.'.json';
+				$invitecode = json_decode(getFileContent($invitecodeFileName));
+				$invitecode->used = true;
+				$invitecode->owner = $this->id;
+				takeDownJSON($invitecodeFileName, $invitecode);
+				unset($this->data->invitecode);
+			}
 			mkdir($userPath);
 			$this->status = 'normal';
 		}
@@ -118,6 +122,18 @@ class userData {
 		$this->data->source = 'local';
 		$this->status = 'registered';
 		return (Object)Array('res'=>false);
+	}
+	public function registerThirdParty($data) {
+		global $srkEnv;
+		$this->data = $data;
+		$this->id = $data->userId;
+		if (is_dir($srkEnv->userPath.'/'.$this->id)) {
+			$this->status = 'normal';
+		}
+		else {
+			$this->data->registerTime = time();
+			$this->status = 'registered';
+		}
 	}
 	public function getField($field) {
 		if ($this->status != 'normal') {

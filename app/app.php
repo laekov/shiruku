@@ -22,6 +22,9 @@ $_SERVER['REDIRECT_STATUS'] = 0;
 header('HTTP/1.1 200 OK');
 header('Status: 200 OK');
 
+// chdir to root directory
+chdir(dirname(__file__));
+
 // load environment vars
 require_once('./config/env.php');
 $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);

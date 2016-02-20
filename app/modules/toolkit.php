@@ -60,3 +60,43 @@ function randId($len) {
 function fixJSONString($str) {
 	return str_replace("\\\"", "\"", $str);
 }
+
+// send a post request (code from web)
+function webPostData($url, $data){
+	$postdata = http_build_query(
+		$data
+	);
+	$opts = array('http' =>
+		array(
+			'method'  => 'POST',
+			'header'  => Array('Content-type: application/x-www-form-urlencoded', "User-Agent: Mozilla"),
+			'content' => $postdata
+		)
+	);
+	$context = stream_context_create($opts);
+	$result = file_get_contents($url, false, $context);
+	return $result;
+}
+
+function webGetData($url){
+	$opts = array('http' =>
+		array(
+			'method'  => 'GET',
+			"header" => "User-Agent: Mozilla"
+		)
+	);
+	$context = stream_context_create($opts);
+	$result = file_get_contents($url, false, $context);
+	return $result;
+}
+
+function decipherGetStr($str) {
+	$res = Array();
+	$strList = explode('&', $str);
+	foreach ($strList as $item) {
+		$data = explode('=', $item);
+		$res[$data[0]] = $data[1];
+	}
+	return $res;
+}
+

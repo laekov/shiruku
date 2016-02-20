@@ -45,3 +45,14 @@ $srkEnv->logFileName = $srkEnv->appPath.'/../myfolder_local/srk.log';
 $srkEnv->cachePath = $srkEnv->appPath.'/../myfolder/fcache';
 $srkEnv->cacheTime = 10 * 60; // 10 minutes
 
+// env vars for third-party login
+$srkEnv->thirdPartyLogin = Array(
+	'github'=>(Object)Array(
+		'title'=>'Github',
+		'img'=>'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png',
+		'href'=>'https://github.com/login/oauth/authorize?scope=user:email&client_id=233333',
+		'clientId'=>'233333',
+		'clientSecret'=>'orzzhx'
+	)
+);
+
