@@ -11,10 +11,9 @@ if ($srkEnv->reqURLLength >= 2) {
 		require_once($srkEnv->appPath.'/modules/render.php');
 		if ($srkEnv->reqURLLength == 3) {
 			if ($srkEnv->reqURL[3] == 'catalog') {
-				$fileList = getDirCatalog($srkEnv->penPath);
+				$penList = penListGet();
 				$catalog = Array();
-				foreach ($fileList as $penId) {
-					$content = penConfigLoad($penId);
+				foreach ($penList as $content) {
 					if (matchFilter(json_decode($_POST['filter']), $content)) {
 						array_push($catalog, $content);
 					}
@@ -65,9 +64,8 @@ if ($srkEnv->reqURLLength >= 2) {
 				$config = penConfigLoad($penId);
 				$prev = (Object)Array('priority'=>-0x7fffffff);
 				$succ = (Object)Array('priority'=>0x7ffffffe);
-				$fileList = getDirCatalog($srkEnv->penPath);
-				foreach ($fileList as $penId) {
-					$content = penConfigLoad($penId);
+				$penList = penListGet();
+				foreach ($penList as $content) {
 					if ($content->priority < $config->priority && $content->priority > $prev->priority) {
 						$prev = $content;
 					}

@@ -84,7 +84,6 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 		$res->config = getFileContent($penPath.'/config.json');
 		if ($res->config == -1) {
 			$res->config = json_encode($srkContent->defaultPenConfig);
-			srkLog($res->config);
 		}
 		srkSend($res);
 	}

@@ -4,6 +4,7 @@ if (!defined('srkVersion')) {
 }
 
 require_once($srkEnv->appPath.'/modules/file.php');
+require_once($srkEnv->appPath.'/modules/cache.php');
 
 // comment config file loader
 function commentLoadConfig($penId, $commentId) {
@@ -56,6 +57,35 @@ function commentLoadAll($penId) {
 	}
 }
 
+// generate cache list
+function commentListGenerate() {
+	global $srkEnv;
+	$res = Array();
+	$fileList = getDirCatalog($srkEnv->penPath);
+	foreach ($fileList as $penId) {
+		$penCom = commentLoadAll($penId);
+		foreach ($penCom as $com) {
+			array_push($res, $com);
+		}
+	}
+	$cacheFile = new FileCache;
+	$cacheFile->load('commentlist.json');
+	$cacheFile->write(json_encode($res));
+	return $res;
+}
+
+// get comment list
+function commentListGet() {
+	$cacheFile = new FileCache;
+	$cacheFile->load('commentlist.json');
+	if ($cacheFile->needUpdate()) {
+		return commentListGenerate();
+	}
+	else {
+		return json_decode($cacheFile->read());
+	}
+}
+
 // compare two objects by time
 function cmpByTime($a, $b) {
 	return $a->modifyTime < $b->modifyTime ? 1 : -1;
@@ -64,17 +94,14 @@ function cmpByTime($a, $b) {
 // load recent comments of a pen 
 function commentLoadRecent($limit) {
 	global $srkEnv;
+	$list = commentListGet();
 	$res = Array();
-	$fileList = getDirCatalog($srkEnv->penPath);
-	foreach ($fileList as $penId) {
-		$penCom = commentLoadAll($penId);
-		foreach ($penCom as $com) {
-			array_push($res, $com);
-			if (count($res) > $limit) {
-				usort($res, "cmpByTime");
-				while (count($res) > $limit) {
-					array_pop($res);
-				}
+	foreach ($list as $comment) {
+		array_push($res, $comment);
+		if (count($res) > $limit) {
+			usort($res, "cmpByTime");
+			while (count($res) > $limit) {
+				array_pop($res);
 			}
 		}
 	}
@@ -102,6 +129,7 @@ function commentPost($user) {
 		'modifyTime'=>time()
 	);
 	takeDownJSON($commentPath.'/config.json', $config);
+	commentListGenerate();
 	return false;
 }
 

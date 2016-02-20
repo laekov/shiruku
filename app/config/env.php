@@ -41,3 +41,7 @@ $srkEnv->sqlDatabase = 'db';
 // env vars for log file
 $srkEnv->logFileName = $srkEnv->appPath.'/../myfolder_local/srk.log';
 
+// env vars for cache
+$srkEnv->cachePath = $srkEnv->appPath.'/../myfolder/fcache';
+$srkEnv->cacheTime = 10 * 60; // 10 minutes
+

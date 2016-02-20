@@ -4,6 +4,7 @@ if (!defined('srkVersion')) {
 }
 
 require_once($srkEnv->appPath.'/modules/file.php');
+require_once($srkEnv->appPath.'/modules/cache.php');
 
 // pen config file loader
 function penConfigLoad($penId) {
@@ -82,6 +83,34 @@ function matchFilter($filter, $content) {
 	return true;
 }
 
+function penListGenerate() {
+	global $srkEnv;
+	$res = Array();
+	$list = getDirCatalog($srkEnv->penPath);
+	foreach ($list as $penId) {
+		if (is_file($srkEnv->penPath.'/'.$penId.'/config.json')) {
+			$penConf = penConfigLoad($penId);
+			array_push($res, $penConf);
+		}
+	}
+	$listCache = new FileCache;
+	$listCache->load('penlist.json');
+	$listCache->write(json_encode($res));
+	return $res;
+}
+
+function penListGet() {
+	global $srkEnv;
+	$listCache = new FileCache;
+	$listCache->load('penlist.json');
+	if ($listCache->needUpdate()) {
+		return penListGenerate();
+	}
+	else {
+		return json_decode($listCache->read());
+	}
+}
+
 function penUpdate($penId, $penConfig, $penContent) {
 	global $srkEnv;
 	$penPath = $srkEnv->penPath.'/'.$penId;
@@ -115,6 +144,7 @@ function penUpdate($penId, $penConfig, $penContent) {
 			$res .= 'Content file updated ';
 		}
 	}
+	penListGenerate();
 	if ($err) {
 		return (Object)Array('error'=>$res, 'res'=>'error');
 	} 
