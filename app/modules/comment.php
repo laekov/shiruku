@@ -112,6 +112,9 @@ function commentLoadRecent($limit) {
 // post a comment
 function commentPost($user) {
 	global $srkEnv;
+	if (strlen($_POST['content']) > 140) {
+		return 'Too long';
+	}
 	$penCommentPath = $srkEnv->penPath.'/'.$_POST['penId'].'/comment';
 	if (!is_dir($penCommentPath)) {
 		mkdir($penCommentPath);
