@@ -16,7 +16,6 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'edit') {
 	}
 }
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
-	srkLog($srkEnv->reqURLLength);
 	if ($srkEnv->reqURLLength == 2) {
 		$userId = $_POST['userId'];
 		$passwd = $_POST['passwd'];
