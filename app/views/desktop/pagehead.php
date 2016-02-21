@@ -37,9 +37,9 @@ if (!defined('srkVersion')) {
 			<img src='<?php echo($srkEnv->staticResPath.'/images/nav-background.jpg'); ?>' class='navpic'/>
 		</div>
 	</div>
-	<div class='simplediv hidden floatingdiv' id='loginactions'>
+	<div class='simplediv hidden floatingdiv divblueb' id='loginactions'>
 		<ul class='actionul'>
-			<a href='/login/manage'><li>Profile</li></a>
+			<a href='/login/edit'><li>Edit my profile</li></a>
 			<a id='logout'><li>Log out</li></a>
 		</ul>
 	</div>

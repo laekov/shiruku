@@ -46,11 +46,10 @@ function onWindowChange() {
 function updateLogin() {
 	$.post("/login/query/whoami", {}, function(res) {
 		if (res.userId) {
-			if (!res.username) {
-				res.username = res.userId;
-			}
 			$("#navitem_login").hide();
-			$("#navitem_userinfo").find("#username").html(res.username);
+			$.post("/login/query/" + res.userId + "/nickname", {}, function(resNick) {
+				$("#navitem_userinfo").find("#username").html(resNick.data);
+			});
 			$("#navitem_userinfo").show();
 		}
 		else {

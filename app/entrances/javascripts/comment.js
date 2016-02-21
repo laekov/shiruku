@@ -1,5 +1,11 @@
+function updateNickname(commentId, owner) {
+	$.post('/login/query/' + owner + '/nickname', {}, function(res) {
+		$("#comment_" + commentId).find("#ownerinfo").find("#nickname").html(res.data);
+	});
+}
+
 function updateAvatar(commentId, owner) {
-	$.post("/login/query/avatarurl/" + owner, {}, function(res) {
+	$.post("/login/query/" + owner + "/avatarurl", {}, function(res) {
 		$("#comment_" + commentId).find("#ownerinfo").find("#avatar").attr('src', res.url);
 	});
 }
@@ -17,6 +23,7 @@ function showComment(queryStr, targetId) {
 			ele.attr("id", "comment_" + confList[i].commentId);
 			if (confList[i].owner) {
 				ele.find("#ownerinfo").find("#nickname").html(confList[i].owner);
+				updateNickname(confList[i].commentId, confList[i].owner);
 				updateAvatar(confList[i].commentId, confList[i].owner);
 			}
 			else if (confList[i].ownerNick) {

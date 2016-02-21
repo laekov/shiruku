@@ -14,6 +14,8 @@ class UserData {
 		'nickname'=>'/^\w{1,16}$/',
 		'invitecode'=>'/^\w{8,32}$/'
 	);
+	static public $allowUpdateList = Array('passwd', 'email', 'nickname');
+	static public $deniedField = Array('passwd', 'accessToken');
 	public $id = false;
 	private $data = false;
 	public $status = 'empty';
@@ -139,19 +141,65 @@ class UserData {
 		if ($this->status != 'normal') {
 			return false;
 		}
-		elseif ($field == 'passwd') {
+		elseif (in_array($field, self::$deniedField)) {
 			return 'Access denied';
 		}
 		else {
 			return $this->data->$field;
 		}
 	}
+
+	public function update($data) {
+		global $srkEnv;
+		if ($data['passwd'] != $data['repeatPasswd']) {
+			return (Object)Array('res'=>'Passwords do not match', 'field'=>'passwd');
+		}
+		$authRes = $this->authenticate($data['prevPasswd']);
+		if ($authRes) {
+			return (Object)Array('res'=>$authRes, 'field'=>'prevPasswd');
+		}
+		$prevEmail = $this->data->email;
+		if ($data['email'] !== $this->data->email) {
+			if (is_file(self::getEmailFileName($data['email']))) {
+				return (Object)Array('res'=>'Email exists', 'field'=>'email');
+			}
+		}
+		foreach (self::$allowUpdateList as $field) {
+			if (isset($data[$field]) && strlen($data[$field]) > 0) {
+				if (!preg_match(self::$matchExp[$field], $data[$field])) {
+					$errText = 'Invalid '.$key.'(regular exp: '.self::$matchExp[$field].')';
+					return (Object)Array('res'=>$errText, 'field'=>$field);
+				}
+				else {
+					$this->data->$field = $data[$field];
+				}
+			}
+		}
+		if ($prevEmail != $this->data->email) {
+			unlink($this->getEmailFileName($prevEmail));
+			$emailFileName = $this->getMyEmailFileName();
+			if ($emailFileName !== false) {
+				takeDownJSON($emailFileName, (Object)Array('owner'=>$this->id));
+			}
+		}
+		$writeRes = $this->writeUser();
+		if ($writeRes) {
+			return (Object)Array('res'=>$writeRes);
+		}
+		else {
+			return (Object)Array('res'=>'success');
+		}
+	}
+
 	public function authenticate($pwd) {
 		if ($this->status != 'normal') {
 			return 'user does not exists';
 		}
-		else if ($pwd != $this->data->passwd) {
-			return 'username and password does not match';
+		elseif ($this->data->source != 'local') {
+			return 'You cannot login via this entrance';
+		}
+		elseif ($pwd !== $this->data->passwd) {
+			return 'User id does not match password';
 		}
 		else {
 			return false;

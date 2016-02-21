@@ -57,7 +57,7 @@ if (!isset($srkEnv->sent)) {
 		srkRender('error', Array('error'=>Array('status'=>'404', 'stack'=>'Unused url')));
 	}
 	else {
-		echo(json_encode(Array('error'=>'Unused url')));
+		srkSend((Object)Array('error'=>'Unused url'));
 	}
 }
 

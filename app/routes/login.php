@@ -10,7 +10,13 @@ if ($srkEnv->reqURLLength == 1) {
 	$srkEnv->pageTitle .= '.login';
 	srkRender('loginpage', Array());
 }
+elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'edit') {
+	if ($srkEnv->reqMethod == 'GET') {
+		srkRender('loginman', Array());
+	}
+}
 elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
+	srkLog($srkEnv->reqURLLength);
 	if ($srkEnv->reqURLLength == 2) {
 		$userId = $_POST['userId'];
 		$passwd = $_POST['passwd'];
@@ -46,6 +52,11 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 		unset($_SESSION['userId']);
 		srkSend((Object)Array('res'=>'successful'));
 	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'edit') {
+		$user = new UserData;
+		$user->readUser($_SESSION['userId']);
+		srkSend($user->update($_POST));
+	}
 }
 elseif ($srkEnv->reqURLLength == 2 && $srkEnv->reqURL[2] == 'github') {
 	require_once($srkEnv->appPath.'/modules/thirdpartylogin/github.php');
@@ -67,9 +78,9 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 			srkSend((Object)Array('userId'=>$userId));
 		}
 	}
-	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'avatarurl') {
+	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[4] == 'avatarurl') {
 		$user = new UserData;
-		$user->readUser($srkEnv->reqURL[4]);
+		$user->readUser($srkEnv->reqURL[3]);
 		if ($user->getField('source') == 'local') {
 			$resURL = 'http://cn.gravatar.com/avatar/'.md5($user->getField('email')).'?s=100&d=mm&r=g';
 		}
@@ -77,6 +88,11 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 			$resURL = $user->getField('avatarURL');
 		}
 		srkSend((Object)Array('url'=>$resURL));
+	}
+	elseif ($srkEnv->reqURLLength == 4) {
+		$user = new UserData;
+		$user->readUser($srkEnv->reqURL[3]);
+		srkSend((Object)Array('data'=>$user->getField($srkEnv->reqURL[4])));
 	}
 }
 
