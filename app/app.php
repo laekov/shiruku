@@ -4,16 +4,12 @@ define('srkVersion', '0.0.1');
 // decipher uri by / into an array
 function decipherURI($uri) {
 	$path = array('');
-	while (strlen($uri)) {
-		$pos = strpos($uri, '/');
-		if ($pos === false) {
-			$pos = strlen($uri);
+	$urlArr = explode('?', $uri);
+	$urlParts = explode('/', $urlArr[0]);
+	foreach ($urlParts as $item) {
+		if (strlen($item) > 0) {
+			array_push($path, $item);
 		}
-		$curlev = substr($uri, 0, $pos);
-		if (strlen($curlev)) {
-			array_push($path, $curlev);
-		}
-		$uri = substr($uri, $pos + 1);
 	}
 	return $path;
 }
