@@ -1,4 +1,8 @@
 function updatePage() {
+	var prvPage = $.cookie('curPageId');
+	if (prvPage && prvPage < pageConf.total) {
+		pageConf.cur = prvPage;
+	}
 	updateList("#list");
 	createIndicator(function(ele) {
 		$("#pageindicator").html(ele);

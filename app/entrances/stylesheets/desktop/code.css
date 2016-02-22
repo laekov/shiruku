@@ -1,0 +1,13 @@
+code {
+	color: #113;
+	background-color: #fdd;
+}
+
+pre {
+	border-left: 4px solid #00f;
+	background-color: #fdd;
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	word-break: break-all;
+}

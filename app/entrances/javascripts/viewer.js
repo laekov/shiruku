@@ -59,6 +59,7 @@ function updateContent() {
 			var date = new Date();
 			date.setTime(cfg.modifyTime * 1000);
 			$("#pentitle").html(cfg.title);
+			document.title = document.title.replace(cfg.penId, cfg.title);
 			if (!cfg.noInfo) {
 				createInfoDiv(cfg, function(ele) {
 					$("#peninfo").html(ele.html());

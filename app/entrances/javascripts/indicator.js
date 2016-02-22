@@ -6,6 +6,7 @@ var pageConf = {
 
 function redirectPage() {
 	pageConf.cur = Number($(this).attr("id").substr(3));
+	$.cookie('curPageId', pageConf.cur);
 	updatePage();
 }
 
