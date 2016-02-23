@@ -6,7 +6,7 @@ if (!defined('srkVersion')) {
 require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/render.php');
 
-if ($srkEnv->reqURLLength == 1) {
+if ($srkEnv->reqURLLength == 1 && $srkEnv->reqMethod == 'GET') {
 	$srkEnv->pageTitle .= '.login';
 	srkRender('loginpage', Array());
 }

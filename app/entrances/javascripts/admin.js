@@ -142,7 +142,7 @@ var Invite = function() {
 			for (var i in res.list) {
 				var ele = $("#sampleinvitecode").clone();
 				ele.find("#value").html(res.list[i].value);
-				ele.find("#used").html(res.list[i].used ? "Used" : "Free");
+				ele.find("#used").html(res.list[i].used ? res.list[i].owner : "----");
 				ele.show();
 				$("#invitelist").append(ele);
 			}

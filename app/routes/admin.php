@@ -11,9 +11,25 @@ require_once($srkEnv->appPath.'/modules/render.php');
 $srkEnv->pageTitle .= '.admin';
 
 $user = new UserData;
-$user->readUser($_SESSION['userId']);
+if (isset($_POST['userId']) && isset($_POST['passwd'])) {
+	$user->readUser($_POST['userId']);
+	$authRes = $user->authenticate($_POST['passwd']);
+	if ($authRes) {
+		srkSend((Object)Array('error'=>$authRes));
+		exit(403);
+	}
+}
+else {
+	$user->readUser($_SESSION['userId']);
+}
+
 if ($user->status != 'normal') {
-	header('Location: /login');
+	if ($srkEnv->reqMethod == 'GET') {
+		header('Location: /login');
+	}
+	else {
+		srkSend((Object)Array('error'=>'Access denied'));
+	}
 	return;
 }
 elseif ($srkEnv->reqMethod == 'GET') {
@@ -126,6 +142,31 @@ elseif ($srkEnv->reqURL[2] == 'invite') {
 			}
 		}
 		srkSend((Object)Array('res'=>'Done'));
+	}
+}
+elseif ($srkEnv->reqURL[2] == 'file') {
+	if (!in_array('file', $user->getField("accessList"))) {
+		srkSend((Object)Array('error'=>'Access denied'));
+	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'upload') {
+		$fileName = $_POST['fileName'];
+		$fileContent = uploadFileContentDecipher();
+		if ($fileName && $fileContent) {
+			$writeRes = takeDownString($fileName, $fileContent);
+			srkSend((Object)Array('error'=>$writeRes));
+		}
+		else {
+			srkSend((Object)Array('error'=>'Content error'));
+		}
+	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'hash') {
+		$fileName = $_POST['fileName'];
+		if ($fileName && is_file($fileName)) {
+			srkSend((Object)Array('md5'=>md5_file($fileName)));
+		}
+		else {
+			srkSend((Object)Array('error'=>'File error'));
+		}
 	}
 }
 

@@ -193,7 +193,7 @@ class UserData {
 
 	public function authenticate($pwd) {
 		if ($this->status != 'normal') {
-			return 'user does not exists';
+			return 'User does not exists';
 		}
 		elseif ($this->data->source != 'local') {
 			return 'You cannot login via this entrance';
