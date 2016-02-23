@@ -164,6 +164,9 @@ elseif ($srkEnv->reqURL[2] == 'file') {
 		if ($fileName && is_file($fileName)) {
 			srkSend((Object)Array('md5'=>md5_file($fileName)));
 		}
+		elseif ($fileName && !is_file($fileName)) {
+			srkSend((Object)Array('md5'=>''));
+		}
 		else {
 			srkSend((Object)Array('error'=>'File error'));
 		}

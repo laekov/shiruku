@@ -48,6 +48,7 @@ else {
 	}
 }
 if (!isset($srkEnv->sent)) {
+	require_once($srkEnv->appPath.'/modules/render.php');
 	if ($srkEnv->reqMethod == 'GET') {
 		require_once($srkEnv->appPath.'/modules/render.php');
 		srkRender('error', Array('error'=>Array('status'=>'404', 'stack'=>'Unused url')));

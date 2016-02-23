@@ -19,7 +19,7 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'auth') {
 	if ($srkEnv->reqURLLength == 2) {
 		$userId = $_POST['userId'];
 		$passwd = $_POST['passwd'];
-		$user = new userData;
+		$user = new UserData;
 		$user->readUser($userId);
 		$authRes = $user->authenticate($passwd);
 		if ($authRes === false) {

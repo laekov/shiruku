@@ -57,20 +57,21 @@ function takeDownString($fileName, $content) {
 	}
 }
 
+function chr2hex($c) {
+	$d = ord($c);
+	if ($d >= 48 && $d <= 57) {
+		return $d - 48;
+	}
+	elseif ($d >= 65 && $d <= 70) {
+		return $d - 55;
+	}
+	else {
+		return -1;
+	}
+}
+
 // get a uploaded file content from _POST
 function uploadFileContentDecipher() {
-	function chr2hex($c) {
-		$d = ord($c);
-		if ($d >= 48 && $d <= 57) {
-			return $d - 48;
-		}
-		elseif ($d >= 65 && $d <= 70) {
-			return $d - 55;
-		}
-		else {
-			return -1;
-		}
-	}
 	$inputStr = $_POST['fileString'];
 	if (!is_string($inputStr)) {
 		return false;
