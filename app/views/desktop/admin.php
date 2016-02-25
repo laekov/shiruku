@@ -76,6 +76,12 @@ if (!defined('srkVersion')) {
 		<div class='formitem' id='invitelist'>
 		</div>
 	</div>
+	
+	<div id='ui_file' class='hidden'>
+		<div class='formtitle'>
+			<p id='file'>File management</p>
+		</div>
+	</div>
 
 	<div id='statusdiv'>
 		<p class='red hidden' id='perror'></p>

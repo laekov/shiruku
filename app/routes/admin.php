@@ -16,7 +16,7 @@ if (isset($_POST['userId']) && isset($_POST['passwd'])) {
 	$authRes = $user->authenticate($_POST['passwd']);
 	if ($authRes) {
 		srkSend((Object)Array('error'=>$authRes));
-		exit(403);
+		return;
 	}
 }
 else {
@@ -25,7 +25,7 @@ else {
 
 if ($user->status != 'normal') {
 	if ($srkEnv->reqMethod == 'GET') {
-		header('Location: /login');
+		srkRender('error', Array('error'=>Array('status'=>'403', 'stack'=>'Access denied')));
 	}
 	else {
 		srkSend((Object)Array('error'=>'Access denied'));
@@ -170,6 +170,9 @@ elseif ($srkEnv->reqURL[2] == 'file') {
 		else {
 			srkSend((Object)Array('error'=>'File error'));
 		}
+	}
+	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'log') {
+		srkStream($srkEnv->logFileName);
 	}
 }
 
