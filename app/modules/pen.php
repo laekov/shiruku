@@ -153,3 +153,13 @@ function penUpdate($penId, $penConfig, $penContent) {
 	}
 }
 
+// check if it is a valid pen
+function isPen($penId) {
+	global $srkEnv;
+	if (is_string($penId)) {
+		return is_dir($srkEnv->penPath.'/'.$penId);
+	}
+	else {
+		return false;
+	}
+}

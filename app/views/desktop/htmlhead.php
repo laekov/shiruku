@@ -12,6 +12,9 @@ array_unshift($srkEnv->javascripts, '/javascripts/cdn/showdown.min.js');
 
 array_push($srkEnv->stylesheets, '/stylesheets/navbar.css');
 array_push($srkEnv->javascripts, '/javascripts/navbar.js');
+
+$srkEnv->stylesheets = array_unique($srkEnv->stylesheets);
+$srkEnv->javascripts = array_unique($srkEnv->javascripts);
 ?>
 <html>
 	<head>

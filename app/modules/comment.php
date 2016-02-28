@@ -136,3 +136,14 @@ function commentPost($user) {
 	return false;
 }
 
+// check if it is a valid comment
+function isComment($penId, $commentId) {
+	global $srkEnv;
+	if (is_string($penId) && is_string($commentId)) {
+		return is_dir($srkEnv->penPath.'/'.$penId.'/comment/'.$commentId);
+	}
+	else {
+		return false;
+	}
+}
+

@@ -1,0 +1,14 @@
+.likeact {
+	color: white;
+	background-color: #33a;
+	padding: 8px;
+}
+.likeact:hover {
+	color: white;
+	background-color: #33f;
+}
+
+.monotiny {
+	display: inline-block;
+	width: 4em;
+}

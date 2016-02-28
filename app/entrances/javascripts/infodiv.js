@@ -11,6 +11,9 @@ function createInfoDiv(cfg, callback) {
 	else {
 		ele.find("#owner").html("Unknown owner");
 	}
+	if (typeof(createLikeDiv) == 'function') {
+		ele.find("#likediv").html(createLikeDiv("/" + cfg.penId));
+	}
 	for (var i in cfg.tag) {
 		var tagref = $("#sampletag").clone();
 		tagref.attr("id", "infodiv_" + cfg.penId + "tag" + cfg.tag[i]);

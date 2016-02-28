@@ -32,11 +32,19 @@ function showComment(queryStr, targetId) {
 			else {
 				ele.find("#ownerinfo").html("Unknown owner");
 			}
+			if (typeof(createLikeDiv) == 'function') {
+				var postId = "/" + confList[i].penId + "/" + confList[i].commentId;
+				ele.find("#likediv").html(createLikeDiv(postId));
+			}
 			var date = new Date();
 			date.setTime(confList[i].modifyTime * 1000);
 			ele.find("#modifytime").html(date.toLocaleString());
 			ele.show();
 			listDiv.append(ele);
+			if (typeof(initLikeDiv) == 'function') {
+				var postId = "/" + confList[i].penId + "/" + confList[i].commentId;
+				initLikeDiv(postId);
+			}
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				if (res.content) {
 					var content = res.content.replace(/\<br\/\>/g, '\n\n');

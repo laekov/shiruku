@@ -3,12 +3,13 @@ if (!defined('srkVersion')) {
 	exit(403);
 }
 
+require_once($srkEnv->appPath.'/modules/render.php');
 require_once($srkEnv->appPath.'/modules/file.php');
 require_once($srkEnv->appPath.'/modules/pen.php');
+require_once($srkEnv->appPath.'/modules/like.php');
 
 if ($srkEnv->reqURLLength >= 2) {
 	if ($srkEnv->reqURL[2] == 'query' && $srkEnv->reqMethod == 'POST') {
-		require_once($srkEnv->appPath.'/modules/render.php');
 		if ($srkEnv->reqURLLength == 3) {
 			if ($srkEnv->reqURL[3] == 'catalog') {
 				$penList = penListGet();
@@ -74,6 +75,30 @@ if ($srkEnv->reqURLLength >= 2) {
 					}
 				}
 				srkSend((Object)Array('prev'=>$prev->penId, 'succ'=>$succ->penId));
+			}
+		}
+	}
+	elseif ($srkEnv->reqURL[2] == 'like' && $srkEnv->reqMethod == 'POST') {
+		$like = new Like();
+		if ($srkEnv->reqURLLength == 4) {
+			$penId = $srkEnv->reqURL[4];
+			$like->load($srkEnv->penPath.'/'.$penId);
+		}
+		elseif ($srkEnv->reqURLLength == 5) {
+			$penId = $srkEnv->reqURL[4];
+			$commentId = $srkEnv->reqURL[5];
+			$like->load($srkEnv->penPath.'/'.$penId.'/comment/'.$commentId);
+		}
+		if ($srkEnv->reqURL[3] == 'query') {
+			srkSend($like->query());
+		}
+		elseif (isset(Like::$actionMap[$srkEnv->reqURL[3]])) {
+			$userId = $_SESSION['userId'];
+			if (!$userId) {
+				srkSend((Object)Array('error'=>'login'));
+			}
+			else {
+				srkSend((Object)Array('error'=>$like->click($userId, Like::$actionMap[$srkEnv->reqURL[3]])));
 			}
 		}
 	}

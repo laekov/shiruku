@@ -64,6 +64,9 @@ function updateContent() {
 				createInfoDiv(cfg, function(ele) {
 					$("#peninfo").html(ele.html());
 					$("#peninfo").show();
+					if (typeof(initLikeDiv) == 'function') {
+						initLikeDiv("/" + cfg.penId);
+					}
 				});
 				if ($.cookie("penIdList")) {
 					var penIdList = JSON.parse($.cookie("penIdList"));

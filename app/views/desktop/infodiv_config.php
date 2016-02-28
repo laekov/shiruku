@@ -4,3 +4,4 @@ if (!defined('srkVersion')) {
 }
 
 array_push($srkEnv->javascripts, '/javascripts/infodiv.js');
+

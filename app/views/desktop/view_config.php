@@ -12,4 +12,5 @@ array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/code.css');
 
 array_push($srkEnv->dependViews, 'infodiv');
 array_push($srkEnv->dependViews, 'comment');
+array_push($srkEnv->dependViews, 'like');
 
