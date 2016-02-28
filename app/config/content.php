@@ -36,7 +36,7 @@ $srkContent->navbar = Array(
 	),
 	'download'=>(Object)Array(
 		'title'=>'下载',
-		'href'=>'/download'
+		'href'=>'/view/download'
 	),
 	'webboard'=>(Object)Array(
 		'title'=>'留言',
