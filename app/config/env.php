@@ -56,3 +56,5 @@ $srkEnv->thirdPartyLogin = Array(
 	)
 );
 
+// env vars for like
+$srkEnv->maxLike = 0xf;
