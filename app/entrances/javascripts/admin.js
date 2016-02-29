@@ -71,6 +71,8 @@ var PenEdit = function() {
 		var converter = new Showdown.converter;
 		content = converter.makeHtml($("#editcontenttext").val());
 		$("#previewdiv").html(content);
+		var maxWidth = $("#pagecontentdiv").width() - $("#editcontenttext").width() - 32;
+		$("#previewdiv").width(maxWidth);
 	}
 	this.load = function(penId) {
 		if ($("#ui_penedit").css("display") != "none") {
@@ -170,7 +172,7 @@ var invite;
 var navList;
 
 function onWindowResize() {
-	var cWidth = $("#pagecontentdiv").width() - $("#formnavdiv").width();
+	var cWidth = $("#pagecontentdiv").width();
 	var textWidth = (cWidth - 16) / 2;
 	$("#editcontenttext").width(textWidth);
 	$("#editconfigtext").width(textWidth);

@@ -3,6 +3,18 @@ if (!defined('srkVersion')) {
 	exit(403);
 }
 
+// judge if browser is banned
+function isBrowserBaned() {
+	$banStr = Array("MSIE", "Edge", "rv:11.0");
+	$str = $_SERVER['HTTP_USER_AGENT'];
+	foreach ($banStr as $rule) {
+		if (strpos($str, $rule) !== false) {
+			return true;
+		}
+	}
+	return false;
+}
+
 // device type judger
 // copied from web
 function isMobile() {

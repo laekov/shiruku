@@ -49,6 +49,7 @@ $(document).ready(function() {
 			getMyInfo('source', function(source) {
 				if (source != 'local') {
 					$("#perror").html("You are not a local user");
+					$("#perror").show();
 				}
 				else {
 					$("#userId").html(userId);

@@ -17,7 +17,7 @@ $srkEnv->penPath = $srkEnv->appPath.'/../myfolder_local/pen';
 $srkEnv->maxFileSize = 1 << 24; // max file size allowed to be stored
 
 // env vars for views and pages
-$srkEnv->uiType = (isMobile() ? '/mobile' : '/desktop');
+$srkEnv->uiType = isBrowserBaned() ? '/ban' : (isMobile() ? '/mobile' : '/desktop');
 $srkEnv->viewsPath = $srkEnv->appPath.'/views'.$srkEnv->uiType;
 $srkEnv->staticResPath = '/entrances/template/default';
 $srkEnv->pageTitle = 'Shiruku';

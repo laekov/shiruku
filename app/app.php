@@ -26,6 +26,11 @@ require_once('./config/env.php');
 $srkEnv->reqURL = decipherURI($_SERVER['REQUEST_URI']);
 $srkEnv->reqURLLength = count($srkEnv->reqURL) - 1;
 $srkEnv->reqMethod = $_SERVER['REDIRECT_REQUEST_METHOD'];
+if ($srkEnv->uiType == '/ban') {
+	require_once($srkEnv->appPath.'/modules/render.php');
+	srkRender('home', Array());
+	return;
+}
 
 // load content profiles
 require_once('./config/content.php');

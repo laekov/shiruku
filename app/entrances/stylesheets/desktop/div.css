@@ -88,7 +88,7 @@ div.penwrapper {
 }
 
 div.divfill {
-	width: 100%;
+	width: auto;
 }
 
 div.divmarginright {
@@ -98,3 +98,4 @@ div.divmarginright {
 div.divborder {
 	border: 1px #ccc solid;
 }
+
