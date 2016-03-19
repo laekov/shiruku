@@ -4,4 +4,4 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<h1 style='color: red;'>User using browser from Microsoft is not welcomed by this site</h1>
+<h1 style='color: red;'>Microsoft's browsers are not welcomed by this site</h1>

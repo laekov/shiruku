@@ -6,10 +6,11 @@ if (!defined('srkVersion')) {
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/div.css');
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/text.css');
+array_unshift($srkEnv->javascripts, '/javascripts/cdn/mathjax/config/default.js');
+array_unshift($srkEnv->javascripts, '/javascripts/cdn/mathjax/MathJax.js');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery.cookie.js');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery_min.js');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/showdown.min.js');
-array_unshift($srkEnv->javascripts, 'https://cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML');
 
 array_push($srkEnv->stylesheets, '/stylesheets/navbar.css');
 array_push($srkEnv->javascripts, '/javascripts/navbar.js');

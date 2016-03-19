@@ -70,7 +70,9 @@ function randId($len) {
 
 // fix json string with \"
 function fixJSONString($str) {
-	return str_replace("\\\"", "\"", $str);
+	$str = str_replace("\\\"", "\"", $str);
+	$str = str_replace("\\\\", "\\", $str);
+	return $str;
 }
 
 // send a post request (code from web)
