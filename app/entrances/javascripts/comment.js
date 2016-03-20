@@ -10,16 +10,6 @@ function updateAvatar(commentId, owner) {
 	});
 }
 
-var loadTriggerCount = 0;
-function finishLoadTrigger() {
-	-- loadTriggerCount;
-	if (loadTriggerCount <= 0) {
-		if (typeof(MathJax) == 'object') {
-			MathJax.Hub.Typeset();
-		}
-	}
-}
-
 function showComment(queryStr, targetId) {
 	$.post("/comment/query/" + queryStr, {}, function(res) {
 		var listDiv = $(targetId);

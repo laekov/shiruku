@@ -7,6 +7,16 @@ function htmlSpecialChars(str) {
 	return str;  
 }
 
+var loadTriggerCount = 0;
+function finishLoadTrigger() {
+	-- loadTriggerCount;
+	if (loadTriggerCount <= 0) {
+		if (typeof(MathJax) == 'object') {
+			MathJax.Hub.Typeset();
+		}
+	}
+}
+
 function renderContent(content, config) {
 	var text = content;
 	if (typeof(config) == 'object') {
@@ -108,13 +118,12 @@ function updateContent() {
 					});
 				}
 			}
+			++ loadTriggerCount;
 			$.post("/pen/query/content/" + penId, {}, function(res) {
 				$("#pencontentloading").hide();
 				var content = renderContent(res.content, cfg);
 				$("#pencontent").html(content);
-				if (typeof(MathJax) == 'object') {
-					MathJax.Hub.Typeset();
-				}
+				finishLoadTrigger();
 			});
 		}
 	});
