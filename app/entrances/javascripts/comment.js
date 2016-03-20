@@ -58,7 +58,7 @@ function showComment(queryStr, targetId) {
 			++ loadTriggerCount;
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				if (res.content) {
-					var text = renderContent(htmlSpecialChars(res.content, {}));
+					var text = renderContent(res.content, {catalog: "comment"});
 					listDiv.find("#comment_" + res.commentId).find("#content").html(text);
 				}
 				finishLoadTrigger();

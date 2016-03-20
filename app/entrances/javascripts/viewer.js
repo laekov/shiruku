@@ -1,16 +1,3 @@
-function renderContent(content, config) {
-	var text = content;
-	if (typeof(config) == 'object' && config.catalog == "code") {
-		lines = content.split("\n");
-		text = "";
-		for (var i in lines) {
-			text += "\t" + "\t" + lines[i] + "\n";
-		}
-	}
-	var converter = new Showdown.converter;
-	return converter.makeHtml(text);
-}
-
 function htmlSpecialChars(str) {
 	str = str.replace(/&/g, '&amp;');  
 	str = str.replace(/</g, '&lt;');  
@@ -18,6 +5,25 @@ function htmlSpecialChars(str) {
 	str = str.replace(/"/g, '&quot;');  
 	str = str.replace(/'/g, '&#039;');  
 	return str;  
+}
+
+function renderContent(content, config) {
+	var text = content;
+	if (typeof(config) == 'object') {
+		if (config.catalog == "code") {
+			lines = content.split("\n");
+			text = "";
+			for (var i in lines) {
+				text += "\t" + "\t" + lines[i] + "\n";
+			}
+		}
+		else if (config.catalog == 'comment') {
+			text = htmlSpecialChars(content).replace(/\n/g, "<br/>");
+			return text;
+		}
+	}
+	var converter = new Showdown.converter;
+	return converter.makeHtml(text);
 }
 
 function getCurrentPenId() {
