@@ -100,6 +100,9 @@ function updateContent() {
 					content = converter.makeHtml(content);
 				}
 				$("#pencontent").html(content);
+				if (typeof(MathJax) == 'object') {
+					MathJax.Hub.Typeset();
+				}
 			});
 		}
 	});

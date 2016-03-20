@@ -51,6 +51,9 @@ function showComment(queryStr, targetId) {
 					content = htmlSpecialChars(content);
 					content = content.replace(/\n\n/g, "<br/>");
 					listDiv.find("#comment_" + res.commentId).find("#content").html(content);
+					if (typeof(MathJax) == 'object') {
+						MathJax.Hub.Typeset();
+					}
 				}
 			});
 		}

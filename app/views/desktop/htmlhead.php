@@ -6,8 +6,7 @@ if (!defined('srkVersion')) {
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/global.css');
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/div.css');
 array_push($srkEnv->stylesheets, '/stylesheets/'.$srkEnv->uiType.'/text.css');
-array_unshift($srkEnv->javascripts, '/javascripts/cdn/mathjax/config/default.js');
-array_unshift($srkEnv->javascripts, '/javascripts/cdn/mathjax/MathJax.js');
+array_unshift($srkEnv->javascripts, '/javascripts/cdn/mathjax/MathJax.js?config=default');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery.cookie.js');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/jquery_min.js');
 array_unshift($srkEnv->javascripts, '/javascripts/cdn/showdown.min.js');
@@ -23,7 +22,7 @@ function genRef($ref) {
 		return $ref;
 	}
 	else {
-		return "/entrances/".$ref;
+		return "/entrances".$ref;
 	}
 }
 ?>
