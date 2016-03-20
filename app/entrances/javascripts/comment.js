@@ -58,8 +58,8 @@ function showComment(queryStr, targetId) {
 			++ loadTriggerCount;
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				if (res.content) {
-					var text = renderContent(htmlSpecialChars(res.content));
-					listDiv.find("#comment_" + res.commentId).find("#content").html(text), {}));
+					var text = renderContent(htmlSpecialChars(res.content, {}));
+					listDiv.find("#comment_" + res.commentId).find("#content").html(text);
 				}
 				finishLoadTrigger();
 			});

@@ -1,6 +1,6 @@
 function renderContent(content, config) {
 	var text = content;
-	if (config.catalog == "code") {
+	if (typeof(config) == 'object' && config.catalog == "code") {
 		lines = content.split("\n");
 		text = "";
 		for (var i in lines) {
