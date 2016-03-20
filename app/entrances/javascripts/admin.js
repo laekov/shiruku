@@ -68,9 +68,9 @@ var penList;
 var PenEdit = function() {
 	var self = this;
 	this.genPreview = function() {
-		var converter = new Showdown.converter;
-		content = converter.makeHtml($("#editcontenttext").val());
+		content = renderContent($("#editcontenttext").val(), {});
 		$("#previewdiv").html(content);
+		updateJax("previewdiv");
 		var maxWidth = $("#pagecontentdiv").width() - $("#editcontenttext").width() - 32;
 		$("#previewdiv").width(maxWidth);
 	}
