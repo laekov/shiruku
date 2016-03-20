@@ -1,3 +1,16 @@
+function renderContent(content, config) {
+	var text = content;
+	if (config.catalog == "code") {
+		lines = content.split("\n");
+		text = "";
+		for (var i in lines) {
+			text += "\t" + "\t" + lines[i] + "\n";
+		}
+	}
+	var converter = new Showdown.converter;
+	return converter.makeHtml(text);
+}
+
 function htmlSpecialChars(str) {
 	str = str.replace(/&/g, '&amp;');  
 	str = str.replace(/</g, '&lt;');  
@@ -91,14 +104,7 @@ function updateContent() {
 			}
 			$.post("/pen/query/content/" + penId, {}, function(res) {
 				$("#pencontentloading").hide();
-				var content = res.content;
-				if (cfg.catalog == 'code') {
-					content = '<pre>' + htmlSpecialChars(content) + '</pre>';
-				}
-				else {
-					var converter = new Showdown.converter;
-					content = converter.makeHtml(content);
-				}
+				var content = renderContent(res.content, cfg);
 				$("#pencontent").html(content);
 				if (typeof(MathJax) == 'object') {
 					MathJax.Hub.Typeset();

@@ -10,6 +10,16 @@ function updateAvatar(commentId, owner) {
 	});
 }
 
+var loadTriggerCount = 0;
+function finishLoadTrigger() {
+	-- loadTriggerCount;
+	if (loadTriggerCount <= 0) {
+		if (typeof(MathJax) == 'object') {
+			MathJax.Hub.Typeset();
+		}
+	}
+}
+
 function showComment(queryStr, targetId) {
 	$.post("/comment/query/" + queryStr, {}, function(res) {
 		var listDiv = $(targetId);
@@ -45,16 +55,13 @@ function showComment(queryStr, targetId) {
 				var postId = "/" + confList[i].penId + "/" + confList[i].commentId;
 				initLikeDiv(postId);
 			}
+			++ loadTriggerCount;
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				if (res.content) {
-					var content = res.content.replace(/\<br\/\>/g, '\n\n');
-					content = htmlSpecialChars(content);
-					content = content.replace(/\n\n/g, "<br/>");
-					listDiv.find("#comment_" + res.commentId).find("#content").html(content);
-					if (typeof(MathJax) == 'object') {
-						MathJax.Hub.Typeset();
-					}
+					var text = renderContent(htmlSpecialChars(res.content));
+					listDiv.find("#comment_" + res.commentId).find("#content").html(text), {}));
 				}
+				finishLoadTrigger();
 			});
 		}
 	});
