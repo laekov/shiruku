@@ -7,13 +7,9 @@ function htmlSpecialChars(str) {
 	return str;  
 }
 
-var loadTriggerCount = 0;
-function finishLoadTrigger() {
-	-- loadTriggerCount;
-	if (loadTriggerCount <= 0) {
-		if (typeof(MathJax) == 'object') {
-			MathJax.Hub.Typeset();
-		}
+function updateJax(eleId) {
+	if (typeof(MathJax) == "object") {
+		MathJax.Hub.Typeset(eleId);
 	}
 }
 
@@ -118,12 +114,11 @@ function updateContent() {
 					});
 				}
 			}
-			++ loadTriggerCount;
 			$.post("/pen/query/content/" + penId, {}, function(res) {
 				$("#pencontentloading").hide();
 				var content = renderContent(res.content, cfg);
 				$("#pencontent").html(content);
-				finishLoadTrigger();
+				updateJax("pencontent");
 			});
 		}
 	});
