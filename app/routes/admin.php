@@ -175,4 +175,5 @@ elseif ($srkEnv->reqURL[2] == 'file') {
 		srkStream($srkEnv->logFileName);
 	}
 }
-
+elseif ($srkEnv->reqURL[2] == 'resources') {
+}

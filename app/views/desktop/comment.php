@@ -11,6 +11,7 @@ if (!defined('srkVersion')) {
 			<div class='divleft'>
 				<div> 
 					<span id='nickname'></span>
+					<a id='viewref'>&gt;</a>
 				</div>
 				<div>
 					Posted&nbsp;at&nbsp;<span id='modifytime'></span>

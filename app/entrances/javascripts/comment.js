@@ -32,6 +32,7 @@ function showComment(queryStr, targetId) {
 			else {
 				ele.find("#ownerinfo").html("Unknown owner");
 			}
+			ele.find("#viewref").attr("href", "/view/" + confList[i].penId);
 			if (typeof(createLikeDiv) == 'function') {
 				var postId = "/" + confList[i].penId + "/" + confList[i].commentId;
 				ele.find("#likediv").html(createLikeDiv(postId));
