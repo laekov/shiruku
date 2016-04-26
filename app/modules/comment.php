@@ -115,6 +115,9 @@ function commentPost($user) {
 	if (strlen($_POST['content']) > 140) {
 		return 'Too long';
 	}
+	elseif (!is_string($_POST['content']) || strlen($_POST['content']) < 2) {
+		return 'Invalid comment';
+	}
 	$penCommentPath = $srkEnv->penPath.'/'.$_POST['penId'].'/comment';
 	if (!is_dir($penCommentPath)) {
 		mkdir($penCommentPath);
