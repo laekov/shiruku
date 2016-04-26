@@ -35,8 +35,13 @@ if ($srkEnv->reqURLLength >= 2) {
 			srkSend((Object)Array('error'=>'Please log in first'));
 		}
 		else {
-			if (commentPost($user)) {
-				srkSend((Object)Array('error'=>'System error'));
+			if (($err = commentPost($user))) {
+				if (is_string($err)) {
+					srkSend((Object)Array('error'=>$err));
+				}
+				else {
+					srkSend((Object)Array('error'=>"System error"));
+				}
 			}
 			else {
 				srkSend((Object)Array('error'=>false));
