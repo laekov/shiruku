@@ -27,6 +27,9 @@ function renderContent(content, config) {
 			text = htmlSpecialChars(content).replace(/\n/g, "<br/>");
 			return text;
 		}
+		else if (config.noModify) {
+			return text;
+		}
 	}
 	var converter = new Showdown.converter;
 	return converter.makeHtml(text);
