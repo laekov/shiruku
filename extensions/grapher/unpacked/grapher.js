@@ -1,0 +1,4 @@
+var Grapher = function() {
+	this.
+}
+
