@@ -23,7 +23,7 @@
 <canvas id='cloth' height='2048px' width='2560px'>JS not supported</canvas>
 </div>
 
-<script src='grapher.js'> 
+<script> 
 var Grapher = function(cvs) {
 var self = this;
 
