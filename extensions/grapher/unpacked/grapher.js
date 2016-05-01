@@ -1,10 +1,6 @@
 var Grapher = function(cvs) {
 	var self = this;
 
-	this.cvs = cvs;
-	this.height = cvs.height;
-	this.width = cvs.width;
-
 	this.range = {
 		xMin: -10, xMax: 10,
 		yMin: -5, yMax: 5,
@@ -17,6 +13,9 @@ var Grapher = function(cvs) {
 	};
 	this.axis = {
 		aidXGap: 100, aidYGap: 100
+	};
+	this.style = {
+		fontSize: 24
 	};
 
 	this.xMath2Cvs = function(x) {
@@ -37,7 +36,7 @@ var Grapher = function(cvs) {
 		return Math.round(x * 100) / 100;
 	}
 
-	self.setRange(x0, x1, y0, y1) {
+	self.setRange = function(x0, x1, y0, y1) {
 		if (x0 > x1) { x0 ^= x1; x1 ^= x0; x0 ^= x1; }
 		self.range.xMin = x0;
 		self.range.xMax = x1;
@@ -60,13 +59,13 @@ var Grapher = function(cvs) {
 	}
 	this.drawText = function(x0, y0, color, word) {
 		var cx0 = self.xMath2Cvs(x0);
-		if (cx0 < 10) { cx0 = 10; }
-		if (cx0 > self.width - 10) { cx0 = self.width - 10; }
+		if (cx0 < self.style.fontSize) { cx0 = self.style.fontSize; }
+		if (cx0 > self.width - self.style.fontSize) { cx0 = self.width - self.style.fontSize; }
 		var cy0 = self.yMath2Cvs(y0);
-		if (cy0 < 10) { cy0 = 10; }
-		if (cy0 > self.width - 10) { cy0 = self.width - 10; }
-		self.ctx.font = "11px Verdana";
-		self.ctx.fillstyle = color;
+		if (cy0 < self.style.fontSize) { cy0 = 20; }
+		if (cy0 > self.width - self.style.fontSize) { cy0 = self.width - 10; }
+		self.ctx.font = self.style.fontSize + "px Verdana";
+		self.ctx.fillStyle = color;
 		self.ctx.fillText(word, cx0, cy0);
 	}
 
@@ -82,7 +81,7 @@ var Grapher = function(cvs) {
 			var x = self.xCvs2Math(cx);
 			if (Math.abs(cx - self.xMath2Cvs(0)) >= self.axis.aidXGap) {
 				self.drawLine(x, self.range.yMin, x, self.range.yMax, self.colors.axisAid);
-				self.drawText(x, self.range.xMin, self.colors.text, String(self.round2(x)));
+				self.drawText(x, self.range.yMin, self.colors.text, String(self.round2(x)));
 			}
 		}
 		self.drawLine(self.range.xMin, 0, self.range.xMax, 0, self.colors.axisMain);
@@ -110,7 +109,8 @@ var Grapher = function(cvs) {
 			color = self.colors.curves[0];
 		}
 		self.ctx.strokeStyle = color;
-		for (var cx = 0, continuous = false; cx <= self.width; ++ cx) {
+		var continuous = false;
+		for (var cx = 0; cx <= self.width; ++ cx) {
 			var x = self.xCvs2Math(cx);
 			var y = f(x);
 			var cy = self.yMath2Cvs(y);
@@ -127,9 +127,10 @@ var Grapher = function(cvs) {
 				continuous = false; 
 			}
 		}
-		self.ctx.stroke();
+		if (continuous) { self.ctx.stroke(); }
 	}
 
+	this.cvs = cvs;
 	if (typeof(cvs) != 'object' || typeof(cvs.getContext) != 'function') {
 		this.error = 'Canvas error';
 		return;
@@ -139,5 +140,47 @@ var Grapher = function(cvs) {
 		this.error = 'Context error';
 		return;
 	}
+	this.height = cvs.height;
+	this.width = cvs.width;
+}
+
+var GrapherController = function(divId) {
+	var self = this;
+
+	this.divEle = $(divId);
+	this.cvsEle = self.divEle.find("#cloth");
+	self.cvsEle.width(self.divEle.width() - 10);
+	self.cvsEle.height(window.innerHeight - 100);
+	$(window).resize(function() {
+		self.cvsEle.width(self.divEle.width() - 10);
+		self.cvsEle.height(window.innerHeight - 100);
+	});
+	this.grapher = new Grapher(self.cvsEle.get()[0]);
+
+	this.redraw = function() {
+		self.grapher.clear();
+		self.grapher.drawAxis();
+	}
+
+	this.readRange = function() {
+		var x0 = Number(self.divEle.find("#xmin").val());
+		var x1 = Number(self.divEle.find("#xmax").val());
+		var y0 = Number(self.divEle.find("#ymin").val());
+		var y1 = Number(self.divEle.find("#ymax").val());
+		self.grapher.setRange(x0, x1, y0, y1);
+	}
+
+	this.readFuncs = function() {
+		var strs = self.divEle.find("#srctext").val().split(";");
+		for (var i in strs) { self.grapher.drawFunction(strs[i], i % 7); }
+	}
+
+	self.readRange();
+	self.redraw();
+	self.divEle.find("#paintit").click(function() {
+		self.readRange();
+		self.redraw();
+		self.readFuncs();
+	});
 }
 

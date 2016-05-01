@@ -1,43 +1,38 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets/list.css">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets/indicator.css">
 		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets/viewer.css">
 		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets//desktop/global.css">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets//desktop/div.css">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets//desktop/text.css">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets/navbar.css">
-		<script src="http://laekov.com.cn/entrances/javascripts/cdn/showdown.min.js"></script>
 		<script src="http://laekov.com.cn/entrances/javascripts/cdn/jquery_min.js"></script>
 		<script src="http://laekov.com.cn/entrances/javascripts/cdn/jquery.cookie.js"></script>
-		<script src="http://laekov.com.cn/entrances/javascripts/cdn/mathjax/MathJax.js?config=default"></script>
 	</head>
 	<body>
 		<p>Grapher</p>
 		<p>Help yourself</p>
 
-		<div>
-			<label>x range</label>
-			<input id='xlow' type='text' width='30px' value='-10'/>
-			~
-			<input id='xhigh' type='text' width='30px' value='10'/>
-			<br/>
-			<label>y range</label>
-			<input id='ylow' type='text' width='30px'/>
-			~
-			<input id='yhigh' type='text' width='30px'/>
-		</div>
+		<div id='grapherdiv'>
+			<div>
+				<label>x range</label>
+				<input id='xmin' type='text' width='30px' value='-10'/>
+				~
+				<input id='xmax' type='text' width='30px' value='10'/>
+				<br/>
+				<label>y range</label>
+				<input id='ymin' type='text' width='30px' value='-5'/>
+				~
+				<input id='ymax' type='text' width='30px' value='5'/>
+			</div>
 
-		<div>
-			<label>Value (Javascript format, separate with ;)</label><br/>
-			<textarea style='width:512' height='3' id='srctext'></textarea>
-			<button id='paintit'>Paint</button>
-		</div>
+			<div>
+				<label>Value (Javascript format, separate with ;)</label><br/>
+				<textarea style='width:512' height='3' id='srctext'></textarea><br/>
+				<button id='paintit'>Paint</button>
+			</div>
 
-		<canvas id='cloth' height='400px' width='800px'>JS not supported</canvas>
+			<canvas id='cloth' height='2048px' width='2560px'>JS not supported</canvas>
+		</div>
 
 		<script src='grapher.js'> </script>
-		<script>var grapher = new Grapher(document.getElementById("cloth"));</script>
+		<script>var grapher = new GrapherController("#grapherdiv");</script>
 	</body>
 </html>
