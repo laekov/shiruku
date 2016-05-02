@@ -7,6 +7,9 @@ $srkContent = (Object)Array();
 
 // category list 
 $srkContent->category = Array(
+	'tool'=>(Object)Array(
+		'title'=>'工具'
+	),
 	'developing'=>(Object)Array(
 		'title'=>'码农的开发手记'
 	),
