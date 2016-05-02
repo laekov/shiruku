@@ -142,7 +142,7 @@ var Grapher = function(cvs) {
 	}
 	this.height = cvs.height;
 	this.width = cvs.width;
-}
+};
 
 var GrapherController = function(divId) {
 	var self = this;
