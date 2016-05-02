@@ -21,20 +21,20 @@ var Grapher = function(cvs) {
 	this.xMath2Cvs = function(x) {
 		if (x < self.range.xMin || x > self.range.xMax) { return false; }
 		return (x - self.range.xMin) / (self.range.xMax - self.range.xMin) * self.width;
-	}
+	};
 	this.xCvs2Math = function(cx) {
 		return cx / self.width * (self.range.xMax - self.range.xMin) + self.range.xMin;
-	}
+	};
 	this.yMath2Cvs = function(y) {
 		if (y < self.range.yMin || y > self.range.yMax) { return false; }
 		return (self.range.yMax - y) / (self.range.yMax - self.range.yMin) * self.height;
-	}
+	};
 	this.yCvs2Math = function(cy) {
 		return self.range.yMax - cy / self.height * (self.range.yMax - self.range.yMin);
-	}
+	};
 	this.round2 = function(x) {
 		return Math.round(x * 100) / 100;
-	}
+	};
 
 	self.setRange = function(x0, x1, y0, y1) {
 		if (x0 > x1) { x0 ^= x1; x1 ^= x0; x0 ^= x1; }
@@ -43,7 +43,7 @@ var Grapher = function(cvs) {
 		if (y0 > y1) { y0 ^= y1; y1 ^= y0; y0 ^= y1; }
 		self.range.yMin = y0;
 		self.range.yMax = y1;
-	}
+	};
 
 	this.drawLine = function(x0, y0, x1, y1, color) {
 		var cx0 = self.xMath2Cvs(x0);
@@ -56,7 +56,7 @@ var Grapher = function(cvs) {
 		self.ctx.moveTo(cx0, cy0);
 		self.ctx.lineTo(cx1, cy1);
 		self.ctx.stroke();
-	}
+	};
 	this.drawText = function(x0, y0, color, word) {
 		var cx0 = self.xMath2Cvs(x0);
 		if (cx0 < self.style.fontSize) { cx0 = self.style.fontSize; }
@@ -67,12 +67,12 @@ var Grapher = function(cvs) {
 		self.ctx.font = self.style.fontSize + "px Verdana";
 		self.ctx.fillStyle = color;
 		self.ctx.fillText(word, cx0, cy0);
-	}
+	};
 
 	this.clear = function() {
 		self.ctx.fillStyle = self.colors.bg;
 		self.ctx.fillRect(0, 0, this.width, this.height);
-	}
+	};
 
 	this.drawAxis = function() {
 		self.drawLine(0, self.range.yMin, 0, self.range.yMax, self.colors.axisMain);
@@ -93,7 +93,7 @@ var Grapher = function(cvs) {
 				self.drawText(self.range.xMin, y, self.colors.text, String(self.round2(y)));
 			}
 		}
-	}
+	};
 	this.drawFunction = function(fun, color) {
 		var f;
 		if (typeof(fun) == 'function') {
@@ -128,7 +128,7 @@ var Grapher = function(cvs) {
 			}
 		}
 		if (continuous) { self.ctx.stroke(); }
-	}
+	};
 
 	this.cvs = cvs;
 	if (typeof(cvs) != 'object' || typeof(cvs.getContext) != 'function') {
@@ -149,18 +149,20 @@ var GrapherController = function(divId) {
 
 	this.divEle = $(divId);
 	this.cvsEle = self.divEle.find("#cloth");
+	this.cvsObj = self.cvsEle.get()[0];
+	this.cvsRat = self.cvsObj.height / self.cvsObj.width;
 	self.cvsEle.width(self.divEle.width() - 10);
 	self.cvsEle.height(window.innerHeight - 100);
 	$(window).resize(function() {
 		self.cvsEle.width(self.divEle.width() - 10);
-		self.cvsEle.height(window.innerHeight - 100);
+		self.cvsEle.height((self.divEle.width() - 10) * self.cvsRat);
 	});
-	this.grapher = new Grapher(self.cvsEle.get()[0]);
+	this.grapher = new Grapher(self.cvsObj);
 
 	this.redraw = function() {
 		self.grapher.clear();
 		self.grapher.drawAxis();
-	}
+	};
 
 	this.readRange = function() {
 		var x0 = Number(self.divEle.find("#xmin").val());
@@ -168,12 +170,12 @@ var GrapherController = function(divId) {
 		var y0 = Number(self.divEle.find("#ymin").val());
 		var y1 = Number(self.divEle.find("#ymax").val());
 		self.grapher.setRange(x0, x1, y0, y1);
-	}
+	};
 
 	this.readFuncs = function() {
 		var strs = self.divEle.find("#srctext").val().split(";");
 		for (var i in strs) { self.grapher.drawFunction(strs[i], i % 7); }
-	}
+	};
 
 	self.readRange();
 	self.redraw();
