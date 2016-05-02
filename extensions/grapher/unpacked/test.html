@@ -18,14 +18,16 @@
 				<input id='xmax' type='text' width='30px' value='10'/>
 				<br/>
 				<label>y range</label>
-				<input id='ymin' type='text' width='30px' value='-5'/>
+				<input id='ymin' type='text' width='30px' value='-8'/>
 				~
-				<input id='ymax' type='text' width='30px' value='5'/>
+				<input id='ymax' type='text' width='30px' value='8'/>
 			</div>
 
 			<div>
-				<label>Value (Javascript format, separate with ;)</label><br/>
-				<textarea style='width:512' height='3' id='srctext'></textarea><br/>
+				<label>y-x functions (Javascript format, separate with ;)</label><br/>
+				<textarea style='width:512' height='3' id='rtfunc'>Math.pow(Math.E,x);</textarea><br/>
+				<label>&rho;-&theta; functions (use t for &theta;)</label><br/>
+				<textarea style='width:512' height='3' id='polfunc'>1-Math.sin(t);</textarea><br/>
 				<button id='paintit'>Paint</button>
 			</div>
 

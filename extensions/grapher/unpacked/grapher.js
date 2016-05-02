@@ -94,13 +94,14 @@ var Grapher = function(cvs) {
 			}
 		}
 	};
-	this.drawFunction = function(fun, color) {
+	this.drawFunction = function(fun, funType, color) {
 		var f;
 		if (typeof(fun) == 'function') {
 			f = fun;
 		}
 		else if (typeof(fun) == 'string') {
-			f = new Function("x", "return " + fun + ";");
+			if (funType == "rt") { f = new Function("x", "return " + fun + ";"); }
+			else if (funType == "pol") { f = new Function("t", "return " + fun + ";"); }
 		}
 		if (typeof(color) == 'number') {
 			color = self.colors.curves[color];
@@ -110,11 +111,8 @@ var Grapher = function(cvs) {
 		}
 		self.ctx.strokeStyle = color;
 		var continuous = false;
-		for (var cx = 0; cx <= self.width; ++ cx) {
-			var x = self.xCvs2Math(cx);
-			var y = f(x);
-			var cy = self.yMath2Cvs(y);
-			if (cy !== false) {
+		var drawTo = function(cx, cy) {
+			if (cx !== false && cy !== false) {
 				if (!continuous) {
 					self.ctx.beginPath();
 					self.ctx.moveTo(cx, cy);
@@ -125,6 +123,24 @@ var Grapher = function(cvs) {
 			else { 
 				self.ctx.stroke();
 				continuous = false; 
+			}
+		}
+		if (funType == 'rt') {
+			for (var cx = 0; cx <= self.width; ++ cx) {
+				var x = self.xCvs2Math(cx);
+				var y = f(x);
+				var cy = self.yMath2Cvs(y);
+				drawTo(cx, cy);
+			}
+		}
+		else if (funType == 'pol') {
+			for (var t = 0, eps = Math.PI / (self.width + self.height); t < Math.PI * 2; t += eps) {
+				var p = f(t);
+				var x = p * Math.cos(t);
+				var cx = self.xMath2Cvs(x);
+				var y = p * Math.sin(t);
+				var cy = self.yMath2Cvs(y);
+				drawTo(cx, cy);
 			}
 		}
 		if (continuous) { self.ctx.stroke(); }
@@ -156,6 +172,7 @@ var GrapherController = function(divId) {
 	$(window).resize(function() {
 		self.cvsEle.width(self.divEle.width() - 10);
 		self.cvsEle.height((self.divEle.width() - 10) * self.cvsRat);
+		console.log(self.cvsRat);
 	});
 	this.grapher = new Grapher(self.cvsObj);
 
@@ -173,8 +190,10 @@ var GrapherController = function(divId) {
 	};
 
 	this.readFuncs = function() {
-		var strs = self.divEle.find("#srctext").val().split(";");
-		for (var i in strs) { self.grapher.drawFunction(strs[i], i % 7); }
+		var strRt = self.divEle.find("#rtfunc").val().split(";");
+		for (var i in strRt) { self.grapher.drawFunction(strRt[i], "rt", i % 7); }
+		var strPol = self.divEle.find("#polfunc").val().split(";");
+		for (var i in strPol) { self.grapher.drawFunction(strPol[i], "pol", (strRt.length + i) % 7); }
 	};
 
 	self.readRange();
