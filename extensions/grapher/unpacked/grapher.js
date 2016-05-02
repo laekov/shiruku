@@ -101,7 +101,7 @@ var Grapher = function(cvs) {
 		}
 		else if (typeof(fun) == 'string') {
 			if (funType == "rt") { f = new Function("x", "return " + fun + ";"); }
-			else if (funType == "pol") { f = new Function("t", "return " + fun + ";"); }
+			else if (funType == "pol" || funType == "para") { f = new Function("t", "return " + fun + ";"); }
 		}
 		if (typeof(color) == 'number') {
 			color = self.colors.curves[color];
@@ -143,6 +143,16 @@ var Grapher = function(cvs) {
 				drawTo(cx, cy);
 			}
 		}
+		else if (funType == 'para') {
+			var funRange = f(0);
+			var eps = eps = (funRange.max - funRange.min) / (self.width + self.height);
+			for (var t = funRange.min; t < funRange.max; t += eps) {
+				var p = f(t);
+				var cx = self.xMath2Cvs(p.x);
+				var cy = self.yMath2Cvs(p.y);
+				drawTo(cx, cy);
+			}
+		}
 		if (continuous) { self.ctx.stroke(); }
 	};
 
@@ -168,11 +178,10 @@ var GrapherController = function(divId) {
 	this.cvsObj = self.cvsEle.get()[0];
 	this.cvsRat = self.cvsObj.height / self.cvsObj.width;
 	self.cvsEle.width(self.divEle.width() - 10);
-	self.cvsEle.height(window.innerHeight - 100);
+	self.cvsEle.height((self.divEle.width() - 10) * self.cvsRat);
 	$(window).resize(function() {
 		self.cvsEle.width(self.divEle.width() - 10);
 		self.cvsEle.height((self.divEle.width() - 10) * self.cvsRat);
-		console.log(self.cvsRat);
 	});
 	this.grapher = new Grapher(self.cvsObj);
 
@@ -194,6 +203,8 @@ var GrapherController = function(divId) {
 		for (var i in strRt) { self.grapher.drawFunction(strRt[i], "rt", i % 7); }
 		var strPol = self.divEle.find("#polfunc").val().split(";");
 		for (var i in strPol) { self.grapher.drawFunction(strPol[i], "pol", (strRt.length + i) % 7); }
+		var strPara = self.divEle.find("#parafunc").val().split(";");
+		for (var i in strPara) { self.grapher.drawFunction(strPara[i], "para", (strRt.length + strPol.length + i) % 7); }
 	};
 
 	self.readRange();
@@ -202,6 +213,12 @@ var GrapherController = function(divId) {
 		self.readRange();
 		self.redraw();
 		self.readFuncs();
+	});
+	self.divEle.find("#clearit").click(function() {
+		self.divEle.find("#rtfunc").val("");
+		self.divEle.find("#polfunc").val("");
+		self.divEle.find("#parafunc").val("");
+		self.redraw();
 	});
 }
 

@@ -1,10 +1,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets/viewer.css">
-		<link rel="stylesheet" type="text/css" href="http://laekov.com.cn/entrances/stylesheets//desktop/global.css">
-		<script src="http://laekov.com.cn/entrances/javascripts/cdn/jquery_min.js"></script>
-		<script src="http://laekov.com.cn/entrances/javascripts/cdn/jquery.cookie.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://srkvir:81/entrances/stylesheets/viewer.css">
+		<link rel="stylesheet" type="text/css" href="http://srkvir:81/entrances/stylesheets//desktop/global.css">
+		<script src="http://srkvir:81/entrances/javascripts/cdn/jquery_min.js"></script>
+		<script src="http://srkvir:81/entrances/javascripts/cdn/jquery.cookie.js"></script>
 	</head>
 	<body>
 		<p>Grapher</p>
@@ -13,22 +13,25 @@
 		<div id='grapherdiv'>
 			<div>
 				<label>x range</label>
-				<input id='xmin' type='text' width='30px' value='-10'/>
+				<input id='xmin' type='text' width='30px' value='-5'/>
 				~
-				<input id='xmax' type='text' width='30px' value='10'/>
+				<input id='xmax' type='text' width='30px' value='5'/>
 				<br/>
 				<label>y range</label>
-				<input id='ymin' type='text' width='30px' value='-8'/>
+				<input id='ymin' type='text' width='30px' value='-4'/>
 				~
-				<input id='ymax' type='text' width='30px' value='8'/>
+				<input id='ymax' type='text' width='30px' value='4'/>
 			</div>
 
 			<div>
 				<label>y-x functions (Javascript format, separate with ;)</label><br/>
-				<textarea style='width:512' height='3' id='rtfunc'>Math.pow(Math.E,x);</textarea><br/>
+				<textarea style='width:512' height='3' id='rtfunc'>Math.pow(Math.E,x-3)-Math.PI;</textarea><br/>
 				<label>&rho;-&theta; functions (use t for &theta;)</label><br/>
-				<textarea style='width:512' height='3' id='polfunc'>1-Math.sin(t);</textarea><br/>
+				<textarea style='width:512' height='3' id='polfunc'>Math.acos(Math.sin(t));</textarea><br/>
+				<label>parametric functions (use t for param)</label><br/>
+				<textarea style='width:512' height='3' id='parafunc'>{x:Math.cos(t)*4,y:Math.sin(t)*3,min:0,max:3.14}</textarea><br/>
 				<button id='paintit'>Paint</button>
+				<button id='clearit'>Clear</button>
 			</div>
 
 			<canvas id='cloth' height='2048px' width='2560px'>JS not supported</canvas>
