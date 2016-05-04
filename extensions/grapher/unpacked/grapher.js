@@ -109,12 +109,12 @@ var Grapher = function(cvs) {
 		else if (color === undefined) {
 			color = self.colors.curves[0];
 		}
-		self.ctx.strokeStyle = color;
 		var continuous = false;
 		var drawTo = function(cx, cy) {
 			if (cx !== false && cy !== false) {
 				if (!continuous) {
 					self.ctx.beginPath();
+					self.ctx.strokeStyle = color;
 					self.ctx.moveTo(cx, cy);
 					continuous = true;
 				}
@@ -199,6 +199,21 @@ var GrapherController = function(divId) {
 	};
 
 	this.readFuncs = function() {
+		var funcCount = 0;
+		var idArr = {
+			"rt": "#rtfunc", 
+			"pol": "#polfunc", 
+			"para": "#parafunc"
+		};
+		for (var i in idArr) {
+			var arr = self.divEle.find(idArr[i]).val().split(";");
+			for (var j in arr) {
+				if (arr[j].length > 0) {
+					self.grapher.drawFunction(arr[j], i, funcCount % 7);
+					++ funcCount;
+				}
+			}
+		}
 		var strRt = self.divEle.find("#rtfunc").val().split(";");
 		for (var i in strRt) { self.grapher.drawFunction(strRt[i], "rt", i % 7); }
 		var strPol = self.divEle.find("#polfunc").val().split(";");
