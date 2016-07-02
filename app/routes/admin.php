@@ -7,6 +7,7 @@ require_once($srkEnv->appPath.'/modules/file.php');
 require_once($srkEnv->appPath.'/modules/user.php');
 require_once($srkEnv->appPath.'/modules/pen.php');
 require_once($srkEnv->appPath.'/modules/render.php');
+require_once($srkEnv->appPath.'/modules/cache.php');
 
 $srkEnv->pageTitle .= '.admin';
 
@@ -80,9 +81,11 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 	}
 	elseif ($srkEnv->reqURL[3] == 'remove') {
 		$penId = $_POST['penId'];
-		$penPath = $srkEnv->penPath.'/pen/'.$penId;
+		$penPath = $srkEnv->penPath."/".$penId;
 		if (is_dir($penPath)) {
-			rmdir($penPath);
+			srkLog($penPath);
+			rmdirDFS($penPath);
+			penListGenerate();
 			srkSend((Object)Array('error'=>false));
 		}
 		else {
@@ -175,5 +178,4 @@ elseif ($srkEnv->reqURL[2] == 'file') {
 		srkStream($srkEnv->logFileName);
 	}
 }
-elseif ($srkEnv->reqURL[2] == 'resources') {
-}
+

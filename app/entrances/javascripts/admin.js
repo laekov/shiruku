@@ -178,8 +178,7 @@ function onWindowResize() {
 	$("#editconfigtext").width(textWidth);
 }
 
-$(window).resize(onWindowResize);
-$(document).ready(function() {
+function initList() {
 	$.post("/admin/query/access", function(res) {
 		if (res.error) {
 			$("#perror").html(res.error);
@@ -227,6 +226,11 @@ $(document).ready(function() {
 			});
 		}
 	});
+}
+
+$(window).resize(onWindowResize);
+$(document).ready(function() {
 	onWindowResize();
+    initList();
 });
 
