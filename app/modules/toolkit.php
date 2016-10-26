@@ -114,3 +114,19 @@ function decipherGetStr($str) {
 	return $res;
 }
 
+// remove a directory with contents
+function rmdirDFS($dirPath) {
+	$dir = opendir($dirPath);
+	while (($content = readdir($dir))) {
+		if ($content != '.' && $content != '..') {
+			$tgtPath = $dirPath.'/'.$content;
+			if (is_file($tgtPath)) {
+				unlink($tgtPath);
+			}
+			elseif (is_dir($tgtPath)) {
+				rmdirDFS($tgtPath);
+			}
+		}
+	}
+	rmdir($dirPath);
+}
