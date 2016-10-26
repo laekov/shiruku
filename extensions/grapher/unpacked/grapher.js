@@ -100,8 +100,8 @@ var Grapher = function(cvs) {
 			f = fun;
 		}
 		else if (typeof(fun) == 'string') {
-			if (funType == "rt") { f = new Function("x", "return " + fun + ";"); }
-			else if (funType == "pol" || funType == "para") { f = new Function("t", "return " + fun + ";"); }
+			if (funType == "rt") { f = new Function("x", "with (Math) { return " + fun + "; }"); }
+			else if (funType == "pol" || funType == "para") { f = new Function("t", "with (Math) { return " + fun + "; }"); }
 		}
 		if (typeof(color) == 'number') {
 			color = self.colors.curves[color];
