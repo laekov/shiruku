@@ -1,0 +1,25 @@
+{
+  "name": "shiruku",
+  "homepage": "https://github.com/laekov/shiruku",
+  "authors": [
+    "laekov <rivenhe@foxmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/wheels",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "MathJax": "^2.7.0",
+    "jquery": "^3.1.1",
+    "jquery.cookie": "^1.4.1",
+    "showdown": "^1.5.5",
+    "bootstrap": "^3.3.7"
+  }
+}
