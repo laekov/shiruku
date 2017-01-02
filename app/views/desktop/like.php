@@ -6,13 +6,13 @@ if (!defined('srkVersion')) {
 
 <div class='hidden' id='samplelikediv'>
 	<div class='hidden' id='valuediv'>
-		<button class='buttonsmall buttonlightgreen' id='actlike'>
-			<span class='monotiny'>Like</span>
-			<span id='valuelike'></span>
+		<button class='btn btn-default' id='actlike'>
+			<i class='glyphicon glyphicon-thumbs-up text-info'></i>
+			<small id='valuelike'></small>
 		</button>
-		<button class='buttonsmall buttonlightred' id='actdislike'>
-			<span class='monotiny'>Dislike</span>
-			<span id='valuedislike'></span>
+		<button class='btn btn-default' id='actdislike'>
+			<i class='glyphicon glyphicon-thumbs-down text-info'></i>
+			<small id='valuedislike'></small>
 		</button>
 	</div>
 	<div><p class='red hidden' id='perror'></p></div>

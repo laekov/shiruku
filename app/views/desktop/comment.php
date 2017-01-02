@@ -4,27 +4,31 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<div class='hidden commentitem' id='samplecomment'>
-	<div id='info' class='commentinfodiv'>
-		<div id='ownerinfo' class='divleft divsimple'>
-			<div class='divleft'><img id='avatar' class='avatarsmall'/></div>
-			<div class='divleft'>
-				<div> 
-					<span id='nickname'></span>
-					<a id='viewref'>&gt;</a>
-				</div>
-				<div>
-					Posted&nbsp;at&nbsp;<span id='modifytime'></span>
-				</div>
+<div class='panel panel-default hidden' id='samplecomment'>
+	<div id='info' class='panel-heading'>
+		<div class='row'>
+			<div id='ownerinfo'>
+				<div class='pull-left'><img id='avatar' class='avatarsmall'/></div>
+				<div class='pull-left'>
+					<div> 
+						<span id='nickname'></span>
+						<a id='viewref'>&gt;</a>
+					</div>
+					<small>
+						Posted&nbsp;at&nbsp;<span id='modifytime'></span>
+					</small>
+		</div>
 			</div>
-			<div class='divclear'></div>
 		</div>
-		<div class='divright divsimple'>
-			<div id='likediv'></div>
-		</div>
-		<div class='divclear'></div>
 	</div>
-	<div id='content' class='commentcontentdiv'></div>
+	<div class='panel-body'>
+		<div id='content' class=''></div>
+	</div>
+	<div class='panel-footer'>
+		<div class='row'>
+			<div class='pull-right' id='likediv'></div>
+		</div>
+	</div>
 </div>
 
 <div class='commentitem hidden' id='samplecommentedit'>

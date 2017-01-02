@@ -17,18 +17,23 @@ function updateSpaceHeight() {
 function updateLogin() {
 	$.post("/login/query/whoami", {}, function(res) {
 		if (res.userId) {
-			$("#navitem_login").hide();
+			$("#navitem_login").addClass('hidden');
 			$.post("/login/query/" + res.userId + "/nickname", {}, function(resNick) {
 				$("#navitem_userinfo").find("#username").html(resNick.data);
 			});
-			$("#navitem_userinfo").show();
-		}
-		else {
-			$("#navitem_userinfo").hide();
-			$("#navitem_login").show();
+            $("#navitem_userinfo").find("#username").html(res.userId);
+            $("#navitem_userinfo").removeClass('hidden');
+			$("#navitem_logout").removeClass('hidden');
+		} else {
+			$("#navitem_userinfo").addClass('hidden');
+			$("#navitem_login").removeClass('hidden');
+			$("#navitem_logout").addClass('hidden');
 		}
 	});
-	$("#loginactions").fadeOut(300);
+    $("#navitem_userinfo").addClass('hidden');
+    $("#navitem_login").addClass('hidden');
+    $("#navitem_logout").addClass('hidden');
+    $("#loginactions").fadeOut(300);
 }
 
 function recordPrevious() {
@@ -55,15 +60,6 @@ $(document).ready(function() {
             window.location.href = '/list/search/' + $(this).val();
         }
     });
-	$("#navitem_userinfo").hover(function() {
-		var pos = $(this).position();
-		$("#loginactions").css("top", pos.top);
-		$("#loginactions").css("left", pos.left);
-		$("#loginactions").fadeIn(300);
-	}, function() { });
-	$("#loginactions").hover(function() { }, function() {
-		$(this).fadeOut(300);
-	});
 	$("#logout").click(function() {
 		$.post("/login/auth/logout", {}, function() {
 			updateLogin();

@@ -1,9 +1,9 @@
 function submitLogin(data) {
-	$("#psuccess").hide();
-	$("#perror").hide();
+	$("#psuccess").addClass('hidden');
+	$("#perror").addClass('hidden');
 	$("#ppending").fadeIn();
 	submitData(data, function(res) {
-		$("#ppending").hide();
+		$("#ppending").addClass('hidden');
 		if (res.res == 'successful') {
 			var prevPage = $.cookie("prevPage");
 			if (prevPage) {
@@ -59,18 +59,18 @@ function setReturnActions(cList, action) {
 }
 
 $(document).ready(function() {
-	$("#regid").hide();
+    var reg = false;
+    $("#regid").addClass('hidden');
 	$("#login").click(login);
 	$("#register").click(function() {
-		$("#loginid").hide();
-		$("#regid").show();
-		$("#login").hide();
-		if ($("#registerinfo").css("display") == "none") {
-			$("#registerinfo").slideDown(700);
-		}
-		else {
+		$("#loginid").addClass('hidden');
+		$("#regid").removeClass('hidden');
+		$("#login").addClass('hidden');
+        $("#registerinfo").removeClass('hidden');
+        if (reg) {
 			register();
 		}
+        reg = true;
 	});
 	setReturnActions(["userId", "passwd"], login);
 });
