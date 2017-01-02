@@ -1,15 +1,15 @@
 function clearStatus() {
-	$("#perror").hide();
-	$("#ppending").hide();
-	$("#psuccess").hide();
-	$("#pres").hide();
+	$("#perror").addClass('hidden');
+	$("#ppending").addClass('hidden');
+	$("#psuccess").addClass('hidden');
+	$("#pres").addClass('hidden');
 }
 function showStatus(id, word) {
 	clearStatus();
 	if (word != null) {
 		$("#p" + id).html(word);
 	}
-	$("#p" + id).show();
+	$("#p" + id).removeClass('hidden');
 }
 
 var PenList = function() {
@@ -25,7 +25,7 @@ var PenList = function() {
 			}
 			else {
 				$("#ui_penlist").find("#error").html("Failed to load list");
-				$("#ui_penlist").find("#error").show();
+				$("#ui_penlist").find("#error").removeClass('hidden');
 			}
 		});
 	};
@@ -36,7 +36,7 @@ var PenList = function() {
 			ele.attr("id", "listitem_" + catalog[i].penId);
 			ele.find("#penId").html(catalog[i].penId);
 			ele.find("#title").html(catalog[i].title);
-			ele.show();
+			ele.removeClass('hidden');
 			$("#ui_penlist").find("#list").append(ele);
 		}
 		$(".actviewpen").click(function() {
@@ -145,7 +145,7 @@ var Invite = function() {
 				var ele = $("#sampleinvitecode").clone();
 				ele.find("#value").html(res.list[i].value);
 				ele.find("#used").html(res.list[i].used ? res.list[i].owner : "----");
-				ele.show();
+				ele.removeClass('hidden');
 				$("#invitelist").append(ele);
 			}
 		});
@@ -182,7 +182,7 @@ function initList() {
 	$.post("/admin/query/access", function(res) {
 		if (res.error) {
 			$("#perror").html(res.error);
-			$("#perror").show();
+			$("#perror").removeClass('hidden');
 		}
 		else {
 			navList = res.accessList;
@@ -193,7 +193,7 @@ function initList() {
 				ele.attr("id", "formnav_" + id);
 				ele.find("#title").html(pageEle.find("#title").html());
 				ele.find("#divid").html(id);
-				ele.show();
+				ele.removeClass('hidden');
 				$("#formnavdiv").append(ele);
 			}
 			if (navList.indexOf("penlist") != -1) {
@@ -211,16 +211,13 @@ function initList() {
 			$(".actformnavitem").click(function() {
 				var myId = $(this).find("#divid").html();
 				for (var i in navList) {
-					var navEle = $("#formnav_" + navList[i]).find("#title");
-					navEle.removeClass("navitemon");
-					navEle.removeClass("navitemoff");
+					var navEle = $("#formnav_" + navList[i]);
 					if (navList[i] == myId) {
-						$("#ui_" + navList[i]).show();
-						navEle.addClass("navitemon");
-					}
-					else {
-						$("#ui_" + navList[i]).hide();
-						navEle.addClass("navitemoff");
+						$("#ui_" + navList[i]).removeClass('hidden');
+						navEle.addClass("active");
+					} else {
+						$("#ui_" + navList[i]).addClass('hidden');
+						navEle.removeClass("active");
 					}
 				}
 			});

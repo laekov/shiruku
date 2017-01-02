@@ -4,12 +4,12 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<div class='hidden' id='sampleformnavitem'>
+<li class='hidden' role='presentation' id='sampleformnavitem'>
 	<a class='actformnavitem' id='content'>
 		<span id='divid' class='hidden'></span>
-		<div class='formnavitem navitemoff divleft' id='title'></div>
+		<span id='title'></span>
 	</a>
-</div>
+</li>
 
 <div class='hidden' id='samplelistitem'>
 	<p>
@@ -20,8 +20,7 @@ if (!defined('srkVersion')) {
 </div>
 
 <div class='divadminnav'>
-	<div id='formnavdiv'></div>
-	<div class='divclear'></div>
+	<ul id='formnavdiv' class='nav nav-tabs'></ul>
 </div>
 <div class='divfill' id='contentdiv'> 
 	<div class='hidden' id='ui_penlist'>
