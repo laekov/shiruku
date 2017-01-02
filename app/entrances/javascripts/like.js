@@ -18,28 +18,27 @@ function updateLikeDiv(postId) {
 	var ele = $(getLikeEleId(postId));
 	if (ele.length) {
 		if (ele.find("#perror").html().length) {
-			ele.find("#perror").show();
+			ele.find("#perror").removeClass('hidden');
 			if (ele.find("#perror").html() == 'login') {
 				var loginEle = $("#sampleloginnotify").clone();
 				loginEle.attr("id", "errormsg");
-				loginEle.show();
+				loginEle.removeClass('hidden');
 				ele.find("#perror").html(loginEle);
 			}
 		}
 		else {
-			ele.find("#perror").hide();
+			ele.find("#perror").addClass('hidden');
 			$.post("/pen/like/query" + postId, {}, function(res) {
 				var ele = $(getLikeEleId(postId));
 				if (ele.length) {
 					if (res.error) {
-						ele.find("#valuediv").hide();
+						ele.find("#valuediv").addClass('hidden');
 						ele.find("#perror").html(res.error);
-						ele.find("#perror").show();
-					}
-					else {
+						ele.find("#perror").removeClass('hidden');
+					} else {
 						ele.find("#valuelike").html(String(res.like));
 						ele.find("#valuedislike").html(String(res.dislike));
-						ele.find("#valuediv").show();
+						ele.find("#valuediv").removeClass('hidden');
 					}
 				}
 			});
@@ -67,7 +66,7 @@ function initLikeDiv(postId) {
 function createLikeDiv(postId) {
 	var ele = $("#samplelikediv").clone();
 	ele.attr("id", getLikeEleId(postId).substr(1));
-	ele.show();
+	ele.removeClass('hidden');
 	return ele;
 }
 

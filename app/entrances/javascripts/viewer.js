@@ -62,14 +62,12 @@ function setQuickJump(targetId, penId) {
 		$("#quickjump").find(targetId).html("没有了");
 		$("#quickjump").find(targetId).removeAttr("href");
 		$("#quickjump").removeClass('hidden');
-	}
-	else {
+	} else {
 		getPenConfig(penId, function(res) {
 			if (res.error) {
 				$("#quickjump").find(targetId).html("出错了");
 				$("#quickjump").find(targetId).removeAttr("href");
-			}
-			else {
+			} else {
 				$("#quickjump").find(targetId).html(res.title);
 				$("#quickjump").find(targetId).attr("href", "/view/" + penId);
 			}
@@ -92,7 +90,6 @@ function updateContent() {
 			document.title = document.title.replace(cfg.penId, cfg.title);
 			if (!cfg.noInfo) {
 				createInfoDiv(cfg, function(ele) {
-                    console.log(ele.html());
 					$("#peninfo").html(ele.html());
 					$("#peninfo").removeClass('hidden');
 					if (typeof(initLikeDiv) == 'function') {
@@ -107,13 +104,11 @@ function updateContent() {
 							setQuickJump("#prev", res.prev);
 							setQuickJump("#succ", res.succ);
 						});
-					}
-					else {
+					} else {
 						setQuickJump("#prev", penIdList[pos - 1]);
 						setQuickJump("#succ", penIdList[pos + 1]);
 					}
-				}
-				else {
+				} else {
 					$.post("/pen/query/neighbor/" + penId, {}, function(res) {
 						setQuickJump("#prev", res.prev);
 						setQuickJump("#succ", res.succ);

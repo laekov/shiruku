@@ -8,7 +8,7 @@ function updatePostDiv() {
 			resDiv = $("#samplecommentlogin").clone();
 		}
 		resDiv.attr("id", "commentedit");
-		resDiv.show();
+		resDiv.removeClass('hidden');
 		$("#commenteditdiv").html(resDiv);
 		if (res.userId) {
 			commentDivInit("#commentedit");

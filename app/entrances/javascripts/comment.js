@@ -40,7 +40,7 @@ function showComment(queryStr, targetId) {
 			var date = new Date();
 			date.setTime(confList[i].modifyTime * 1000);
 			ele.find("#modifytime").html(date.toLocaleString());
-			ele.show();
+			ele.removeClass('hidden');
 			listDiv.append(ele);
 			if (typeof(initLikeDiv) == 'function') {
 				var postId = "/" + confList[i].penId + "/" + confList[i].commentId;
@@ -61,22 +61,22 @@ function commentDivInit(eleId) {
 	var divEle = $(eleId);
 	divEle.find("#content").width($("#pagecontentdiv").width());
 	divEle.find("#commentpost").click(function() {
-		divEle.find("#perror").hide();
-		divEle.find("#psuccess").hide();
-		divEle.find("#ppending").show();
+		divEle.find("#perror").addClass('hidden');
+		divEle.find("#psuccess").addClass('hidden');
+		divEle.find("#ppending").removeClass('hidden');
 		var data = {
 			requestURI: "/comment/post",
 			penId: getCurrentPenId(),
 			content: $(this).parent().find("#content").val()
 		};
 		submitData(data, function(res) {
-			divEle.find("#ppending").hide();
+			divEle.find("#ppending").addClass('hidden');
 			if (res.error) {
 				divEle.find("#perror").html(res.error);
-				divEle.find("#perror").show();
+				divEle.find("#perror").removeClass('hidden');
 			}
 			else {
-				divEle.find("#psuccess").show();
+				divEle.find("#psuccess").removeClass('hidden');
 				showComment('/pen/' + getCurrentPenId(), "#commentdiv");
 			}
 		});
