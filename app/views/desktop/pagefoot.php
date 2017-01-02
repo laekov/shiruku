@@ -4,6 +4,7 @@ if (!defined('srkVersion')) {
 }
 ?>
 		</div>
+	</div>
 		<div style='min-height: 40%'></div>
 		<div class='container-fluid' style='background: #eeeeee'>
                 <div class='container'>
@@ -43,7 +44,6 @@ if (!defined('srkVersion')) {
 			    </div>
 			    <?php } ?>
 		    </div>
-        </div>
     </body>
-   </html>
+</html>
     

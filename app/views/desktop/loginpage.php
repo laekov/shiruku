@@ -46,16 +46,17 @@ if (!defined('srkVersion')) {
 	</div>
 
 	<div class='col-xs-12 col-md-4'>
-		<div class='formtitle'>
-			Third-party Login
-		</div>
-	<?php foreach ($srkEnv->thirdPartyLogin as $loginSite) { ?>
-		<div class='form-group'>
-			<img class='iconimg' src='<?php echo($loginSite->img); ?>'/>
-			<a href='<?php echo($loginSite->href); ?>'><?php echo($loginSite->title); ?></a>
-	<?php } ?>
-		</div>
-</div>
+		<div class='list-group'>
+			<a class='list-group-item list-group-item-info'>
+				<h4> Third-party Login </h4>
+			</a>
+		<?php foreach ($srkEnv->thirdPartyLogin as $loginSite) { ?>
+			<a class='list-group-item' href='<?php echo($loginSite->href); ?>'>
+				<img class='iconimg' src='<?php echo($loginSite->img); ?>'/>
+				<?php echo($loginSite->title); ?>
+			</a>
+		<?php } ?>
+	</div>
 </div>
 
 <div class='divclear'></div>
