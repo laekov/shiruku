@@ -73,7 +73,7 @@ function updateList(listId) {
 			var ele = $("#samplelistitem").clone();
 			ele.attr("id", "pen_" + cata[i].penId);
 			ele.find("#title").html(cata[i].title + "&nbsp;");
-			ele.find("#title").attr("href", "/view/" + cata[i].penId);
+			ele.attr("href", "/view/" + cata[i].penId);
 			ele.find("#modifyTime").html(date.toGMTString());
 			$.post("/pen/query/preview/" + cata[i].penId, {}, function(res) {
 				$("#pen_" + res.penId).find("#preview").html(renderContent(res.content, {}));
@@ -81,7 +81,7 @@ function updateList(listId) {
 			});
 			createInfoDiv(cata[i], function(gele) {
 				ele.find("#infodiv").html(gele.html());
-				ele.show();
+				ele.removeClass('hidden');
 				$(listId).append(ele);
 			});
 		}

@@ -17,8 +17,8 @@ $(document).ready(function() {
 					div.find("#loading").hide();
 					var ele = $("#samplepenlink").clone();
 					ele.attr("id", "penlink_" + cata[i].penId);
-					ele.find("#href").attr("href", "/view/" + cata[i].penId);
-					ele.find("#href").html(cata[i].title);
+					ele.attr("href", "/view/" + cata[i].penId);
+					ele.html(cata[i].title);
 					div.append(ele);
 				}
 			}

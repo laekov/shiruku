@@ -4,17 +4,17 @@ if (!defined('srkVersion')) {
 }
 ?>
 		</div>
-		<div id='bottomspace'></div>
-		<div class='pagefootwrapper'>
-			<div class='maindiv'>
-				<div class='div50 divleft'>
+		<div style='min-height: 40%'></div>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-xs-6'>
 					<p>Powered&nbsp;by&nbsp;
 						<a href='https://github.com/laekov/shiruku'>Shiruku <?php echo(srkVersion); ?></a>
 					</p>
 					<p><a href='/view/bugreport'>Report a bug</a></p>
 					<p><a href='/admin'>Site administration entrance</a></p>
 				</div>
-				<div class='divright alignright'>
+				<div class='col-xs-6'>
 					<p> All&nbsp;rights&nbsp;reserved&nbsp;
 						<?php if (isset($srkContent->ownerInfo->owner)) { ?>
 							by&nbsp;<?php echo($srkContent->ownerInfo->owner); ?>
@@ -33,7 +33,6 @@ if (!defined('srkVersion')) {
 					</p>
 					<?php } ?>
 				</div>
-				<div class='divclear'></div>
 			</div>
 			<?php if (isset($srkContent->PRCRecordInfo)) { ?>
 			<div class='recorddiv'>
@@ -45,4 +44,4 @@ if (!defined('srkVersion')) {
 		</div>
 	</body>
 </html>
-	
+

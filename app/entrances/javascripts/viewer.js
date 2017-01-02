@@ -1,4 +1,7 @@
 function htmlSpecialChars(str) {
+    if (typeof(str) !== 'string') {
+        return '';
+    }
 	str = str.replace(/&/g, '&amp;');  
 	str = str.replace(/</g, '&lt;');  
 	str = str.replace(/>/g, '&gt;');  
@@ -31,7 +34,7 @@ function renderContent(content, config) {
 			return text;
 		}
 	}
-	var converter = new Showdown.converter;
+	var converter = new showdown.Converter();
 	return converter.makeHtml(text);
 }
 
@@ -58,7 +61,7 @@ function setQuickJump(targetId, penId) {
 	if (typeof(penId) != 'string') {
 		$("#quickjump").find(targetId).html("没有了");
 		$("#quickjump").find(targetId).removeAttr("href");
-		$("#quickjump").show();
+		$("#quickjump").removeClass('hidden');
 	}
 	else {
 		getPenConfig(penId, function(res) {
@@ -81,8 +84,7 @@ function updateContent() {
 		if (res.error) {
 			$("#pentitle").html("Viewer error");
 			$("#pencontentloading").html(res.error);
-		}
-		else {
+		} else {
 			var cfg = res;
 			var date = new Date();
 			date.setTime(cfg.modifyTime * 1000);
@@ -90,8 +92,9 @@ function updateContent() {
 			document.title = document.title.replace(cfg.penId, cfg.title);
 			if (!cfg.noInfo) {
 				createInfoDiv(cfg, function(ele) {
+                    console.log(ele.html());
 					$("#peninfo").html(ele.html());
-					$("#peninfo").show();
+					$("#peninfo").removeClass('hidden');
 					if (typeof(initLikeDiv) == 'function') {
 						initLikeDiv("/" + cfg.penId);
 					}

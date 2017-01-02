@@ -50,8 +50,11 @@ if ($srkEnv->reqURLLength >= 2) {
 					if (!$pos) {
 						$pos = strpos($content, "\r\n");
 					}
-					if ($pos != false) {
-						$content = substr($content, 0, $pos);
+					if ($pos > 64 || $pos === false) {
+						$pos = 64;
+					}
+					if ($pos !== false) {
+						$content = htmlspecialchars(substr($content, 0, $pos));
 						$content .= "<br/>...";
 					}
 				}

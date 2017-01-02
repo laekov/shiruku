@@ -4,7 +4,9 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<div id='pageindicator' class='fulldiv'></div>
-<div id='list' class='fulldiv'>Loading list</div>
-<div id='error' class='fulldiv hidden error'></div>
+<div class='col-sm-12 col-md-8 col-md-offset-2'>
+    <div id='pageindicator' class=''></div>
+    <div id='list' class=''>Loading list</div>
+    <div id='error' class='hidden error'></div>
+</div>
 

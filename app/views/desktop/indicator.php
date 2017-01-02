@@ -5,6 +5,6 @@ if (!defined('srkVersion')) {
 ?>
 
 <div class='hidden'>
-	<a class='indicatoritem hidden' id='sampleindicatorref'><span id='content'></span></a>
-	<div class='indicator hidden' id='sampleindicator'> </div>
+	<li class='' id='sampleindicatorref'><a id='content' class='indicatoritem'></a></li>
+	<ul class='pagination' id='sampleindicator'> </ul>
 </div>

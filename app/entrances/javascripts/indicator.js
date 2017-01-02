@@ -12,9 +12,8 @@ function redirectPage() {
 
 function createPageHref(text, target) {
 	var ele = $("#sampleindicatorref").clone();
-	ele.attr("id", "to_" + target);
 	ele.find("#content").html(text);
-	ele.show();
+	ele.find("#content").attr("id", "to_" + target);
 	return ele;
 }
 
@@ -22,17 +21,16 @@ function createIndicator(callback) {
 	var ele = $("#sampleindicator").clone();
 	ele.attr("id", "indicatordiv");
 	ele.append(createPageHref("首页", 0));
-	ele.append(createPageHref("上一页", Math.max(0, pageConf.cur - 1)));
-	for (var i = 0; i < pageConf.total; ++ i) {
+	//ele.append(createPageHref("上一页", Math.max(0, pageConf.cur - 1)));
+	for (var i = Math.max(0, pageConf.cur - 1); i < pageConf.total && i < (pageConf.cur - -2); ++ i) {
 		var gele = createPageHref(String(i), String(i));
 		if (i == pageConf.cur) {
-			gele.addClass("indicatoritemcur");
+			gele.addClass("active");
 		}
 		ele.append(gele);
 	}
-	ele.append(createPageHref("下一页", Math.min(pageConf.total - 1, pageConf.cur + 1)));
+	//ele.append(createPageHref("下一页", Math.min(pageConf.total - 1, pageConf.cur + 1)));
 	ele.append(createPageHref("末页", pageConf.total - 1));
-	ele.show();
 	callback(ele);
 	$(".indicatoritem").click(redirectPage);
 }

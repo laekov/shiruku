@@ -4,10 +4,8 @@ if (!defined('srkVersion')) {
 }
 ?>
 
-<div id='samplelistitem' class='hidden penwrapper'>
-	<div class='pentitlediv'>
-		<a class='pentitle' id='title'></a>
-	</div>
-	<div class='penpreview pencontentdiv' id='preview'></div>
-	<div class='peninfodiv' id='infodiv'></div>
-</div>
+<a id='samplelistitem' class='hidden list-group-item'>
+	<big id='title'></big>
+	<span class='' id='preview'></span>
+	<small class='' id='infodiv'></small>
+</a>

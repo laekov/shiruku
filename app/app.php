@@ -1,5 +1,5 @@
 <?php
-define('srkVersion', '0.0.1');
+define('srkVersion', '0.0.2');
 
 // decipher uri by / into an array
 function decipherURI($uri) {

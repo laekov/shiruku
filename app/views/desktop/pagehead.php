@@ -5,43 +5,36 @@ if (!defined('srkVersion')) {
 ?>
 <body>
 	<div id='navbardiv'>
-		<div id='navbar' class='navbar fixdiv navontop'>
-			<div class='navbarfloat'>
-				<ul class='navul navull'>
-					<li id='icondiv' class='navitem navtitle'>
-						<img src='<?php echo($srkEnv->staticResPath.'/images/nav-title.png'); ?>' class='navtitlepic'/>
-					</li>
-					<li class='navitem'>
-						<input class='searchinput' id='searchinput' type='text' value=''/>
-					</li>
-				</ul>
-				<ul class='navul navulr'>
+		<div id='navbar' class='navbar navbar-default navbar-fixed-top'>
+			<div class='navbar-header'>
+                <a class='navbar-brand'>Shiruku - laekov </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class='collapse navbar-collapse' id='collapse-1'>
+                <div class='navbar-form navbar-left'>
+                    <input class='form-control' id='searchinput' type='text' placeholder='Search'/>
+                </div>
+				<ul class='nav navbar-nav'>
 					<?php foreach ($srkContent->navbar as $navId=>$navItem) { ?>
-					<a href='<?php echo($navItem->href); ?>'>
-						<li id='navitem_<?php echo($navId); ?>' class='navitem'>
+					<li id='navitem_<?php echo($navId); ?>' class=''>
+					    <a href='<?php echo($navItem->href); ?>'>
 							<?php echo($navItem->title); ?>
-						</li>
-					</a>
+					    </a>
+					</li>
 					<?php } ?>
-					<a href='/login' id='navitem_login'>
-						<li class='navitem'>Log in</li>
-					</a>
-					<li class='navitem hidden' id='navitem_userinfo'>
-						<div class='simplediv divuserid' id='face'> <span id='username'></span> </div>
+					<li class=''>
+					    <a href='/login' id='navitem_login'>Log in</a>
+                    </li>
+					<li class='' id='navitem_userinfo' id='username'>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div id='topspace' class='navbar navnotop hidden'> </div>
-		<div id='toppic' class='navbar hidden'>
-			<img src='<?php echo($srkEnv->staticResPath.'/images/nav-background.jpg'); ?>' class='navpic'/>
-		</div>
-	</div>
-	<div class='simplediv hidden floatingdiv divblueb' id='loginactions'>
-		<ul class='actionul'>
-			<a href='/login/edit'><li>Edit my profile</li></a>
-			<a id='logout'><li>Log out</li></a>
-		</ul>
 	</div>
 	<div class='maindiv' id='pagecontentdiv'>
 

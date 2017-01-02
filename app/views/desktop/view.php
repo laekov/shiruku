@@ -5,27 +5,29 @@ if (!defined('srkVersion')) {
 ?>
 
 <div id='contentdiv'>
-	<div class='penwrapper'>
-		<div class='pentitlediv'>
-			<h2 id='pentitle' class='pentitle'></h2>
+	<div class='container-fluid'>
+		<div class='page-header'>
+			<h1 id='pentitle' class=''></h1>
 		</div>
-		<div id='peninfo' class='hidden peninfodiv'> </div>
-		<div id='pencontent' class='pencontentdiv'></div>
+		<div id='pencontent' class=''></div>
 		<div id='pencontentloading'>
 			<p>Loading content</p>
 		</div>
+		<div style='height: 32px'></div>
+		<div id='peninfo' class='hidden'> </div>
 	</div>
-	<div id='commenteditdiv'></div>
-	<div id='commentdiv'>
-	</div>
-	<div id='quickjump' class='hidden'> 
-		<p>Previous pen:&nbsp;<a id='prev'></a></p>
-		<p>Succeeding pen:&nbsp;<a id='succ'></a></p>
-	</div>
-	<div id='share'>
-		<p>Share with</p>
-		<div id='qzone'>
-			<?php echoQzoneShare(); ?>
+	<div class='container-fluid'>
+		<div id='commenteditdiv'></div>
+		<div id='commentdiv'></div>
+		<div id='quickjump' class='hidden'> 
+			<p>Previous pen:&nbsp;<a id='prev'></a></p>
+			<p>Succeeding pen:&nbsp;<a id='succ'></a></p>
+		</div>
+		<div id='share'>
+			<p>Share with</p>
+			<div id='qzone'>
+				<?php echoQzoneShare(); ?>
+			</div>
 		</div>
 	</div>
 </div>
