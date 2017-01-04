@@ -11,13 +11,13 @@ if (!defined('srkVersion')) {
 	</a>
 </li>
 
-<div class='hidden' id='samplelistitem'>
+<li class='hidden list-group-item' id='samplelistitem'>
 	<p>
 		<a class='hidden' id='penId'></a>
 		<a class='monobig actviewpen' id='title'></a>
-		<a class='monosmall actremovepen' id='remove'>Remove</a>
+		<button class='btn btn-danger' id='remove'>Remove</button>
 	</p>
-</div>
+</li>
 
 <div class='divadminnav'>
 	<ul id='formnavdiv' class='nav nav-tabs'></ul>
@@ -28,14 +28,14 @@ if (!defined('srkVersion')) {
 			<p id='title'>Pen list</p>
 		</div>
 		<p id='error' class='hidden red'></p>
-		<div id='list'></div>
+		<ul id='list'></ul>
 	</div>
 	
 	<div class='hidden' id='ui_penedit'>
 		<div class='formtitle'>
 			<p id='title'>Edit pen</p>
 		</div>
-		<div class='divleft'>
+		<div class='col-md-6 col-xs-12'>
 			<div class='formitem'>
 				<label for='editpenid' class='monosmall'>Pen ID</label>
 				<input type='text' class='textnormal' id='editpenid'/>
@@ -58,7 +58,7 @@ if (!defined('srkVersion')) {
 				<button class='buttonnormal buttongreen' id='actsubmitboth'>Upload both</button>
 			</div>
 		</div>
-		<div class='divleft'>
+		<div class='col-md-6 col-xs-12'>
 			<p>Preview</p>
 			<div class='divborder' id='previewdiv'></div>
 		</div>
