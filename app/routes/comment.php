@@ -12,13 +12,11 @@ if ($srkEnv->reqURLLength >= 2) {
 	if ($srkEnv->reqURL[2] == 'query' && $srkEnv->reqMethod == 'POST') {
 		if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] = 'recent') {
 			srkSend((Object)Array('list'=>commentLoadRecent(8)));
-		}
-		elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] = 'pen') {
+		} elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] = 'pen') {
 			$penId = $srkEnv->reqURL[4];
 			$retList = commentLoadAll($penId);
 			srkSend((Object)Array('list'=>$retList));
-		}
-		elseif ($srkEnv->reqURLLength == 5 && $srkEnv->reqURL[3] == 'content') {
+		} elseif ($srkEnv->reqURLLength == 5 && $srkEnv->reqURL[3] == 'content') {
 			$penId = $srkEnv->reqURL[4];
 			$commentId = $srkEnv->reqURL[5];
 			$contentFileName = $srkEnv->penPath.'/'.$penId.'/comment/'.$commentId.'/content.html';
@@ -27,25 +25,33 @@ if ($srkEnv->reqURLLength >= 2) {
 				'commentId'=>$commentId
 			));
 		}
-	}
-	elseif ($srkEnv->reqURLLength == 2 && $srkEnv->reqURL[2] == 'post' && $srkEnv->reqMethod == 'POST') {
+	} elseif ($srkEnv->reqURLLength == 2 && $srkEnv->reqURL[2] == 'post' && $srkEnv->reqMethod == 'POST') {
 		$user = new UserData;
 		$user->readUser($_SESSION['userId']);
 		if ($user->status != 'normal') {
 			srkSend((Object)Array('error'=>'Please log in first'));
-		}
-		else {
+		} else {
 			if (($err = commentPost($user))) {
 				if (is_string($err)) {
 					srkSend((Object)Array('error'=>$err));
-				}
-				else {
+				} else {
 					srkSend((Object)Array('error'=>"System error"));
 				}
-			}
-			else {
+			} else {
 				srkSend((Object)Array('error'=>false));
 			}
+		}
+	} elseif ($srkEnv->reqURLLength === 2 && $srkEnv->reqURL[2] == 'remove' && $srkEnv->reqMethod == 'POST') {
+		$user = new UserData;
+		$user->readUser($_SESSION['userId']);
+		if ($user->status != 'normal') {
+			srkSend((Object)Array('error'=>'Please log in first'));
+		} elseif (!issset($user->getField('accessList')) || !in_array('commentman', $user->getField('accessList'))) {
+		} else {
+			$penId = $_POST['penId'];
+			$commentId = $_POST['commentId'];
+			$user = new UserData;
+			$user->readUser($_SESSION['userId']);
 		}
 	}
 }

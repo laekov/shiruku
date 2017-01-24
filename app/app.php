@@ -7,7 +7,7 @@ function decipherURI($uri) {
 	$urlArr = explode('?', $uri);
 	$urlParts = explode('/', $urlArr[0]);
 	foreach ($urlParts as $item) {
-		if (strlen($item) > 0) {
+		if (strlen($item) > 0 && $item !== 'blog') {
 			array_push($path, $item);
 		}
 	}

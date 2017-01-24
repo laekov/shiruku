@@ -19,24 +19,20 @@ if (isset($_POST['userId']) && isset($_POST['passwd'])) {
 		srkSend((Object)Array('error'=>$authRes));
 		return;
 	}
-}
-else {
+} else {
 	$user->readUser($_SESSION['userId']);
 }
 
 if ($user->status != 'normal') {
 	if ($srkEnv->reqMethod == 'GET') {
 		srkRender('error', Array('error'=>Array('status'=>'403', 'stack'=>'Access denied')));
-	}
-	else {
+	} else {
 		srkSend((Object)Array('error'=>'Access denied'));
 	}
 	return;
-}
-elseif ($srkEnv->reqMethod == 'GET') {
+} elseif ($srkEnv->reqMethod == 'GET') {
 	srkRender('admin', Array());
-}
-elseif ($srkEnv->reqURL[2] == 'query') {
+} elseif ($srkEnv->reqURL[2] == 'query') {
 	if ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'access') {
 		$access = $user->getField('accessList');
 		if (isset($access)) {
@@ -49,17 +45,14 @@ elseif ($srkEnv->reqURL[2] == 'query') {
 				array_push($res, 'invite');
 			}
 			srkSend((Object)Array('error'=>false, 'accessList'=>$res));
-		}
-		else {
+		} else {
 			srkSend((Object)Array('error'=>'Access denied'));
 		}
 	}
-}
-elseif ($srkEnv->reqURL[2] == 'pen') {
+} elseif ($srkEnv->reqURL[2] == 'pen') {
 	if (!in_array('pen', $user->getField("accessList"))) {
 		srkSend((Object)Array('error'=>'Access denied'));
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'update') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'update') {
 		$penId = $_POST['penId'];
 		$penPath = $srkEnv->penPath.'/pen/'.$penId;
 		$reqFileName = false;
@@ -69,8 +62,7 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 		$config = json_decode($configStr);
 		if (!isset($_POST['config'])) {
 			$config = false;
-		}
-		elseif ($config === null) {
+		} elseif ($config === null) {
 			srkSend((Object)Array('error'=>'Illegal config file '));
 		}
 		if ($config) {
@@ -78,8 +70,7 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 		}
 		$updRes = penUpdate($penId, $config, $content);
 		srkSend($updRes);
-	}
-	elseif ($srkEnv->reqURL[3] == 'remove') {
+	} elseif ($srkEnv->reqURL[3] == 'remove') {
 		$penId = $_POST['penId'];
 		$penPath = $srkEnv->penPath."/".$penId;
 		if (is_dir($penPath)) {
@@ -87,12 +78,10 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 			rmdirDFS($penPath);
 			penListGenerate();
 			srkSend((Object)Array('error'=>false));
-		}
-		else {
+		} else {
 			srkSend((Object)Array('error'=>'No such pen'));
 		}
-	}
-	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'content') {
+	} elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'content') {
 		$penId = $srkEnv->reqURL[4];
 		$penPath = $srkEnv->penPath.'/'.$penId;
 		$res = (Object)Array();
@@ -105,20 +94,17 @@ elseif ($srkEnv->reqURL[2] == 'pen') {
 			$res->config = json_encode($srkContent->defaultPenConfig);
 		}
 		srkSend($res);
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'genid') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'genid') {
 		$penId = '';
 		do {
 			$penId = randId(6);
 		} while (is_dir($srkEnv->penPath.'/'.$penId));
 		srkSend((Object)Array('id'=>$penId));
 	}
-}
-elseif ($srkEnv->reqURL[2] == 'invite') {
+} elseif ($srkEnv->reqURL[2] == 'invite') {
 	if (!in_array('invite', $user->getField("accessList"))) {
 		srkSend((Object)Array('error'=>'Access denied'));
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'query') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'query') {
 		$res = Array();
 		$fileList = getDirCatalog($srkEnv->userPath);
 		foreach ($fileList as $item) {
@@ -130,8 +116,7 @@ elseif ($srkEnv->reqURL[2] == 'invite') {
 			}
 		}
 		srkSend((Object)Array('list'=>$res));
-	}
-	elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'generate') {
+	} elseif ($srkEnv->reqURLLength == 4 && $srkEnv->reqURL[3] == 'generate') {
 		$count = (int)$srkEnv->reqURL[4];
 		$defInfo = (Object)Array('used'=>false);
 		if ($count > 0 && $count < 16) {
@@ -146,35 +131,28 @@ elseif ($srkEnv->reqURL[2] == 'invite') {
 		}
 		srkSend((Object)Array('res'=>'Done'));
 	}
-}
-elseif ($srkEnv->reqURL[2] == 'file') {
+} elseif ($srkEnv->reqURL[2] == 'file') {
 	if (!in_array('file', $user->getField("accessList"))) {
 		srkSend((Object)Array('error'=>'Access denied'));
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'upload') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'upload') {
 		$fileName = $_POST['fileName'];
 		$fileContent = uploadFileContentDecipher();
 		if ($fileName && $fileContent) {
 			$writeRes = takeDownString($fileName, $fileContent);
 			srkSend((Object)Array('error'=>$writeRes));
-		}
-		else {
+		} else {
 			srkSend((Object)Array('error'=>'Content error'));
 		}
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'hash') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'hash') {
 		$fileName = $_POST['fileName'];
 		if ($fileName && is_file($fileName)) {
 			srkSend((Object)Array('md5'=>md5_file($fileName)));
-		}
-		elseif ($fileName && !is_file($fileName)) {
+		} elseif ($fileName && !is_file($fileName)) {
 			srkSend((Object)Array('md5'=>''));
-		}
-		else {
+		} else {
 			srkSend((Object)Array('error'=>'File error'));
 		}
-	}
-	elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'log') {
+	} elseif ($srkEnv->reqURLLength == 3 && $srkEnv->reqURL[3] == 'log') {
 		srkStream($srkEnv->logFileName);
 	}
 }
