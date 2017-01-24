@@ -48,9 +48,10 @@ function showComment(queryStr, targetId) {
 			}
 			$.post("/comment/query/content/" + confList[i].penId + "/" + confList[i].commentId, {}, function(res) {
 				if (res.content) {
-					var text = renderContent(res.content, {catalog: "comment"});
-					listDiv.find("#comment_" + res.commentId).find("#content").html(text);
-					updateJax("comment_" + res.commentId);
+					var ele = listDiv.find("#comment_" + res.commentId).find("#content");
+					ele.html(res.content);
+					ele.show();
+					renderContent(ele[0], {catalog: "comment"});
 				}
 			});
 		}

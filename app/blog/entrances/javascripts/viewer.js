@@ -10,14 +10,18 @@ function htmlSpecialChars(str) {
 	return str;  
 }
 
-function updateJax(eleId) {
+function updateJax(eleId, callback) {
+	MathJax.Hub.processSectionDelay = 0;
 	if (typeof(MathJax) == "object") {
-		MathJax.Hub.Typeset(eleId);
+		MathJax.Hub.Typeset(eleId, function() {
+			callback();
+		});
+	} else if (typeof(callback) === 'function') {
+		callback();
 	}
-}
+};
 
-function renderContent(content, config) {
-	var text = content;
+function md2html(text) {
 	if (typeof(config) == 'object') {
 		if (config.catalog == "code") {
 			lines = content.split("\n");
@@ -25,18 +29,43 @@ function renderContent(content, config) {
 			for (var i in lines) {
 				text += "\t" + "\t" + lines[i] + "\n";
 			}
-		}
-		else if (config.catalog == 'comment') {
+			return text;
+		} else if (config.catalog == 'comment') {
 			text = htmlSpecialChars(content).replace(/\n/g, "<br/>");
 			return text;
-		}
-		else if (config.noModify) {
+		} else if (config.noModify) {
 			return text;
 		}
 	}
 	var converter = new showdown.Converter();
 	return converter.makeHtml(text);
-}
+};
+
+function renderContent(contentId, config) {
+	MathJax.Hub.Config({
+		processSectionDelay: 0
+	});
+	var updateElement = function() {
+		var ele;
+		if (typeof(contentId) === 'string') {
+			ele = $('#' + contentId);
+		} else {
+			ele = $(contentId);
+		}
+		var text = ele.html();
+		ele.html(md2html(text));
+	};
+	var updated = false;
+	MathJax.Callback.Queue([ 'Typeset', MathJax.Hub, contentId, function() {
+		updateElement();
+		updated = true;
+	} ]);
+	setTimeout(function() {
+		if (!updated) {
+			updateElement();
+		}
+	}, 2000);
+};
 
 function getCurrentPenId() {
 	var path = window.location.pathname.split('/');
@@ -116,10 +145,9 @@ function updateContent() {
 				}
 			}
 			$.post("/pen/query/content/" + penId, {}, function(res) {
+				$("#pencontent").html(res.content);
+				renderContent("pencontent", cfg);
 				$("#pencontentloading").hide();
-				var content = renderContent(res.content, cfg);
-				$("#pencontent").html(content);
-				updateJax("pencontent");
 			});
 		}
 	});

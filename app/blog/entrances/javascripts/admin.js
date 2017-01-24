@@ -68,9 +68,8 @@ var penList;
 var PenEdit = function() {
 	var self = this;
 	this.genPreview = function() {
-		content = renderContent($("#editcontenttext").val(), {});
-		$("#previewdiv").html(content);
-		updateJax("previewdiv");
+		$("#previewdiv").html($("#editcontenttext").val());
+		renderContent("previewdiv", {});
 		var maxWidth = $("#pagecontentdiv").width() - $("#editcontenttext").width() - 32;
 		$("#previewdiv").width(maxWidth);
 	}

@@ -51,7 +51,7 @@ function fetchList(filter, callback) {
 			callback(res.catalog);
 		});
 	}
-}
+};
 
 function updateList(listId) {
 	$(listId).html("");
@@ -76,8 +76,9 @@ function updateList(listId) {
 			ele.attr("href", "/view/" + cata[i].penId);
 			ele.find("#modifyTime").html(date.toGMTString());
 			$.post("/pen/query/preview/" + cata[i].penId, {}, function(res) {
-				$("#pen_" + res.penId).find("#preview").html(renderContent(res.content, {}));
-				updateJax("pen_" + res.penId);
+				var ele = $("#pen_" + res.penId).find("#preview");
+				ele.html(res.content);
+				renderContent(ele[0], {});
 			});
 			createInfoDiv(cata[i], function(gele) {
 				ele.find("#infodiv").html(gele.html());
@@ -86,5 +87,5 @@ function updateList(listId) {
 			});
 		}
 	}
-}
+};
 
