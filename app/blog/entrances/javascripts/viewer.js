@@ -21,17 +21,17 @@ function updateJax(eleId, callback) {
 	}
 };
 
-function md2html(text) {
+function md2html(text, config) {
 	if (typeof(config) == 'object') {
 		if (config.catalog == "code") {
-			lines = content.split("\n");
+			var lines = text.split("\n");
 			text = "";
 			for (var i in lines) {
-				text += "\t" + "\t" + lines[i] + "\n";
+				text += "\t" + lines[i] + "\n";
 			}
-			return text;
+			return '<pre><code>' + text + '</pre></code>';
 		} else if (config.catalog == 'comment') {
-			text = htmlSpecialChars(content).replace(/\n/g, "<br/>");
+			text = htmlSpecialChars(text).replace(/\n/g, "<br/>");
 			return text;
 		} else if (config.noModify) {
 			return text;
@@ -42,9 +42,6 @@ function md2html(text) {
 };
 
 function renderContent(contentId, config) {
-	MathJax.Hub.Config({
-		processSectionDelay: 0
-	});
 	var updateElement = function() {
 		var ele;
 		if (typeof(contentId) === 'string') {
@@ -53,18 +50,15 @@ function renderContent(contentId, config) {
 			ele = $(contentId);
 		}
 		var text = ele.html();
-		ele.html(md2html(text));
+		ele.html(md2html(text, config));
 	};
-	var updated = false;
-	MathJax.Callback.Queue([ 'Typeset', MathJax.Hub, contentId, function() {
-		updateElement();
-		updated = true;
-	} ]);
-	setTimeout(function() {
-		if (!updated) {
-			updateElement();
-		}
-	}, 2000);
+	if (typeof(config) === 'object' && (config.catalog === 'code' || config.noModify)) {
+		return updateElement();
+	}
+	MathJax.Hub.Config({
+		processSectionDelay: 0
+	});
+	MathJax.Callback.Queue([ 'Typeset', MathJax.Hub, contentId ], updateElement);
 };
 
 function getCurrentPenId() {
