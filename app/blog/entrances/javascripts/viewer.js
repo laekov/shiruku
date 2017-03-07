@@ -94,7 +94,7 @@ function setQuickJump(targetId, penId) {
 				$("#quickjump").find(targetId).html(res.title);
 				$("#quickjump").find(targetId).attr("href", "/view/" + penId);
 			}
-			$("#quickjump").show();
+			$("#quickjump").removeClass('hidden');
 		});
 	}
 }
