@@ -5,7 +5,7 @@ if (!defined('srkVersion')) {
 ?>
 <body>
 	<div id='container-fluid'>
-		<div id='navbar' class='navbar navbar-default navbar-fixed-top'>
+		<div id='navbar' class='navbar navbar-inverse navbar-fixed-top'>
             <div class='container'>
 			    <div class='navbar-header'>
                     <a class='navbar-brand'>Shiruku - laekov </a>

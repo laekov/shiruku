@@ -81,7 +81,7 @@ elseif ($srkEnv->reqURLLength >= 2 && $srkEnv->reqURL[2] == 'query') {
 		$user = new UserData;
 		$user->readUser($srkEnv->reqURL[3]);
 		if ($user->getField('source') == 'local') {
-			$resURL = 'http://cn.gravatar.com/avatar/'.md5($user->getField('email')).'?s=100&d=mm&r=g';
+			$resURL = 'https://cn.gravatar.com/avatar/'.md5($user->getField('email')).'?s=100&d=mm&r=g';
 		}
 		else {
 			$resURL = $user->getField('avatarURL');

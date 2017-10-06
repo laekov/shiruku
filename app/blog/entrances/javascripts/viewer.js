@@ -27,9 +27,9 @@ function md2html(text, config) {
 			var lines = text.split("\n");
 			text = "";
 			for (var i in lines) {
-				text += "\t" + lines[i] + "\n";
+				text += '<code>' + lines[i].replace(/</g, '&lt;').replace(/>/g, '&gt;') + "</code>\n";
 			}
-			return '<pre><code>' + text + '</pre></code>';
+			return '<pre>' + text + '</pre>';
 		} else if (config.catalog == 'comment') {
 			text = htmlSpecialChars(text).replace(/\n/g, "<br/>");
 			return text;

@@ -2,9 +2,6 @@ body {
 	margin: 0;
 	padding-top: 70px;
 	font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-	background-image: url('/l/bgl.jpeg');
-	background-repeat: no-repeat;
-	background-attachment: fixed;
 }
 
 a {
