@@ -21,6 +21,9 @@ class GithubLogin {
 			if (!$userInfo) {
 				return 'Data fetching error';
 			}
+			if (!isset($userInfo->name)) {
+				$userInfo->name = $userInfo->login;
+			}
 			$userData = (Object)Array(
 				'userId'=>'github_'.$userInfo->login,
 				'email'=>$userInfo->email,
