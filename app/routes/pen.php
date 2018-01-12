@@ -28,7 +28,12 @@ if ($srkEnv->reqURLLength >= 2) {
 				srkSend(Array('error'=>'No such pen'));
 			}
 			elseif ($srkEnv->reqURL[3] == 'content') {
-				$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
+				$config = penConfigLoad($penId);
+				if (!$config->visible) {
+					$content = 'Invisible before log in';
+				} else {
+					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
+				}
 				if ($content === -1) {
 					$content = 'No pen content';
 				}
@@ -38,8 +43,9 @@ if ($srkEnv->reqURLLength >= 2) {
 				$config = penConfigLoad($penId);
 				if ($config->catalog == 'code') {
 					$content = 'Code';
-				}
-				else {
+				} else if (!$config->visible) {
+					$content = 'Invisible before sign in';
+				} else {
 					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
 				}
 				if ($content === -1) {

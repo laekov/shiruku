@@ -30,6 +30,12 @@ function penConfigLoad($penId) {
 		if (!isset($ret->priority)) {
 			$ret->priority = $ret->modifyTime;
 		}
+		if (isset($ret->access) && $ret->access === 'login' && !isset($_SESSION['userId'])) {
+			$ret->visible = false;
+
+		} else {
+			$ret->visible = true;
+		}
 		require_once($srkEnv->appPath.'/modules/db.php');
 		$ret->visitCount = srkVisitCountGet($ret->penId);
 	}
