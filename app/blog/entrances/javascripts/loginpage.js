@@ -1,6 +1,7 @@
 function submitLogin(data) {
 	$("#psuccess").addClass('hidden');
-	$("#perror").addClass('hidden');
+    $("#perror").addClass('hidden');
+    $("#ppending").removeClass('hidden');
 	$("#ppending").fadeIn();
 	submitData(data, function(res) {
 		$("#ppending").addClass('hidden');
@@ -12,6 +13,7 @@ function submitLogin(data) {
 			else {
 				window.location.href = '/';
 			}
+			$("#psuccess").removeClass('hidden');
 			$("#psuccess").fadeIn();
 		}
 		else {
@@ -22,6 +24,7 @@ function submitLogin(data) {
 				$("#" + res.field).addClass("texterror");
 			}
 			$("#perror").html(res.res);
+			$("#perror").removeClass('hidden');
 			$("#perror").fadeIn();
 		}
 	});
