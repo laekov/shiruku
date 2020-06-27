@@ -42,6 +42,12 @@ if (!defined('srkVersion')) {
 				<button class='buttonnormal buttonblue' id='actgenerateid'>Generate new ID</button>
 				<button class='buttonnormal buttonred' id='actreloadpen'>Reload pen</button>
 			</div>
+			<div id='statusdiv'>
+				<p class='red hidden' id='perror'></p>
+				<p class='blue hidden' id='ppending'>Pending</p>
+				<p class='green hidden' id='psuccess'>Succeeded</p>
+				<p class='green hidden' id='pres'></p>
+			</div>
 			<div class='formitem'>
 				<p>Content</p>
 				<textarea id='editcontenttext' rows='32'></textarea>
@@ -88,11 +94,5 @@ if (!defined('srkVersion')) {
 		</div>
 	</div>
 
-	<div id='statusdiv'>
-		<p class='red hidden' id='perror'></p>
-		<p class='blue hidden' id='ppending'>Pending</p>
-		<p class='green hidden' id='psuccess'>Succeeded</p>
-		<p class='green hidden' id='pres'></p>
-	</div>
 </div>
 
