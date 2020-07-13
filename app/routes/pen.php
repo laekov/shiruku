@@ -26,11 +26,12 @@ if ($srkEnv->reqURLLength >= 2) {
 			$penId = $srkEnv->reqURL[4];
 			if (!is_dir($srkEnv->penPath.'/'.$penId)) {
 				srkSend(Array('error'=>'No such pen'));
-			}
-			elseif ($srkEnv->reqURL[3] == 'content') {
+			} elseif ($srkEnv->reqURL[3] == 'content') {
 				$config = penConfigLoad($penId);
-				if (!$config->visible) {
+				if ($config->visible === false) {
 					$content = 'Invisible before log in';
+				} elseif (gettype($config->visible) === 'string') {
+					$content = $config->visible;
 				} else {
 					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
 				}
@@ -86,8 +87,7 @@ if ($srkEnv->reqURLLength >= 2) {
 				srkSend((Object)Array('prev'=>$prev->penId, 'succ'=>$succ->penId));
 			}
 		}
-	}
-	elseif ($srkEnv->reqURL[2] == 'like' && $srkEnv->reqMethod == 'POST') {
+	} elseif ($srkEnv->reqURL[2] == 'like' && $srkEnv->reqMethod == 'POST') {
 		$like = new Like();
 		if ($srkEnv->reqURLLength == 4) {
 			$penId = $srkEnv->reqURL[4];
@@ -109,6 +109,20 @@ if ($srkEnv->reqURLLength >= 2) {
 			else {
 				srkSend((Object)Array('error'=>$like->click($userId, Like::$actionMap[$srkEnv->reqURL[3]])));
 			}
+		}
+	} elseif ($srkEnv->reqURL[2] == 'slides' && $srkEnv->reqURLLength == 3 && $srkEnv->reqMethod == 'GET') {
+		$penId = $srkEnv->reqURL[3];
+		$config = penConfigLoad($penId);
+		if ($config->visible === false) {
+			$errorstr = 'Invisible before log in';
+		} elseif (gettype($config->visible) === 'string') {
+			$errorstr = 'Access denied';
+		} else {
+			srkStream($srkEnv->penPath.'/'.$penId.'/slides.html');
+			$errorstr = -1;
+		}
+		if ($errorstr !== -1) {
+			srkRender('error', Array('error'=>Array('status'=>-1, 'stack'=>$errorstr)));
 		}
 	}
 }

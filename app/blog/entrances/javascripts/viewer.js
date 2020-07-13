@@ -112,6 +112,10 @@ function updateContent() {
 			$("#pentitle").html(cfg.title);
 			document.title = document.title.replace(cfg.penId, cfg.title);
 			if (!cfg.noInfo) {
+				if (cfg.catalog == 'slides') {
+					window.location.href = "/pen/slides/" + penId;
+					return;
+				}
 				createInfoDiv(cfg, function(ele) {
 					$("#peninfo").html(ele.html());
 					$("#peninfo").removeClass('hidden');
