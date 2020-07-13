@@ -23,12 +23,6 @@ if (!defined('srkVersion')) {
 			<p>Previous pen:&nbsp;<a id='prev'></a></p>
 			<p>Succeeding pen:&nbsp;<a id='succ'></a></p>
 		</div>
-		<div id='share'>
-			<p>Share with</p>
-			<div id='qzone'>
-				<?php echoQzoneShare(); ?>
-			</div>
-		</div>
 	</div>
 </div>
 
