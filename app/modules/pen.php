@@ -13,8 +13,7 @@ function penConfigLoad($penId) {
 	$cfgContent = getFileContent($fileName);
 	if ($cfgContent === -1) {
 		$ret = (Object)Array('error'=>'No config file');
-	}
-	else {
+	} else {
 		$ret = json_decode($cfgContent);
 	}
 	if (!isset($ret->error)) {
@@ -32,7 +31,9 @@ function penConfigLoad($penId) {
 		}
 		if (isset($ret->access) && $ret->access === 'login' && !isset($_SESSION['userId'])) {
 			$ret->visible = false;
-
+		} elseif ($ret->catalog === 'diary' && 
+			(!isset($_SESSION['userId']) || $_SESSION['userId'] != $ret->author)) {
+			$ret->visible = '日记是给自己看的.';
 		} else {
 			$ret->visible = true;
 		}
@@ -111,8 +112,7 @@ function penListGet() {
 	$listCache->load('penlist.json');
 	if ($listCache->needUpdate()) {
 		return penListGenerate();
-	}
-	else {
+	} else {
 		return json_decode($listCache->read());
 	}
 }
@@ -136,25 +136,30 @@ function penUpdate($penId, $penConfig, $penContent) {
 		if (takeDownJSON($penPath.'/config.json', $penConfig)) {
 			$err = true;
 			$res .= 'Failed to write config file ';
-		}
-		else {
+		} else {
 			$res .= 'Config file updated ';
 		}
+	} else {
+		$penConfig = penConfigLoad($penId);
 	}
 	if ($penContent) {
-		if (takeDownString($penPath.'/content.md', $penContent)) {
+		$contentPath = $penPath.'/content.md';
+		if (takeDownString($contentPath, $penContent)) {
 			$err = true;
 			$res .= 'Failed to write content file ';
-		}
-		else {
+		} else {
 			$res .= 'Content file updated ';
+			if ($penConfig->catalog == 'slides') {
+				require_once($srkEnv->appPath.'/modules/slides.php');
+				$slidesPath = $penPath.'/slides.html';
+				generateSlides($contentPath, $slidesPath);
+			}
 		}
 	}
 	penListGenerate();
 	if ($err) {
 		return (Object)Array('error'=>$res, 'res'=>'error');
-	} 
-	else {
+	} else {
 		return (Object)Array('error'=>$err, 'res'=>$res);
 	}
 }
@@ -164,8 +169,7 @@ function isPen($penId) {
 	global $srkEnv;
 	if (is_string($penId)) {
 		return is_dir($srkEnv->penPath.'/'.$penId);
-	}
-	else {
+	} else {
 		return false;
 	}
 }
