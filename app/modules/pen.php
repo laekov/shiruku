@@ -135,9 +135,9 @@ function penUpdate($penId, $penConfig, $penContent) {
 		}
 		if (takeDownJSON($penPath.'/config.json', $penConfig)) {
 			$err = true;
-			$res .= 'Failed to write config file ';
+			$res .= 'Failed to write config file<br/>';
 		} else {
-			$res .= 'Config file updated ';
+			$res .= 'Config file updated<br/>';
 		}
 	} else {
 		$penConfig = penConfigLoad($penId);
@@ -148,11 +148,12 @@ function penUpdate($penId, $penConfig, $penContent) {
 			$err = true;
 			$res .= 'Failed to write content file ';
 		} else {
-			$res .= 'Content file updated ';
+			$res .= 'Content file updated<br/>';
 			if ($penConfig->catalog == 'slides') {
 				require_once($srkEnv->appPath.'/modules/slides.php');
 				$slidesPath = $penPath.'/slides.html';
 				generateSlides($contentPath, $slidesPath);
+				$res .= 'Slides generated<br/>';
 			}
 		}
 	}
