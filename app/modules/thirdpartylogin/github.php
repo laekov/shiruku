@@ -16,7 +16,7 @@ class GithubLogin {
 		$postRes = decipherGetStr(webPostData('https://github.com/login/oauth/access_token', $data));
 		if (isset($postRes['access_token'])) {
 			$accessToken = $postRes['access_token'];
-			$dataStr = webGetData('https://api.github.com/user?access_token='.$accessToken);
+			$dataStr = webGetData('https://api.github.com/user', $accessToken);
 			$userInfo = json_decode($dataStr);
 			if (!$userInfo) {
 				return 'Data fetching error';
