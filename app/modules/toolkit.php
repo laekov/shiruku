@@ -92,11 +92,13 @@ function webPostData($url, $data){
 	return $result;
 }
 
-function webGetData($url){
+function webGetData($url, $token) {
+	$headerString = "User-Agent: curl/7.63.0\r\n".
+					"Authorization: token ".$token."\r\n";
 	$opts = array('http' =>
 		array(
 			'method'  => 'GET',
-			"header" => "User-Agent: Mozilla"
+			"header" => $headerString
 		)
 	);
 	$context = stream_context_create($opts);
