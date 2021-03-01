@@ -5,7 +5,7 @@ if (!defined('srkVersion')) {
 
 if ($srkEnv->reqURLLength == 2) {
 	$penId = $srkEnv->reqURL[2];
-	$srkEnv->pageTitle .= '.view '.$penId;
+	$srkEnv->pageTitle = $penId;
 	require_once($srkEnv->appPath.'/modules/render.php');
 	srkRender('view', Array('penid'=>$penId));
 	if (is_file($srkEnv->penPath.'/'.$penId.'/content.md')) {
