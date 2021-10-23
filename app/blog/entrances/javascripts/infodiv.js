@@ -1,9 +1,11 @@
 function createInfoDiv(cfg, callback) { 
 	var ele = $("#sampleinfodiv").clone();
-	var date = new Date();
-	date.setTime(cfg.modifyTime * 1000);
+	if (cfg.modifyTime > 0) {
+		var date = new Date();
+		date.setTime(cfg.modifyTime * 1000);
+		ele.find("#modifyTime").html("at " + date.toLocaleString());
+	}
 	ele.attr("id", "infodiv_" + cfg.penId);
-	ele.find("#modifyTime").html(date.toLocaleString());
 	ele.find("#visit").html(Number(cfg.visitCount));
 	if (cfg.author) {
 		ele.find("#owner").html(cfg.author);

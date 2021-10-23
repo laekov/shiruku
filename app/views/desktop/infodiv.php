@@ -6,7 +6,7 @@ if (!defined('srkVersion')) {
 
 <div class='infodiv hidden' id='sampleinfodiv'>
 	<div class='divleft'>
-		<p>Posted&nbsp;by&nbsp;<span id='owner'></span>&nbsp;at&nbsp;<span id='modifyTime'></span></p>
+		<p>Posted&nbsp;by&nbsp;<span id='owner'></span>&nbsp;<span id='modifyTime'></span></p>
 		<p>Visit <span id='visit'></span></p>
 		<p id='ptags'>Tags <span id='tags'></span></p>
 	</div>
