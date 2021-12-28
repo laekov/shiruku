@@ -1,7 +1,7 @@
-# shiruku
+Shiruku
 ===
-Blog platform
 
+A Blog platform
 
 ## Description
 
