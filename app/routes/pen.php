@@ -44,8 +44,10 @@ if ($srkEnv->reqURLLength >= 2) {
 				$config = penConfigLoad($penId);
 				if ($config->catalog == 'code') {
 					$content = 'Code';
-				} else if (!$config->visible) {
+				} elseif (!$config->visible) {
 					$content = 'Invisible before sign in';
+				} elseif (gettype($config->visible) === 'string') {
+					$content = $config->visible;
 				} else {
 					$content = getFileContent($srkEnv->penPath.'/'.$penId.'/content.md');
 				}
