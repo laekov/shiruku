@@ -33,7 +33,7 @@ function penConfigLoad($penId) {
 			$ret->visible = false;
 		} elseif ($ret->catalog === 'diary' && 
 			$ret->access !== "everyone" &&
-			(!isset($_SESSION['userId']) || $_SESSION['userId'] != $ret->author)) {
+			(!isset($_SESSION['userId']) || ($_SESSION['userId'] != $ret->author && isset($ret->author)))) {
 			$ret->visible = '日记是给自己看的.';
 		} else {
 			$ret->visible = true;
