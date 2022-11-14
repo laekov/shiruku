@@ -14,9 +14,11 @@ require_once($srkEnv->appPath.'/modules/file.php');
     <div class='row'>
 	    <div class='col-12'>
 <?php 
-$home_ctnt = getFileContent($srkEnv->penPath.'/homepage/content.md');
-if ($home_ctnt != -1) {
-	echo($home_ctnt);
+if (!isset($_SESSION['userId'])) {
+	$home_ctnt = getFileContent($srkEnv->penPath.'/homepage/content.md');
+	if ($home_ctnt != -1) {
+		echo($home_ctnt);
+	}
 }
 ?>
 		</div>
