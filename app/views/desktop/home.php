@@ -2,6 +2,8 @@
 if (!defined('srkVersion')) {
 	exit(403);
 }
+
+require_once($srkEnv->appPath.'/modules/file.php');
 ?>
 
 <div class='hidden'>
@@ -10,6 +12,16 @@ if (!defined('srkVersion')) {
 
 <div class='container-fluid'>
     <div class='row'>
+	    <div class='col-12'>
+<?php 
+$home_ctnt = getFileContent($srkEnv->penPath.'/homepage/content.md');
+if ($home_ctnt != -1) {
+	echo($home_ctnt);
+}
+?>
+		</div>
+	</div>
+	<div class='row'>
 	    <div class='col-md-8 col-sm-12' id='homecontent'>
 			<?php foreach ($srkContent->category as $cate=>$data) { ?>
 				<div class='list-group' id='list_<?php echo($cate); ?>'>

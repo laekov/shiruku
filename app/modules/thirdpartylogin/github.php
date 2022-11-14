@@ -13,7 +13,8 @@ class GithubLogin {
 			'code'=>$code,
 			'accept'=>'json'
 		);
-		$postRes = decipherGetStr(webPostData('https://github.com/login/oauth/access_token', $data));
+		$postOut = webPostData('https://github.com/login/oauth/access_token', $data);
+		$postRes = decipherGetStr($postOut);
 		if (isset($postRes['access_token'])) {
 			$accessToken = $postRes['access_token'];
 			$dataStr = webGetData('https://api.github.com/user', $accessToken);
@@ -21,8 +22,18 @@ class GithubLogin {
 			if (!$userInfo) {
 				return 'Data fetching error';
 			}
+			if (!isset($userInfo->login)) {
+				srkLog('Github information: '.$dataStr);
+				return 'Github information fetching error';
+			}
 			if (!isset($userInfo->name)) {
 				$userInfo->name = $userInfo->login;
+			}
+			if (!isset($userInfo->email)) {
+				$userInfo->email = 'secret';
+			}
+			if (!isset($userInfo->avatar_url)) {
+				$userInfo->avatar_url = 'https://github.com/github.png?size=460';
 			}
 			$userData = (Object)Array(
 				'userId'=>'github_'.$userInfo->login,
@@ -37,10 +48,14 @@ class GithubLogin {
 			$writeRes = $user->writeUser();
 			if (!$writeRes) {
 				$_SESSION['userId'] = $userData->userId;
+			} else {
+				srkLog('Wrong write result '.$writeRes);
 			}
+			srkLog('User login '.$userData->userId);
 			return $writeRes;
 		}
 		else {
+			srkLog('Github access token error: '.$postOut);
 			return 'Access code error';
 		}
 	}
